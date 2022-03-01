@@ -1,38 +1,49 @@
+import AppContext from './appContext';
 import React, {useState} from 'react';
 import { View, ScrollView, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { Text, Card, Button, Icon } from 'react-native-elements';
 import { images } from '../Constants/images'
+import Svg, { Circle } from 'react-native-svg';
 
-const FriendsLocation  = ({ route , navigation }) => {
-    const [friendName, setFriendName] = React.useState(null);
-    const [photo, setPhoto] = React.useState(null);
-    React.useEffect(() => {
-      let {name, image} = route.params;
-      setFriendName(name)
-      setPhoto(image)
-    })
-    console.log(friendName)
+const CreateRoute  = ({ navigation }) => {
   return (
-    <>    
+    <>
        <View style={styles.container}>
+       <View style={styles.friendsContainer}>
         <TouchableOpacity
             underlayColor='#fff'
             onPress = {() => navigation.goBack()}
             >
-          <Text style={styles.bodyFonts}>go back</Text>
+                 <Icon
+                name = "arrow-back"
+                type = "ionicon"
+                size = {30}
+            />
  </TouchableOpacity>
-            {friendName == "see friends location" ? 
-            <Text style={styles.titleFonts}>Recently shared location</Text>: 
-            <Text style={styles.titleFonts}>View {friendName}'s recent location</Text>}
-            <Image
-                        source={photo}
-                        resizeMode="cover"xs
-                        style={{
-                            width: 344,
-                            height: 516,
-                            marginLeft: 15
-                        }}
-                    />
+ <TouchableOpacity >
+          <Svg height="100"
+               width="100"
+               style={{alignItems: "center", justifyContent: 'center'}}>
+            <Icon name="train" size={50} type = "materialicons"/>
+            <Circle
+              cx="50"
+              cy="50"
+              r="25"
+              fill="#FFD64D"/>
+          </Svg>
+        </TouchableOpacity>
+ <TouchableOpacity
+            underlayColor='#fff'
+            >
+                 <Icon
+                name = "setting"
+                type = "antdesign"
+                size = {30}
+            />
+ </TouchableOpacity>
+ </View>
+
+        <Text> Create route here </Text>
      </View>
     </>
   );
@@ -73,4 +84,4 @@ const styles = StyleSheet.create({
  
 });
 
-export default FriendsLocation;
+export default CreateRoute;

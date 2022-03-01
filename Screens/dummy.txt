@@ -1,0 +1,39 @@
+ <View style={styles.friendsContainer}>
+            <View style={styles.iconContainer}>
+                <TouchableOpacity
+                    onPress = {() => navigation.navigate(FriendsLocation, "Angela")}
+                >
+                <Icon
+                    name = "person-circle-outline"
+                    type ='ionicon'
+                    size = {50}
+                />
+                <Text>Angela</Text>  
+                </TouchableOpacity>
+                         
+            </View>
+            <View style={styles.iconContainer}>
+                <Icon
+                    name = "person-circle-outline"
+                    type ='ionicon'
+                    size = {50}
+                />
+                <Text>Ben</Text>            
+            </View>
+            <View style={styles.iconContainer}>
+                <Icon
+                    name = "person-circle-outline"
+                    type ='ionicon'
+                    size = {50}
+                />
+                <Text>Christine</Text>            
+            </View>
+            <View style={styles.iconContainer}>
+                <Icon
+                    name = "person-circle-outline"
+                    type ='ionicon'
+                    size = {50}
+                />
+                <Text>Jess</Text>            
+            </View>
+            </View>

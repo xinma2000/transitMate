@@ -14,71 +14,81 @@ const height = Dimensions.get('window').height;
 //https://reactnativeelements.com/docs/1.2.0/card
 const Home  = ({ navigation }) => {
 
-    const myContext = useContext(AppContext);
-    console.log(myContext)
-    const [buttons] = useState([
-        {name: 'Send My Location', icon:"location", type: "entypo", page: "MyLocation"},
-        {name:'See/Request A Friend\'s Location', icon:"people", type: "ionicon", page: "FriendsLocation", image:images.FriendsLocation},
-        {name:'View Friends\' Ongoing Routes', icon: "route", type: "fontawesome"},
-        {name:'Manage Emergency List', icon: "list-outline", type: "ionicon"}
-    ]);
+  const [scroll, setScroll] = useState(false);
+  const myContext = useContext(AppContext);
+  console.log(myContext)
+  const [buttons] = useState([
+    {name: 'Send My Location', icon:"location", type: "entypo", page: "MyLocation"},
+    {name:'See/Request A Friend\'s Location', icon:"people", type: "ionicon", page: "FriendsLocation", image:images.FriendsLocation},
+    {name:'View Friends\' Ongoing Routes', icon: "route", type: "fontawesome"},
+    {name:'Manage Emergency List', icon: "list-outline", type: "ionicon"}
+  ]);
 
-    const friendsData = [
-        {name: "Angela", image:images.Angela},
-        {name: "Ben", image:images.Ben},
-        {name: "Christine", image:images.Christine},
-        {name: "Jess", image:images.Jess},
-        {name: "Jess", image:images.Jess},
-        {name: "Jess", image:images.Jess},
-    ]
+  const friendsData = [
+    {name: "Angela", profilePic: images.AngelaPic, images:images.Angela},
+    {name: "Ben", profilePic: images.BenPic, image:images.Ben},
+    {name: "Christine", profilePic: images.ChristinePic, image:images.Christine},
+    {name: "Jess", profilePic: images.JessPic, image:images.Jess},
+    {name: "David", profilePic: images.DavidPic},
+    {name: "Timmy", profilePic: images.TimmyPic},
+  ]
 
-    const renderItem = (item, index, separators) => {
-        return (
-          <View style={styles.cardStyle}>
-            <Card
-              key={index}
-              containerStyle={{
-                marginTop: 15,
-                width: 150,
-                height: 150,
-                backgroundColor: "#FFD64D",
-                borderRadius: 10,
-              }}
-            >
-              <TouchableOpacity
-                style={styles.loginScreenButton}
-                underlayColor='#fff'
-                onPress = {() => item.item.page == "FriendsLocation" ? navigation.navigate(item.item.page, {name: item.item.name, image: item.item.image}): navigation.navigate(item.item.page)}
-              >
-                <Icon
-                  name = {item.item.icon}
-                  type = {item.item.type}
-                  size = {75}
-                />
-                <Text style={styles.bodyFonts}>{item.item.name}</Text>
-              </TouchableOpacity>
-            </Card>
-          </View>
-        )
-      }
-    const renderFriends= (item, index, separators) => {
-        return (
-          <View>
-            <TouchableOpacity
-              onPress = {() => navigation.navigate('FriendsLocation', {name: item.item.name, image: item.item.image})}
-              style={styles.iconContainer}
-            >
-              {console.log("hello" + item.item.image)}
-              <Icon
-                name = "person-circle-outline"
-                type ='ionicon'
-                size = {60}
-              />
-              <Text>{item.item.name}</Text>
-            </TouchableOpacity>
-          </View>
-        )
-      }
+  const renderItem = (item, index, separators) => {
+    return (
+      <View>
+        <Card
+          key={index}
+          containerStyle={{
+            marginTop: 15,
+            width: 170,
+            height: 170,
+            backgroundColor: "#FFD64D",
+            borderRadius: 10,
+            shadowOffset: {width: 2, height: 2,},
+            shadowColor: 'black',
+            shadowOpacity: 0.1,
+            justifyContent: 'center'
+          }}
+        >
+          <TouchableOpacity
+            style = {styles.buttonContainer}
+            underlayColor='#fff'
+            onPress = {() => item.item.page == "FriendsLocation" ? navigation.navigate(item.item.page, {name: item.item.name, image: item.item.image}): navigation.navigate(item.item.page)}
+          >
+            <Icon
+              name = {item.item.icon}
+              type = {item.item.type}
+              size = {75}
+            />
+            <Text style={styles.bodyFonts}>{item.item.name}</Text>
+          </TouchableOpacity>
+        </Card>
+      </View>
+    )
+  }
+
+  const renderFriends= (item, index, separators) => {
+    return (
+      <View>
+        <TouchableOpacity
+          onPress = {() => navigation.navigate('FriendsLocation', {name: item.item.name, image: item.item.image})}
+          style={styles.iconContainer}
+        >
+          {console.log("hello" + item.item.image)}
+          <Image
+            source = {item.item.profilePic}
+            style ={{
+              width: 62,
+              height: 62,
+              marginBottom: 5,
+            }}
+          />
+          <Text style={{ fontSize: 15, fontWeight: "500" }}>{item.item.name}</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
   return (
     <>
       <View style={styles.container}>
@@ -87,8 +97,8 @@ const Home  = ({ navigation }) => {
             <Image
               source ={images.Logo}
               style={{
-                width: 50,
-                height: 50,
+                width: 55,
+                height: 55,
               }}>
             </Image>
           </TouchableOpacity>
@@ -136,6 +146,7 @@ const Home  = ({ navigation }) => {
           data={buttons}
           renderItem={renderItem}
           numColumns={2}
+          scrollEnabled={scroll}
         />
       </View>
     </>
@@ -163,10 +174,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     height: 145,
     marginTop: 10,
-    marginBottom: 20,
+    marginBottom: 30,
+    shadowOffset: {width: 2, height: 2,},
+    shadowColor: 'black',
+    shadowOpacity: 0.1,
   },
   createRouteFont: {
-    marginLeft:10,
+    marginLeft: 6,
     fontSize: 16,
     fontWeight: '500'
   },
@@ -176,16 +190,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   bodyFonts: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: "500",
-    marginBottom: 8,
+    textAlign: 'center',
+    marginTop: 10,
   },
   titleFonts: {
-    fontSize: 16,
-    fontWeight: "600",
+    fontSize: 17,
+    fontWeight: "700",
   },
-  buttonStyle: {
-    backgroundColor: "#FFD64D"
+  buttonContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
 });
 

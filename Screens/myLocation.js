@@ -1,48 +1,42 @@
 import React, {useState} from 'react';
 import { View, ScrollView, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { Text, Card, Button, Icon } from 'react-native-elements';
-import Svg, { Circle } from 'react-native-svg';
+import  images  from '../Constants/images'
 
-
-//https://reactnativeelements.com/docs/1.2.0/card 
 const MyLocation  = ({ navigation }) => {
   return (
     <>
         <View style={styles.container}>
-        <View style={styles.friendsContainer}>
-        <TouchableOpacity
-            underlayColor='#fff'
-            onPress = {() => navigation.goBack()}
-            >
-                 <Icon
-                name = "arrow-back"
-                type = "ionicon"
-                size = {30}
-            />
- </TouchableOpacity>
- <TouchableOpacity >
-          <Svg height="100"
-               width="100"
-               style={{alignItems: "center", justifyContent: 'center'}}>
-            <Icon name="train" size={50} type = "materialicons"/>
-            <Circle
-              cx="50"
-              cy="50"
-              r="25"
-              fill="#FFD64D"/>
-          </Svg>
-        </TouchableOpacity>
- <TouchableOpacity
-            underlayColor='#fff'
-            >
-                 <Icon
-                name = "setting"
-                type = "antdesign"
-                size = {30}
-            />
- </TouchableOpacity>
- </View>
-
+            <View style={styles.headerContainer}>
+                <TouchableOpacity
+                    underlayColor='#fff'
+                    onPress = {() => navigation.goBack()}
+                >
+                    <Icon
+                        name = "arrow-back"
+                        type = "ionicon"
+                        size = {30}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity >
+                    <Image
+                        source ={images.Logo}
+                        style={{
+                            width: 50,
+                            height: 50,
+                        }}>
+                    </Image>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    underlayColor='#fff'
+                >
+                    <Icon
+                        name = "setting"
+                        type = "antdesign"
+                        size = {30}
+                    />
+                </TouchableOpacity>
+            </View>
             <Text style={styles.titleFonts}>send my location page!</Text>
      </View>
     </>
@@ -54,14 +48,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flex: 1,
   },
-  friendsContainer: {
+  headerContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: 'center',
-    marginTop: 10,
-    marginRight: 17,
-    marginLeft: 17
-
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 10
   },
   iconContainer: {
     flexDirection: 'column', 

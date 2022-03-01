@@ -104,6 +104,8 @@ const Home  = ({ navigation }) => {
                 data={friendsData}
                 renderItem={renderFriends}
                 numColumns={4}
+                columnWrapperStyle={{justifyContent: 'space-between'}}
+                style = {{marginLeft: 10}}
             />
             <View style={styles.onGoingRoutes}>
                 <Text style={styles.titleFonts}>On going route</Text>
@@ -166,7 +168,7 @@ const styles = StyleSheet.create({
       height: 145
   },
   onGoingRoutes: {
-    marginTop: 10,
+    marginTop: 0,
   },
   bodyFonts: {
     fontSize: 14,
@@ -186,6 +188,9 @@ const styles = StyleSheet.create({
     marginLeft: 160,
     marginRight: 30,
     marginTop: 10
+  },
+  flatlistContainer: {
+      marginLeft: 10
   }
  
 });

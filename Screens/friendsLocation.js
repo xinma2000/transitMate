@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { View, ScrollView, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { Text, Card, Button, Icon } from 'react-native-elements';
-import { images } from '../Constants/images'
+import  images  from '../Constants/images'
 
 const FriendsLocation  = ({ route , navigation }) => {
     const [friendName, setFriendName] = React.useState(null);
@@ -15,18 +15,41 @@ const FriendsLocation  = ({ route , navigation }) => {
   return (
     <>    
        <View style={styles.container}>
+       <View style={styles.headerContainer}>
         <TouchableOpacity
             underlayColor='#fff'
             onPress = {() => navigation.goBack()}
             >
-          <Text style={styles.bodyFonts}>go back</Text>
+                 <Icon
+                name = "arrow-back"
+                type = "ionicon"
+                size = {30}
+            />
+    </TouchableOpacity>
+    <TouchableOpacity >
+    <Image
+          source ={images.Logo}
+          style={{
+            width: 50,
+            height: 50,
+        }}></Image>
+        </TouchableOpacity>
+ <TouchableOpacity
+            underlayColor='#fff'
+            >
+                 <Icon
+                name = "setting"
+                type = "antdesign"
+                size = {30}
+            />
  </TouchableOpacity>
+ </View>
             {friendName == "see friends location" ? 
             <Text style={styles.titleFonts}>Recently shared location</Text>: 
             <Text style={styles.titleFonts}>View {friendName}'s recent location</Text>}
             <Image
                         source={photo}
-                        resizeMode="cover"xs
+                        resizeMode="cover"
                         style={{
                             width: 344,
                             height: 516,
@@ -43,13 +66,13 @@ const styles = StyleSheet.create({
     marginTop: 40,
     flex: 1,
   },
-  friendsContainer: {
+  headerContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: 'center',
-    marginLeft: 40,
-    marginRight: 40,
-    marginTop: 10
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 0
   },
   iconContainer: {
     flexDirection: 'column', 

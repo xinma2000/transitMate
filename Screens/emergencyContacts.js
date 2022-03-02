@@ -8,16 +8,15 @@ const width = Dimensions.get('window').width;
 const EmergencyContacts  = ({ route, navigation }) => {
   const Item = ({ friend }) => (
     <View style={styles.item} key={friend.name}>
-       <Image
-            source = {friend.profilePic}
-            style ={{
-              width: 62,
-              height: 62,
-              marginBottom: 5,
-            }}
-          />
+      <Image
+        source = {friend.profilePic}
+        style ={{
+          width: 62,
+          height: 62,
+          marginBottom: 5,
+        }}
+      />
       <Text style={styles.title}>{friend.name}</Text>
-      
       <CheckBox
         center
         key={Math.random()}
@@ -44,7 +43,7 @@ const EmergencyContacts  = ({ route, navigation }) => {
     let {newFriendsData} = route.params;
     console.log(newFriendsData)
   })
-    
+
   const [chosen, setChosen] = useState([])
   const [friends, setFriends] = useState("")
   const addName = ({ friend }) => {
@@ -54,39 +53,35 @@ const EmergencyContacts  = ({ route, navigation }) => {
     setFriendsData(data)
     if (data[index].checked) {
       setChosen ([
-      ...chosen,
+        ...chosen,
         data[index]
-    ]) 
-    let temp = friends
-    const comma = ", "
-    if (temp === "") { 
-      setFriends(data[index].name)
-    }
-    else {
-      setFriends(friends + comma + data[index].name)
-    }
-    
-  }
-    else {
+      ])
+      let temp = friends
+      const comma = ", "
+      if (temp === "") {
+        setFriends(data[index].name)
+      } else {
+        setFriends(friends + comma + data[index].name)
+      }
+    } else {
       const chosenData = [...chosen]
       const found = chosenData.findIndex(x => x.name === data[index].name)
       chosenData.splice(found, 1)
       setChosen(chosenData)
     }
   }
- 
+
   const createTwoButtonAlert = () =>
     Alert.alert(
       "Confirm sending your location",
       friends,
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
+      [{
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
         },
-        { text: "OK", onPress: () => navigation.navigate("SentConfirmation") }
-      ]
+        {text: "OK", onPress: () => navigation.navigate("SentConfirmation")
+      }]
     );
 
   return (
@@ -135,14 +130,13 @@ const EmergencyContacts  = ({ route, navigation }) => {
           />
           <View style={styles.buttonsContainer}>
           <TouchableOpacity
-                    underlayColor='#fff'
-                    onPress = {() => navigation.navigate("Contacts", {setState: setFriendsData})}
-                    style = {styles.sendToFriends}
-                >
-                   <Icon
-              name = "pluscircleo"
-              type ='antdesign'
-              size = {45}
+            underlayColor='#fff'
+            onPress = {() => navigation.goBack()}
+          >
+            <Icon
+                name = "arrow-back"
+                type = "ionicon"
+                size = {30}
             />
                     <Text style = {styles.buttonTextStyle}>Add From Contacts</Text>
                 </TouchableOpacity>
@@ -190,7 +184,7 @@ const styles = StyleSheet.create({
     height: 700,
   },
   item: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     alignItems: 'center'
   },
   sendToFriends: {

@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
     marginTop: 30
   },
   iconContainer: {
-    flexDirection: 'column', 
-    justifyContent: 'center', 
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center'
   },
   onGoingRoutes: {

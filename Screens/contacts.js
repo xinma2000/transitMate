@@ -1,24 +1,23 @@
-import React, {useState} from 'react';
+import React, { useState, createContext } from 'react';
 import { View, Alert, StyleSheet, Image, FlatList, TouchableOpacity, Button } from 'react-native';
 import { Text, Card, CheckBox, Icon } from 'react-native-elements';
 import  images  from '../Constants/images';
 
-
 const Contacts  = ({ route, navigation }) => {
 
+  const Context = createContext();
 
   const Item = ({ friend }) => (
-    <View style={styles.item} key={friend.name}>
-       <Image
-            source = {friend.profilePic}
-            style ={{
-              width: 62,
-              height: 62,
-              marginBottom: 5,
-            }}
-          />
+    <View style={styles.friendContainer} key={friend.name}>
+      <Image
+        source = {friend.profilePic}
+        style ={{
+          width: 62,
+          height: 62,
+          marginBottom: 5,
+        }}
+      />
       <Text style={styles.title}>{friend.name}</Text>
-      
       <CheckBox
         center
         key={Math.random()}
@@ -42,6 +41,7 @@ const Contacts  = ({ route, navigation }) => {
   ])
   const [chosen, setChosen] = useState([])
   const [friends, setFriends] = useState("")
+
   const addName = ({ friend }) => {
     const data = [ ...friendsData]
     const index = data.findIndex(x => x.name === friend.name)
@@ -49,19 +49,18 @@ const Contacts  = ({ route, navigation }) => {
     setFriendsData(data)
     if (data[index].checked) {
       setChosen ([
-      ...chosen,
+        ...chosen,
         data[index]
-    ]) 
-    let temp = friends
-    const comma = ", "
-    if (temp === "") { 
-      setFriends(data[index].name)
+      ])
+      let temp = friends
+      const comma = ", "
+      if (temp === "") {
+        setFriends(data[index].name)
+      }
+      else {
+        setFriends(friends + comma + data[index].name)
+      }
     }
-    else {
-      setFriends(friends + comma + data[index].name)
-    }
-    
-  }
     else {
       const chosenData = [...chosen]
       const found = chosenData.findIndex(x => x.name === data[index].name)
@@ -72,55 +71,54 @@ const Contacts  = ({ route, navigation }) => {
 
   return (
     <>
-    <View style={styles.container}>
-    <View style={styles.headerContainer}>
-                <TouchableOpacity
-                    underlayColor='#fff'
-                    onPress = {() => navigation.goBack()}
-                >
-                    <Icon
-                        name = "arrow-back"
-                        type = "ionicon"
-                        size = {30}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity >
-                    <Image
-                        source ={images.Logo}
-                        style={{
-                            width: 50,
-                            height: 50,
-                        }}>
-                    </Image>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    underlayColor='#fff'
-                >
-                    <Icon
-                        name = "setting"
-                        type = "antdesign"
-                        size = {30}
-                    />
-                </TouchableOpacity>
-            </View>
-            <FlatList
-            key={'$'}
-            keyExtractor={(item, index) => String(index)}
-            data={friendsData}
-            renderItem={renderItem}
-            ItemSeparatorComponent={() => <View style={{ paddingHorizontal: 13 }} />}
-            showsHorizontalScrollIndicator={false}
-            style={{ marginVertical: 10 }}
-          />
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
           <TouchableOpacity
-                    underlayColor='#fff'
-                    onPress = {() => navigation.navigate("EmergencyContacts", {newFriendsData: chosen})}
-                    style = {styles.sendToFriends}
-                >
-                  
-                    <Text>Add Friends</Text>
-                </TouchableOpacity>
-    </View>
+            underlayColor='#fff'
+            onPress = {() => navigation.goBack()}
+          >
+            <Icon
+              name = "arrow-back"
+              type = "ionicon"
+              size = {30}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Image
+              source ={images.Logo}
+              style={{
+                width: 50,
+                height: 50,
+              }}>
+            </Image>
+          </TouchableOpacity>
+          <TouchableOpacity
+            underlayColor='#fff'
+          >
+            <Icon
+              name = "setting"
+              type = "antdesign"
+              size = {30}
+            />
+          </TouchableOpacity>
+        </View>
+        <FlatList
+          key={'$'}
+          keyExtractor={(item, index) => String(index)}
+          data={friendsData}
+          renderItem={renderItem}
+          ItemSeparatorComponent={() => <View style={{ paddingHorizontal: 13 }} />}
+          showsHorizontalScrollIndicator={false}
+          style={{ marginVertical: 10 }}
+        />
+        <TouchableOpacity
+          underlayColor='#fff'
+          onPress = {() => navigation.navigate("EmergencyContacts", {newFriendsData: chosen})}
+          style = {styles.sendToFriends}
+        >
+          <Text>Add Friends</Text>
+        </TouchableOpacity>
+      </View>
     </>
   );
 };
@@ -147,7 +145,7 @@ const styles = StyleSheet.create({
     fontWeight: "500"
   },
   buttonStyle: {
-      backgroundColor: "#FFD64D"
+    backgroundColor: "#FFD64D"
   },
   map: {
     marginLeft: 10,
@@ -155,8 +153,8 @@ const styles = StyleSheet.create({
     width: 400,
     height: 700,
   },
-  item: {
-    flexDirection: 'row', 
+  friendContainer: {
+    flexDirection: 'row',
     alignItems: 'center'
   },
   sendToFriends: {
@@ -172,7 +170,6 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowOpacity: 0.1,
   },
- 
 });
 
 export default Contacts;

@@ -5,7 +5,7 @@ import { Marker } from 'react-native-maps';
 import  images  from '../Constants/images';
 import MapView from 'react-native-maps';
 const width = Dimensions.get('window').width;
-
+const height = Dimensions.get('window').height;
 
 const MyLocation  = ({ navigation }) => {
   return (
@@ -103,10 +103,10 @@ const styles = StyleSheet.create({
       backgroundColor: "#FFD64D"
   },
   map: {
-    marginLeft: 10,
+    marginLeft: width*0.05,
     marginTop: 10,
-    width: 400,
-    height: 700,
+    width: width*0.9,
+    height: height*0.75,
   },
   buttonStyle: {
     backgroundColor: '#FFD64D', 
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
     color: 'black', 
     margin: 10, 
     fontWeight: '600',
+    fontSize: 20
   },
   buttonContiner: {
     alignItems: 'center',

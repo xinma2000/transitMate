@@ -15,6 +15,7 @@ const TimmyLoc = require("../assets/images/TimmyLoc.png");
 const FriendsLocation = require("../assets/images/FriendsLocation.png")
 
 const Logo = require("../assets/images/logo.png")
+const check = require("../assets/images/checkmark.png")
 
 export default {
     JessLoc,
@@ -31,4 +32,5 @@ export default {
     JessPic,
     DavidPic,
     TimmyPic,
+    check,
 }

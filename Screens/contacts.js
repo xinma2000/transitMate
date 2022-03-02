@@ -1,6 +1,6 @@
 import React, { useState, createContext } from 'react';
-import { View, Dimensions, StyleSheet, Image, FlatList, TouchableOpacity, Button } from 'react-native';
-import { Text, Card, CheckBox, Icon } from 'react-native-elements';
+import { View, Dimensions, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
+import { Text, Button, CheckBox, Icon } from 'react-native-elements';
 import  images  from '../Constants/images';
 const width = Dimensions.get('window').width;
 
@@ -9,25 +9,27 @@ const Contacts  = ({ route, navigation }) => {
   const Context = createContext();
 
   const Item = ({ friend }) => (
-    <View style={styles.friendContainer} key={friend.name}>
-      <Image
-        source = {friend.profilePic}
-        style ={{
-          width: 62,
-          height: 62,
-          marginBottom: 5,
-        }}
-      />
-      <Text style={styles.title}>{friend.name}</Text>
-      <CheckBox
-        center
-        key={Math.random()}
-        checked={friend.checked}
-        onPress={() => addName(friend = {friend})}
-        checkedColor = "black"
-        uncheckedColor ="black"
-      />
-    </View>
+    <View style={styles.item} key={friend.name}>
+    <View style={styles.friendIcon}>
+     <Image
+       source = {friend.profilePic}
+       style ={{
+         width: 62,
+         height: 62,
+         marginBottom: 5,
+       }}
+     />
+     <Text style={styles.titleText}>{friend.name}</Text>
+     </View>
+     <CheckBox
+       center
+       key={Math.random()}
+       checked={friend.checked}
+       onPress={() => addName(friend = {friend})}
+       checkedColor = "black"
+       uncheckedColor ="black"
+     />
+   </View>
   );
 
   const renderItem = ({ item }) => <Item friend={item}/>;
@@ -105,6 +107,22 @@ const Contacts  = ({ route, navigation }) => {
             />
           </TouchableOpacity>
         </View>
+        <View style={styles.titleHolder}>
+              <Text style={styles.titleText
+              }> Add Friends From Contacts </Text>
+               <Button
+                title="search"
+                icon={{
+                  name: 'search',
+                  type: 'font-awesome',
+                  size: 30,
+                  color: 'black',
+                }}
+                titleStyle={{ color: 'black', margin: 10, fontWeight: '600' }}
+                buttonStyle={{ backgroundColor: '#C4C4C4', borderRadius: 8,}}
+                containerStyle={{ marginTop: 0, height: 60, width: width*0.9,}}
+            />
+            </View>
         <FlatList
           key={'$'}
           keyExtractor={(item, index) => String(index)}
@@ -112,8 +130,8 @@ const Contacts  = ({ route, navigation }) => {
           renderItem={renderItem}
           ItemSeparatorComponent={() => <View style={{ paddingHorizontal: 13 }} />}
           showsHorizontalScrollIndicator={false}
-          style={{ marginVertical: 10 }}
-        />
+          style={{ marginVertical: 10, width: width *0.9, marginLeft: width*0.05}}
+          />
         <TouchableOpacity
           underlayColor='#fff'
           onPress = {() => navigation.navigate("EmergencyContacts", {newFriendsData: chosen})}
@@ -137,7 +155,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttonText: {
-      marginLeft: 5
+    fontWeight: "600",
+    marginLeft: 5,
+    fontSize: 18,
   },
   headerContainer: {
     flexDirection: "row",
@@ -185,9 +205,27 @@ const styles = StyleSheet.create({
     width: width*0.9,
     marginLeft: width*0.05,
     marginBottom: 40
-
   },
-  
+  item: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: "white",
+  },
+  friendIcon: {
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  titleText: {
+    fontWeight: "800",
+    marginLeft: 5,
+    fontSize: 26,
+  },
+  titleHolder: {
+    alignItems: 'center',
+    justifyContent: "center",
+    marginTop: 10
+  },
 });
 
 export default Contacts;

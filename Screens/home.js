@@ -35,7 +35,7 @@ const Home  = ({ navigation }) => {
 
   const renderItem = (item, index, separators) => {
     return (
-      <View>
+      <View >
         <Card
           key={index}
           containerStyle={{
@@ -120,7 +120,7 @@ const Home  = ({ navigation }) => {
             renderItem={renderFriends}
             ItemSeparatorComponent={() => <View style={{ paddingHorizontal: 13 }} />}
             showsHorizontalScrollIndicator={false}
-            style={{ marginVertical: 10 }}
+            style={{ marginVertical: 10, }}
           />
         </View>
         <View>
@@ -147,6 +147,7 @@ const Home  = ({ navigation }) => {
           renderItem={renderItem}
           numColumns={2}
           scrollEnabled={scroll}
+          style={styles.cardContainer}
         />
       </View>
     </>
@@ -157,6 +158,9 @@ const styles = StyleSheet.create({
   container: {
     marginTop: height*0.05,
     marginHorizontal: 15,
+  },
+  cardContainer: {
+    marginLeft: -2
   },
   homeHeaderContainer: {
     flexDirection: "row",

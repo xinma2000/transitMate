@@ -4,10 +4,12 @@ import { Text, Button, CheckBox, Icon } from 'react-native-elements';
 import  images  from '../Constants/images';
 
 const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 const EmergencyContacts  = ({ route, navigation }) => {
   const Item = ({ friend }) => (
     <View style={styles.item} key={friend.name}>
+     <View style={styles.friendIcon}>
       <Image
         source = {friend.profilePic}
         style ={{
@@ -16,7 +18,8 @@ const EmergencyContacts  = ({ route, navigation }) => {
           marginBottom: 5,
         }}
       />
-      <Text style={styles.title}>{friend.name}</Text>
+      <Text style={styles.titleText}>{friend.name}</Text>
+      </View>
       <CheckBox
         center
         key={Math.random()}
@@ -71,18 +74,31 @@ const EmergencyContacts  = ({ route, navigation }) => {
     }
   }
 
-  const createTwoButtonAlert = () =>
+  const createTwoButtonAlert = () => {
+    friends.length > 0 ?
     Alert.alert(
-      "Confirm sending your location",
+      "You are sending your location to ",
       friends,
       [{
         text: "Cancel",
         onPress: () => console.log("Cancel Pressed"),
         style: "cancel"
         },
-        {text: "OK", onPress: () => navigation.navigate("SentConfirmation")
+        {text: "Confirm", onPress: () => navigation.navigate("SentConfirmation")
       }]
-    );
+    ) :
+    Alert.alert(
+      "Please select friends to send your location to!",
+      friends,
+      [{
+        text: "Got it",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
+        },
+        ]
+    ) 
+  }
+    
 
   return (
     <>
@@ -119,6 +135,22 @@ const EmergencyContacts  = ({ route, navigation }) => {
                     />
                 </TouchableOpacity>
             </View>
+            <View style={styles.titleHolder}>
+              <Text style={styles.titleText
+              }> Send Location To </Text>
+               <Button
+                title="search"
+                icon={{
+                  name: 'search',
+                  type: 'font-awesome',
+                  size: 30,
+                  color: 'black',
+                }}
+                titleStyle={{ color: 'black', margin: 10, fontWeight: '600' }}
+                buttonStyle={{ backgroundColor: '#C4C4C4', borderRadius: 8,}}
+                containerStyle={{ marginTop: 0, height: 60, width: width*0.9,}}
+            />
+            </View>
             <FlatList
             key={'$'}
             keyExtractor={(item, index) => String(index)}
@@ -126,7 +158,7 @@ const EmergencyContacts  = ({ route, navigation }) => {
             renderItem={renderItem}
             ItemSeparatorComponent={() => <View style={{ paddingHorizontal: 13 }} />}
             showsHorizontalScrollIndicator={false}
-            style={{ marginVertical: 10 }}
+            style={{ marginVertical: 10, width: width *0.9, marginLeft: width*0.05}}
           />
           <View style={styles.buttonsContainer}>
         
@@ -160,7 +192,19 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 buttonText: {
-  marginLeft: 5
+  fontWeight: "600",
+  marginLeft: 5,
+  fontSize: 18,
+},
+titleText: {
+  fontWeight: "800",
+  marginLeft: 5,
+  fontSize: 26,
+},
+titleHolder: {
+  alignItems: 'center',
+  justifyContent: "center",
+  marginTop: 10
 },
   headerContainer: {
     flexDirection: "row",
@@ -189,7 +233,9 @@ buttonText: {
   },
   item: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: "white",
   },
   sendToFriends: {
     flexDirection: 'column'
@@ -211,6 +257,9 @@ buttonText: {
     width: width*0.9,
 
   },
+  friendName: {
+    backgroundColor: "yellow"
+  },
 
   buttonTextStyle: {
     color: 'black', 
@@ -219,8 +268,12 @@ buttonText: {
   },
   buttonsContainer: {
     width: width,
-    marginBottom: 40,
+    marginBottom: 50,
     alignItems: 'center'
+  },
+  friendIcon: {
+    flexDirection: "row",
+    alignItems: "center"
   }
  
 });

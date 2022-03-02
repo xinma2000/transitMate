@@ -19,7 +19,7 @@ const Home  = ({ navigation }) => {
   console.log(myContext)
   const [buttons] = useState([
     {name: 'Send My Location', icon:"location", type: "entypo", page: "MyLocation"},
-    {name:'See/Request A Friend\'s Location', icon:"people", type: "ionicon", page: "FriendsLocation", image:images.FriendsLocation},
+    {name:'See/Request A Friend\'s Location', icon:"people", type: "ionicon", page: "FriendsLocation", location: images.FriendsLocation, },
     {name:'View Friends\' Ongoing Routes', icon: "route", type: "fontawesome"},
     {name:'Manage Emergency List', icon: "list-outline", type: "ionicon"}
   ]);
@@ -53,7 +53,7 @@ const Home  = ({ navigation }) => {
           <TouchableOpacity
             style = {styles.buttonContainer}
             underlayColor='#fff'
-            onPress = {() => item.item.page == "FriendsLocation" ? navigation.navigate(item.item.page, {name: item.item.name, image: item.item.image}): navigation.navigate(item.item.page)}
+            onPress = {() => item.item.page == "FriendsLocation" ? navigation.navigate(item.item.page, {name: item.item.name, location: item.item.location}): navigation.navigate(item.item.page)}
           >
             <Icon
               name = {item.item.icon}

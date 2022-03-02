@@ -77,9 +77,15 @@ const EmergencyContacts = ({ route, navigation }) => {
   );
 
   const renderItem = ({ item }) => {console.log("item", item); return <Item friend={item} />};
-  let { newFriendsData } = route.params;
-  console.log("data", [...data, ...newFriendsData])
-  const [friendsData, setFriendsData] = useState(newFriendsData ? [...data, ...newFriendsData] : data);
+  const [friendsData, setFriendsData] = useState(data)
+  React.useEffect(() => {
+    if (route.params.newFriendsData && route.params.newFriendsData.length > 0) {
+      for (var i = 0; i < route.params.newFriendsData.length; i++) {
+        route.params.newFriendsData[i].checked = false
+      }
+      setFriendsData([...data,...route.params.newFriendsData]);
+    }
+  },[route.params.newFriendsData]);
 
   
   const [chosen, setChosen] = useState([]);

@@ -35,10 +35,10 @@ const Contacts  = ({ route, navigation }) => {
   const renderItem = ({ item }) => <Item friend={item}/>;
 
   const [friendsData, setFriendsData] = useState([
-    {name: "Bri", profilePic: images.AngelaPic, location: images.AngelaLoc, checked: false},
-    {name: "Kate", profilePic: images.BenPic, location: images.BenLoc, checked: false},
-    {name: "Kyle", profilePic: images.ChristinePic, location: images.ChristineLoc, checked: false},
-    {name: "Xavier", profilePic: images.JessPic, location: images.JessLoc, checked: false},
+    {name: "Bri", profilePic: images.BriPic, location: images.AngelaLoc, checked: false},
+    {name: "Kate", profilePic: images.KatePic, location: images.BenLoc, checked: false},
+    {name: "Kyle", profilePic: images.KylePic, location: images.ChristineLoc, checked: false},
+    {name: "Xavier", profilePic: images.XavierPic, location: images.JessLoc, checked: false},
     {name: "Courtney", profilePic: images.DavidPic, location: images.DavidLoc, checked: false},
     {name: "Nicole", profilePic: images.TimmyPic, location: images.TimmyLoc, checked: false},
   ])

@@ -4,6 +4,11 @@ const ChristinePic = require("../assets/images/ChristinePic.png");
 const JessPic = require("../assets/images/JessPic.png");
 const DavidPic = require("../assets/images/DavidPic.png");
 const TimmyPic = require("../assets/images/TimmyPic.png");
+const BriPic = require("../assets/images/Bri.png");
+const KatePic = require("../assets/images/Kate.png");
+const KylePic = require("../assets/images/Kyle.png");
+const XavierPic = require("../assets/images/Xavier.png");
+
 
 const JessLoc = require("../assets/images/JessLoc.png");
 const AngelaLoc = require("../assets/images/AngelaLoc.png");
@@ -33,4 +38,8 @@ export default {
     DavidPic,
     TimmyPic,
     check,
+    BriPic,
+    KatePic,
+    KylePic,
+    XavierPic,
 }

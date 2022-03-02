@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   homeHeaderContainer: {
     flexDirection: "row",
     alignItems: 'center',
-    marginLeft: 0.42*width,
+    marginLeft: 0.4*width,
     justifyContent: 'space-between',
   },
   createRouteContainer: {

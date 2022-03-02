@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import { View, Alert, StyleSheet, Image, FlatList, TouchableOpacity, Button } from 'react-native';
-import { Text, Card, CheckBox, Icon } from 'react-native-elements';
+import { View, Alert, Dimensions, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
+import { Text, Button, CheckBox, Icon } from 'react-native-elements';
 import  images  from '../Constants/images';
 
+const width = Dimensions.get('window').width;
 
 const EmergencyContacts  = ({ route, navigation }) => {
   const Item = ({ friend }) => (
@@ -102,7 +103,9 @@ const EmergencyContacts  = ({ route, navigation }) => {
                         size = {30}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity >
+                <TouchableOpacity 
+                  onPress = {() => navigation.navigate("Home")}
+                >
                     <Image
                         source ={images.Logo}
                         style={{
@@ -130,6 +133,7 @@ const EmergencyContacts  = ({ route, navigation }) => {
             showsHorizontalScrollIndicator={false}
             style={{ marginVertical: 10 }}
           />
+          <View style={styles.buttonsContainer}>
           <TouchableOpacity
                     underlayColor='#fff'
                     onPress = {() => navigation.navigate("Contacts", {setState: setFriendsData})}
@@ -140,9 +144,16 @@ const EmergencyContacts  = ({ route, navigation }) => {
               type ='antdesign'
               size = {45}
             />
-                    <Text>Add From Contacts</Text>
+                    <Text style = {styles.buttonTextStyle}>Add From Contacts</Text>
                 </TouchableOpacity>
-                <Button title={"Send Current Location"} onPress={createTwoButtonAlert} />
+                <Button
+            title="Send Current Location"
+            titleStyle={{ color: 'black', margin: 10, fontWeight: '600' }}
+            buttonStyle={{ backgroundColor: '#FFD64D', borderRadius: 8,}}
+            containerStyle={{ marginTop: 0, height: 60, width: width*0.9,}}
+            onPress={createTwoButtonAlert}          
+            />
+            </View>
     </View>
     </>
   );
@@ -187,14 +198,29 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.7)',
-    borderRadius: 10,
-    height: 145,
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 18,
+    height: 60,
+    width: width*0.9,
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 10,
-    marginBottom: 30,
+    marginBottom: 10,
     shadowOffset: {width: 2, height: 2,},
     shadowColor: 'black',
     shadowOpacity: 0.1,
   },
+  buttonTextStyle: {
+    color: 'black', 
+    margin: 10, 
+    fontWeight: '600',
+  },
+  buttonsContainer: {
+    width: width,
+    marginBottom: 20,
+    alignItems: 'center'
+  }
  
 });
 

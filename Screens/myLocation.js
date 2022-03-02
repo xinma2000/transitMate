@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import { View, ScrollView, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
+import { View, ScrollView, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { Text, Card, Button, Icon } from 'react-native-elements';
 import { Marker } from 'react-native-maps';
 import  images  from '../Constants/images';
 import MapView from 'react-native-maps';
+const width = Dimensions.get('window').width;
 
 
 const MyLocation  = ({ navigation }) => {
@@ -21,7 +22,9 @@ const MyLocation  = ({ navigation }) => {
                         size = {30}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity >
+                <TouchableOpacity 
+                  onPress = {() => navigation.navigate("Home")}
+                >
                     <Image
                         source ={images.Logo}
                         style={{
@@ -53,12 +56,15 @@ const MyLocation  = ({ navigation }) => {
                   longitude: -122.4324,
               }}/>
             </MapView>
+            <View  style ={styles.buttonContiner}>
             <TouchableOpacity
+            style ={styles.buttonStyle}
                     underlayColor='#fff'
                     onPress = {() => navigation.navigate("EmergencyContacts", {newFriendsData: []})}
                 >
-                    <Text>Send to friends</Text>
+                    <Text style = {styles.buttonTextStyle}>Send to friends</Text>
                 </TouchableOpacity>
+            </View>       
      </View>
     </>
   );
@@ -102,6 +108,25 @@ const styles = StyleSheet.create({
     width: 400,
     height: 700,
   },
+  buttonStyle: {
+    backgroundColor: '#FFD64D', 
+    borderRadius: 8,
+    height: 60,
+    width: width*0.9,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonTextStyle: {
+    color: 'black', 
+    margin: 10, 
+    fontWeight: '600',
+  },
+  buttonContiner: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+    marginBottom: 10
+  }
  
 });
 

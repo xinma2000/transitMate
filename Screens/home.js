@@ -25,12 +25,12 @@ const Home  = ({ navigation }) => {
   ]);
 
   const friendsData = [
-    {name: "Angela", profilePic: images.AngelaPic, images:images.Angela},
-    {name: "Ben", profilePic: images.BenPic, image:images.Ben},
-    {name: "Christine", profilePic: images.ChristinePic, image:images.Christine},
-    {name: "Jess", profilePic: images.JessPic, image:images.Jess},
-    {name: "David", profilePic: images.DavidPic},
-    {name: "Timmy", profilePic: images.TimmyPic},
+    {name: "Angela", profilePic: images.AngelaPic, location: images.AngelaLoc, },
+    {name: "Ben", profilePic: images.BenPic, location: images.BenLoc, },
+    {name: "Christine", profilePic: images.ChristinePic, location: images.ChristineLoc, },
+    {name: "Jess", profilePic: images.JessPic, location: images.JessLoc, },
+    {name: "David", profilePic: images.DavidPic, location: images.DavidLoc},
+    {name: "Timmy", profilePic: images.TimmyPic, location: images.TimmyLoc},
   ]
 
   const renderItem = (item, index, separators) => {
@@ -71,10 +71,10 @@ const Home  = ({ navigation }) => {
     return (
       <View>
         <TouchableOpacity
-          onPress = {() => navigation.navigate('FriendsLocation', {name: item.item.name, image: item.item.image})}
+          onPress = {() => navigation.navigate('FriendsLocation', {name: item.item.name, location: item.item.location})}
           style={styles.iconContainer}
         >
-          {console.log("hello" + item.item.image)}
+          {console.log("hello" + item.item.location)}
           <Image
             source = {item.item.profilePic}
             style ={{
@@ -156,9 +156,7 @@ const Home  = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: height*0.05,
-    flex: 1,
-    justifyContent: "space-between",
-    marginHorizontal: 15
+    marginHorizontal: 15,
   },
   homeHeaderContainer: {
     flexDirection: "row",
@@ -170,7 +168,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
     borderRadius: 10,
     height: 145,
     marginTop: 10,

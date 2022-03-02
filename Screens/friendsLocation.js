@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Dimensions, View, ScrollView, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
+import { TextInput, Alert, Dimensions, View, ScrollView, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { Text, Card, Button, Icon } from 'react-native-elements';
 import  images  from '../Constants/images';
 
@@ -50,19 +50,33 @@ const FriendsLocation  = ({ route , navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.bodyContainer}>
-          {friendName == "see friends location" ?
-          <Text style={styles.titleFonts}>Recently shared location</Text>:
+          {friendName == "See/Request A Friend\'s Location"?
+          <>
+            <Text style={styles.titleFonts}>Recently shared location</Text>
+            <TextInput
+              placeholder="🔍 Search friends"
+              style={styles.textInput}
+            />
+          </> :
           <Text style={styles.titleFonts}>Viewing {friendName}'s Location</Text>}
           <Image
             source={photo}
             resizeMode="cover"
             style={{
               width: 0.9*width,
-              height: 600,
+              height: 575,
               alignSelf: 'center',
-              marginTop: 20,
+              marginTop: 15,
             }}
           />
+          {friendName == "See/Request A Friend\'s Location"?
+          <Button
+            title="Request Friends' Location"
+            titleStyle={{ color: 'black', margin: 10, fontWeight: '600' }}
+            buttonStyle={{ backgroundColor: '#FFD64D', borderRadius: 8,}}
+            containerStyle={{ marginTop: 15, height: 60, width: width*0.9,}}
+            onPress={() => Alert.alert(' Button pressed')}
+          /> : null}
         </View>
       </View>
     </>
@@ -80,12 +94,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   bodyContainer: {
-    marginVertical: 20
+    marginVertical: 10,
+    alignItems: 'center'
   },
   titleFonts: {
     fontSize: 26,
     fontWeight: 'bold',
     textAlign: 'center'
+  },
+  textInput: {
+    height: 45,
+    width: width*0.9,
+    marginTop: 15,
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 10,
   },
 });
 

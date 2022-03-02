@@ -1,7 +1,8 @@
 import React, { useState, createContext } from 'react';
-import { View, Alert, StyleSheet, Image, FlatList, TouchableOpacity, Button } from 'react-native';
+import { View, Dimensions, StyleSheet, Image, FlatList, TouchableOpacity, Button } from 'react-native';
 import { Text, Card, CheckBox, Icon } from 'react-native-elements';
 import  images  from '../Constants/images';
+const width = Dimensions.get('window').width;
 
 const Contacts  = ({ route, navigation }) => {
 
@@ -83,7 +84,9 @@ const Contacts  = ({ route, navigation }) => {
               size = {30}
             />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+           onPress = {() => navigation.navigate("Home")}
+        >
             <Image
               source ={images.Logo}
               style={{
@@ -116,7 +119,12 @@ const Contacts  = ({ route, navigation }) => {
           onPress = {() => navigation.navigate("EmergencyContacts", {newFriendsData: chosen})}
           style = {styles.sendToFriends}
         >
-          <Text>Add Friends</Text>
+            <Icon
+              name = "pluscircleo"
+              type ='antdesign'
+              size = {45}
+            />
+          <Text style = {styles.buttonText}>Add Friends</Text>
         </TouchableOpacity>
       </View>
     </>
@@ -127,6 +135,9 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 10,
     flex: 1,
+  },
+  buttonText: {
+      marginLeft: 5
   },
   headerContainer: {
     flexDirection: "row",
@@ -162,14 +173,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    borderColor: 'black',
+    borderWidth: 1,
     borderRadius: 10,
-    height: 145,
+    height: 60,
     marginTop: 10,
-    marginBottom: 30,
+    marginBottom: 10,
     shadowOffset: {width: 2, height: 2,},
     shadowColor: 'black',
     shadowOpacity: 0.1,
+    width: width*0.9,
+    marginLeft: width*0.05,
+    marginBottom: 40
+
   },
+  
 });
 
 export default Contacts;

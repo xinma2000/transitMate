@@ -129,17 +129,18 @@ const EmergencyContacts  = ({ route, navigation }) => {
             style={{ marginVertical: 10 }}
           />
           <View style={styles.buttonsContainer}>
-          <TouchableOpacity
-            underlayColor='#fff'
-            onPress = {() => navigation.goBack()}
+        
+                <TouchableOpacity
+            onPress = {() => navigation.navigate('Contacts')}
+            style={styles.createRouteContainer}
           >
             <Icon
-                name = "arrow-back"
-                type = "ionicon"
-                size = {30}
+              name = "pluscircleo"
+              type ='antdesign'
+              size = {45}
             />
-                    <Text style = {styles.buttonTextStyle}>Add From Contacts</Text>
-                </TouchableOpacity>
+            <Text style={styles.buttonText}>Add From Contacts</Text>
+          </TouchableOpacity>
                 <Button
             title="Send Current Location"
             titleStyle={{ color: 'black', margin: 10, fontWeight: '600' }}
@@ -158,6 +159,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flex: 1,
   },
+buttonText: {
+  marginLeft: 5
+},
   headerContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -188,23 +192,26 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   sendToFriends: {
+    flexDirection: 'column'
+  },  
+  createRouteContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.7)',
     borderColor: 'black',
     borderWidth: 1,
-    borderRadius: 18,
+    borderRadius: 10,
     height: 60,
-    width: width*0.9,
-    alignItems: 'center',
-    justifyContent: 'center',
     marginTop: 10,
     marginBottom: 10,
     shadowOffset: {width: 2, height: 2,},
     shadowColor: 'black',
     shadowOpacity: 0.1,
+    width: width*0.9,
+
   },
+
   buttonTextStyle: {
     color: 'black', 
     margin: 10, 
@@ -212,7 +219,7 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     width: width,
-    marginBottom: 20,
+    marginBottom: 40,
     alignItems: 'center'
   }
  

@@ -6,11 +6,36 @@ import  images  from '../Constants/images';
 import MapView from 'react-native-maps';
 
 
-const MyLocation  = ({ navigation }) => {
+const SentConfirmation  = ({ navigation }) => {
+  const Item = ({ title, profilePic }) => (
+    <View style={styles.item}>
+       <Image
+            source = {profilePic}
+            style ={{
+              width: 62,
+              height: 62,
+              marginBottom: 5,
+            }}
+          />
+      <Text style={styles.title}>{title}</Text>
+    </View>
+  );
+
+  const renderItem = ({ item }) => <Item title={item.name} profilePic={item.profilePic}/>;
+
+  
+  const friendsData = [
+    {name: "Angela", profilePic: images.AngelaPic, location: images.AngelaLoc, },
+    {name: "Ben", profilePic: images.BenPic, location: images.BenLoc, },
+    {name: "Christine", profilePic: images.ChristinePic, location: images.ChristineLoc, },
+    {name: "Jess", profilePic: images.JessPic, location: images.JessLoc, },
+    {name: "David", profilePic: images.DavidPic, location: images.DavidLoc},
+    {name: "Timmy", profilePic: images.TimmyPic, location: images.TimmyLoc},
+  ]
   return (
     <>
-        <View style={styles.container}>
-            <View style={styles.headerContainer}>
+    <View style={styles.container}>
+    <View style={styles.headerContainer}>
                 <TouchableOpacity
                     underlayColor='#fff'
                     onPress = {() => navigation.goBack()}
@@ -40,26 +65,8 @@ const MyLocation  = ({ navigation }) => {
                     />
                 </TouchableOpacity>
             </View>
-            <MapView 
-            style={styles.map}
-             initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}>
-              <Marker coordinate = {{
-                  latitude: 37.78825,
-                  longitude: -122.4324,
-              }}/>
-            </MapView>
-            <TouchableOpacity
-                    underlayColor='#fff'
-                    onPress = {() => navigation.navigate("EmergencyContacts", {newFriendsData: []})}
-                >
-                    <Text>Send to friends</Text>
-                </TouchableOpacity>
-     </View>
+          
+    </View>
     </>
   );
 };
@@ -76,14 +83,6 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginRight: 30,
     marginTop: 30
-  },
-  iconContainer: {
-    flexDirection: 'column', 
-    justifyContent: 'center', 
-    alignItems: 'center'
-  },
-  onGoingRoutes: {
-    marginTop: 10,
   },
   bodyFonts: {
     fontSize: 14,
@@ -102,7 +101,11 @@ const styles = StyleSheet.create({
     width: 400,
     height: 700,
   },
+  item: {
+    flexDirection: 'row', 
+    alignItems: 'center'
+  },
  
 });
 
-export default MyLocation;
+export default SentConfirmation;

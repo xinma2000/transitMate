@@ -8,14 +8,14 @@ const height = Dimensions.get('window').height;
 
 const FriendsLocation  = ({ route , navigation }) => {
 
-    const [friendName, setFriendName] = React.useState(null);
-    const [photo, setPhoto] = React.useState(null);
+  const [friendName, setFriendName] = React.useState(null);
+  const [photo, setPhoto] = React.useState(null);
 
-    React.useEffect(() => {
-      let {name, location} = route.params;
-      setFriendName(name)
-      setPhoto(location)
-    })
+  React.useEffect(() => {
+    let {name, location} = route.params;
+    setFriendName(name)
+    setPhoto(location)
+  })
   return (
     <>
       <View style={styles.container}>

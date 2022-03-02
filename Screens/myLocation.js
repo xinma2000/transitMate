@@ -9,57 +9,58 @@ import MapView from 'react-native-maps';
 const MyLocation  = ({ navigation }) => {
   return (
     <>
-        <View style={styles.container}>
-            <View style={styles.headerContainer}>
-                <TouchableOpacity
-                    underlayColor='#fff'
-                    onPress = {() => navigation.goBack()}
-                >
-                    <Icon
-                        name = "arrow-back"
-                        type = "ionicon"
-                        size = {30}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity >
-                    <Image
-                        source ={images.Logo}
-                        style={{
-                            width: 50,
-                            height: 50,
-                        }}>
-                    </Image>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    underlayColor='#fff'
-                >
-                    <Icon
-                        name = "setting"
-                        type = "antdesign"
-                        size = {30}
-                    />
-                </TouchableOpacity>
-            </View>
-            <MapView 
-            style={styles.map}
-             initialRegion={{
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <TouchableOpacity
+            underlayColor='#fff'
+            onPress = {() => navigation.goBack()}
+          >
+            <Icon
+              name = "arrow-back"
+              type = "ionicon"
+              size = {30}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity >
+            <Image
+              source ={images.Logo}
+              style={{
+                width: 50,
+                height: 50,
+              }}>
+            </Image>
+          </TouchableOpacity>
+          <TouchableOpacity
+            underlayColor='#fff'
+          >
+            <Icon
+                name = "setting"
+                type = "antdesign"
+                size = {30}
+            />
+          </TouchableOpacity>
+        </View>
+        <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        >
+          <Marker coordinate = {{
               latitude: 37.78825,
               longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}>
-              <Marker coordinate = {{
-                  latitude: 37.78825,
-                  longitude: -122.4324,
-              }}/>
-            </MapView>
-            <TouchableOpacity
-                    underlayColor='#fff'
-                    onPress = {() => navigation.navigate("EmergencyContacts", {newFriendsData: []})}
-                >
-                    <Text>Send to friends</Text>
-                </TouchableOpacity>
-     </View>
+          }}/>
+        </MapView>
+        <TouchableOpacity
+          underlayColor='#fff'
+          onPress = {() => navigation.navigate("EmergencyContacts", {newFriendsData: []})}
+        >
+          <Text>Send to friends</Text>
+        </TouchableOpacity>
+      </View>
     </>
   );
 };
@@ -78,8 +79,8 @@ const styles = StyleSheet.create({
     marginTop: 30
   },
   iconContainer: {
-    flexDirection: 'column', 
-    justifyContent: 'center', 
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center'
   },
   onGoingRoutes: {
@@ -102,7 +103,6 @@ const styles = StyleSheet.create({
     width: 400,
     height: 700,
   },
- 
 });
 
 export default MyLocation;

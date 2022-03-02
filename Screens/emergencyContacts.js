@@ -3,20 +3,18 @@ import { View, Alert, StyleSheet, Image, FlatList, TouchableOpacity, Button } fr
 import { Text, Card, CheckBox, Icon } from 'react-native-elements';
 import  images  from '../Constants/images';
 
-
 const EmergencyContacts  = ({ route, navigation }) => {
   const Item = ({ friend }) => (
     <View style={styles.item} key={friend.name}>
-       <Image
-            source = {friend.profilePic}
-            style ={{
-              width: 62,
-              height: 62,
-              marginBottom: 5,
-            }}
-          />
+      <Image
+        source = {friend.profilePic}
+        style ={{
+          width: 62,
+          height: 62,
+          marginBottom: 5,
+        }}
+      />
       <Text style={styles.title}>{friend.name}</Text>
-      
       <CheckBox
         center
         key={Math.random()}
@@ -43,7 +41,7 @@ const EmergencyContacts  = ({ route, navigation }) => {
     let {newFriendsData} = route.params;
     console.log(newFriendsData)
   })
-    
+
   const [chosen, setChosen] = useState([])
   const [friends, setFriends] = useState("")
   const addName = ({ friend }) => {
@@ -53,97 +51,93 @@ const EmergencyContacts  = ({ route, navigation }) => {
     setFriendsData(data)
     if (data[index].checked) {
       setChosen ([
-      ...chosen,
+        ...chosen,
         data[index]
-    ]) 
-    let temp = friends
-    const comma = ", "
-    if (temp === "") { 
-      setFriends(data[index].name)
-    }
-    else {
-      setFriends(friends + comma + data[index].name)
-    }
-    
-  }
-    else {
+      ])
+      let temp = friends
+      const comma = ", "
+      if (temp === "") {
+        setFriends(data[index].name)
+      } else {
+        setFriends(friends + comma + data[index].name)
+      }
+    } else {
       const chosenData = [...chosen]
       const found = chosenData.findIndex(x => x.name === data[index].name)
       chosenData.splice(found, 1)
       setChosen(chosenData)
     }
   }
- 
+
   const createTwoButtonAlert = () =>
     Alert.alert(
       "Confirm sending your location",
       friends,
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
+      [{
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
         },
-        { text: "OK", onPress: () => navigation.navigate("SentConfirmation") }
-      ]
+        {text: "OK", onPress: () => navigation.navigate("SentConfirmation")
+      }]
     );
 
   return (
     <>
-    <View style={styles.container}>
-    <View style={styles.headerContainer}>
-                <TouchableOpacity
-                    underlayColor='#fff'
-                    onPress = {() => navigation.goBack()}
-                >
-                    <Icon
-                        name = "arrow-back"
-                        type = "ionicon"
-                        size = {30}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity >
-                    <Image
-                        source ={images.Logo}
-                        style={{
-                            width: 50,
-                            height: 50,
-                        }}>
-                    </Image>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    underlayColor='#fff'
-                >
-                    <Icon
-                        name = "setting"
-                        type = "antdesign"
-                        size = {30}
-                    />
-                </TouchableOpacity>
-            </View>
-            <FlatList
-            key={'$'}
-            keyExtractor={(item, index) => String(index)}
-            data={friendsData}
-            renderItem={renderItem}
-            ItemSeparatorComponent={() => <View style={{ paddingHorizontal: 13 }} />}
-            showsHorizontalScrollIndicator={false}
-            style={{ marginVertical: 10 }}
-          />
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
           <TouchableOpacity
-                    underlayColor='#fff'
-                    onPress = {() => navigation.navigate("Contacts", {setState: setFriendsData})}
-                    style = {styles.sendToFriends}
-                >
-                   <Icon
-              name = "pluscircleo"
-              type ='antdesign'
-              size = {45}
+            underlayColor='#fff'
+            onPress = {() => navigation.goBack()}
+          >
+            <Icon
+                name = "arrow-back"
+                type = "ionicon"
+                size = {30}
             />
-                    <Text>Add From Contacts</Text>
-                </TouchableOpacity>
-                <Button title={"Send Current Location"} onPress={createTwoButtonAlert} />
-    </View>
+          </TouchableOpacity>
+          <TouchableOpacity >
+            <Image
+              source ={images.Logo}
+              style={{
+                width: 50,
+                height: 50,
+              }}>
+            </Image>
+          </TouchableOpacity>
+          <TouchableOpacity
+            underlayColor='#fff'
+          >
+            <Icon
+              name = "setting"
+              type = "antdesign"
+              size = {30}
+            />
+          </TouchableOpacity>
+        </View>
+        <FlatList
+          key={'$'}
+          keyExtractor={(item, index) => String(index)}
+          data={friendsData}
+          renderItem={renderItem}
+          ItemSeparatorComponent={() => <View style={{ paddingHorizontal: 13 }} />}
+          showsHorizontalScrollIndicator={false}
+          style={{ marginVertical: 10 }}
+        />
+        <TouchableOpacity
+          underlayColor='#fff'
+          onPress = {() => navigation.navigate("Contacts", {setState: setFriendsData})}
+          style = {styles.sendToFriends}
+        >
+          <Icon
+            name = "pluscircleo"
+            type ='antdesign'
+            size = {45}
+          />
+          <Text>Add From Contacts</Text>
+        </TouchableOpacity>
+        <Button title={"Send Current Location"} onPress={createTwoButtonAlert} />
+      </View>
     </>
   );
 };
@@ -179,7 +173,7 @@ const styles = StyleSheet.create({
     height: 700,
   },
   item: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     alignItems: 'center'
   },
   sendToFriends: {
@@ -195,7 +189,7 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowOpacity: 0.1,
   },
- 
+
 });
 
 export default EmergencyContacts;

@@ -4,10 +4,17 @@ const ChristinePic = require("../assets/images/ChristinePic.png");
 const JessPic = require("../assets/images/JessPic.png");
 const DavidPic = require("../assets/images/DavidPic.png");
 const TimmyPic = require("../assets/images/TimmyPic.png");
-const BriPic = require("../assets/images/Bri.png");
-const KatePic = require("../assets/images/Kate.png");
-const KylePic = require("../assets/images/Kyle.png");
-const XavierPic = require("../assets/images/Xavier.png");
+
+const AngelaPicAct = require("../assets/images/AngelaPicAct.png");
+const BenPicAct = require("../assets/images/BenPicAct.png");
+const ChristinePicAct = require("../assets/images/ChristinePicAct.png");
+
+const BriPic = require("../assets/images/BriPic.png");
+const KatePic = require("../assets/images/KatePic.png");
+const KylePic = require("../assets/images/KylePic.png");
+const XavierPic = require("../assets/images/XavierPic.png");
+const CourtneyPic = require("../assets/images/CourtneyPic.png");
+const NicolePic = require("../assets/images/NicolePic.png");
 
 
 const JessLoc = require("../assets/images/JessLoc.png");
@@ -23,23 +30,28 @@ const Logo = require("../assets/images/logo.png")
 const check = require("../assets/images/checkmark.png")
 
 export default {
-    JessLoc,
-    AngelaLoc,
-    BenLoc,
-    ChristineLoc,
-    DavidLoc,
-    TimmyLoc,
-    FriendsLocation,
-    Logo,
-    AngelaPic,
-    BenPic,
-    ChristinePic,
-    JessPic,
-    DavidPic,
-    TimmyPic,
-    check,
-    BriPic,
-    KatePic,
-    KylePic,
-    XavierPic,
+  AngelaPicAct,
+  BenPicAct,
+  ChristinePicAct,
+  JessLoc,
+  AngelaLoc,
+  BenLoc,
+  ChristineLoc,
+  DavidLoc,
+  TimmyLoc,
+  FriendsLocation,
+  Logo,
+  AngelaPic,
+  BenPic,
+  ChristinePic,
+  JessPic,
+  DavidPic,
+  TimmyPic,
+  check,
+  BriPic,
+  KatePic,
+  KylePic,
+  XavierPic,
+  CourtneyPic,
+  NicolePic
 }

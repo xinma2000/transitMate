@@ -72,7 +72,7 @@ const FriendsLocation  = ({ route , navigation }) => {
           {friendName == "See/Request A Friend\'s Location"?
           <Button
             title="Request Friends' Location"
-            titleStyle={{ color: 'black', margin: 10, fontWeight: '600' }}
+            titleStyle={{ fontSize: 20, color: 'black', margin: 10, fontWeight: '600' }}
             buttonStyle={{ backgroundColor: '#FFD64D', borderRadius: 8,}}
             containerStyle={{ marginTop: 15, height: 60, width: width*0.9,}}
             onPress={() => Alert.alert(' Button pressed')}
@@ -103,14 +103,15 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   textInput: {
-    height: 45,
+    height: 50,
     width: width*0.9,
-    marginTop: 15,
+    marginTop: 10,
     borderWidth: 1,
     borderRadius: 8,
     padding: 10,
+    fontSize: 16,
   },
-  
+
 });
 
 export default FriendsLocation;

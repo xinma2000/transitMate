@@ -25,9 +25,9 @@ const Home  = ({ navigation }) => {
   ]);
 
   const friendsData = [
-    {name: "Angela", profilePic: images.AngelaPic, location: images.AngelaLoc, },
-    {name: "Ben", profilePic: images.BenPic, location: images.BenLoc, },
-    {name: "Christine", profilePic: images.ChristinePic, location: images.ChristineLoc, },
+    {name: "Angela", profilePic: images.AngelaPicAct, location: images.AngelaLoc, },
+    {name: "Ben", profilePic: images.BenPicAct, location: images.BenLoc, },
+    {name: "Christine", profilePic: images.ChristinePicAct, location: images.ChristineLoc, },
     {name: "Jess", profilePic: images.JessPic, location: images.JessLoc, },
     {name: "David", profilePic: images.DavidPic, location: images.DavidLoc},
     {name: "Timmy", profilePic: images.TimmyPic, location: images.TimmyLoc},

@@ -1,8 +1,10 @@
 import React, { useState, createContext } from 'react';
-import { View, Dimensions, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
-import { Text, Button, CheckBox, Icon } from 'react-native-elements';
+import { View, Dimensions, StyleSheet, Image, FlatList, TouchableOpacity, TextInput } from 'react-native';
+import { Text, Button, CheckBox, Icon,  } from 'react-native-elements';
 import  images  from '../Constants/images';
+
 const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 const Contacts  = ({ route, navigation }) => {
 
@@ -16,7 +18,7 @@ const Contacts  = ({ route, navigation }) => {
        style ={{
          width: 62,
          height: 62,
-         marginBottom: 5,
+         margin: 8,
        }}
      />
      <Text style={styles.titleText}>{friend.name}</Text>
@@ -39,8 +41,8 @@ const Contacts  = ({ route, navigation }) => {
     {name: "Kate", profilePic: images.KatePic, location: images.BenLoc, checked: false},
     {name: "Kyle", profilePic: images.KylePic, location: images.ChristineLoc, checked: false},
     {name: "Xavier", profilePic: images.XavierPic, location: images.JessLoc, checked: false},
-    {name: "Courtney", profilePic: images.DavidPic, location: images.DavidLoc, checked: false},
-    {name: "Nicole", profilePic: images.TimmyPic, location: images.TimmyLoc, checked: false},
+    {name: "Courtney", profilePic: images.CourtneyPic, location: images.DavidLoc, checked: false},
+    {name: "Nicole", profilePic: images.NicolePic, location: images.TimmyLoc, checked: false},
   ])
   const [chosen, setChosen] = useState([])
   const [friends, setFriends] = useState("")
@@ -87,8 +89,8 @@ const Contacts  = ({ route, navigation }) => {
             />
           </TouchableOpacity>
           <TouchableOpacity
-           onPress = {() => navigation.navigate("Home")}
-        >
+            onPress = {() => navigation.navigate("Home")}
+          >
             <Image
               source ={images.Logo}
               style={{
@@ -107,42 +109,36 @@ const Contacts  = ({ route, navigation }) => {
             />
           </TouchableOpacity>
         </View>
-        <View style={styles.titleHolder}>
-              <Text style={styles.titleText
-              }> Add Friends From Contacts </Text>
-               <Button
-                title="search"
-                icon={{
-                  name: 'search',
-                  type: 'font-awesome',
-                  size: 30,
-                  color: 'black',
-                }}
-                titleStyle={{ color: 'black', margin: 10, fontWeight: '600' }}
-                buttonStyle={{ backgroundColor: '#C4C4C4', borderRadius: 8,}}
-                containerStyle={{ marginTop: 0, height: 60, width: width*0.9,}}
-            />
-            </View>
+        <View style={styles.bodyContainer}>
+          <Text style={styles.titleText}>Add Friends From Contacts</Text>
+          <TextInput
+            placeholder="🔍 Search friends"
+            style={styles.textInput}
+          />
+        </View>
         <FlatList
           key={'$'}
           keyExtractor={(item, index) => String(index)}
           data={friendsData}
           renderItem={renderItem}
-          ItemSeparatorComponent={() => <View style={{ paddingHorizontal: 13 }} />}
-          showsHorizontalScrollIndicator={false}
-          style={{ marginVertical: 10, width: width *0.9, marginLeft: width*0.05}}
+          ItemSeparatorComponent={() => <View style={{}} />}
+          style={{
+            marginTop: 15,
+            width: width * 0.9,
+            height: height * 0.5,
+          }}
           />
         <TouchableOpacity
           underlayColor='#fff'
           onPress = {() => navigation.navigate("EmergencyContacts", {newFriendsData: chosen})}
           style = {styles.sendToFriends}
         >
-            <Icon
-              name = "pluscircleo"
-              type ='antdesign'
-              size = {45}
-            />
-          <Text style = {styles.buttonText}>Add Friends</Text>
+          <Icon
+            name = "pluscircleo"
+            type ='antdesign'
+            size = {45}
+          />
+          <Text style = {styles.bodyFonts}>Add Friends</Text>
         </TouchableOpacity>
       </View>
     </>
@@ -151,60 +147,45 @@ const Contacts  = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
-    flex: 1,
-  },
-  buttonText: {
-    fontWeight: "600",
-    marginLeft: 5,
-    fontSize: 18,
+    marginTop: 15,
+    marginHorizontal: 15,
   },
   headerContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: 'center',
-    marginLeft: 30,
-    marginRight: 30,
     marginTop: 30
   },
-  bodyFonts: {
-    fontSize: 14,
-    marginBottom: 8,
+  titleText: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    textAlign: 'center'
   },
-  titleFonts: {
-    fontSize: 16,
-    fontWeight: "500"
-  },
-  buttonStyle: {
-    backgroundColor: "#FFD64D"
-  },
-  map: {
-    marginLeft: 10,
-    marginTop: 10,
-    width: 400,
-    height: 700,
-  },
-  friendContainer: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  sendToFriends: {
-    flexDirection: 'row',
+  bodyContainer: {
+    marginTop: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 10,
-    height: 60,
-    marginTop: 10,
-    marginBottom: 10,
-    shadowOffset: {width: 2, height: 2,},
-    shadowColor: 'black',
-    shadowOpacity: 0.1,
+  },
+  textInput: {
+    height: 50,
     width: width*0.9,
-    marginLeft: width*0.05,
-    marginBottom: 40
+    marginTop: 10,
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 10,
+    fontSize: 16,
+  },
+  sendToFriends: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.7)",
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 8,
+    height: 60,
+    marginTop: 60,
+    width: width * 0.9,
   },
   item: {
     flexDirection: 'row',
@@ -216,15 +197,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center"
   },
-  titleText: {
-    fontWeight: "800",
-    marginLeft: 5,
-    fontSize: 26,
-  },
-  titleHolder: {
-    alignItems: 'center',
-    justifyContent: "center",
-    marginTop: 10
+  bodyFonts: {
+    fontSize: 18,
+    marginLeft: 8,
+    fontWeight: "bold",
+    textAlign: 'center'
   },
 });
 

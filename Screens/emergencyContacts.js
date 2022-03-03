@@ -7,6 +7,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 import { Text, Button, CheckBox, Icon } from "react-native-elements";
 import images from "../Constants/images";
@@ -60,7 +61,7 @@ const EmergencyContacts = ({ route, navigation }) => {
           style={{
             width: 62,
             height: 62,
-            marginBottom: 5,
+            margin: 8,
           }}
         />
         <Text style={styles.titleText}>{friend.name}</Text>
@@ -78,6 +79,7 @@ const EmergencyContacts = ({ route, navigation }) => {
 
   const renderItem = ({ item }) => {console.log("item", item); return <Item friend={item} />};
   const [friendsData, setFriendsData] = useState(data)
+
   React.useEffect(() => {
     if (route.params.newFriendsData && route.params.newFriendsData.length > 0) {
       for (var i = 0; i < route.params.newFriendsData.length; i++) {
@@ -87,9 +89,9 @@ const EmergencyContacts = ({ route, navigation }) => {
     }
   },[route.params.newFriendsData]);
 
-  
   const [chosen, setChosen] = useState([]);
   const [friends, setFriends] = useState("");
+
   const addName = ({ friend }) => {
     const data = [...friendsData];
     const index = data.findIndex((x) => x.name === friend.name);
@@ -161,52 +163,43 @@ const EmergencyContacts = ({ route, navigation }) => {
             <Icon name="setting" type="antdesign" size={30} />
           </TouchableOpacity>
         </View>
-        <View style={styles.titleHolder}>
+        <View style={styles.bodyContainer}>
           <Text style={styles.titleText}> Send Location To </Text>
-          <Button
-            title="search"
-            icon={{
-              name: "search",
-              type: "font-awesome",
-              size: 30,
-              color: "black",
+          <TextInput
+            placeholder="🔍 Search friends"
+            style={styles.textInput}
+          />
+          <FlatList
+            key={"$"}
+            keyExtractor={(item, index) => String(index)}
+            data={friendsData}
+            renderItem={renderItem}
+            ItemSeparatorComponent={() => (
+              <View style={{}} />
+            )}
+            style={{
+              marginTop: 15,
+              width: width * 0.9,
+              height: height * 0.5,
             }}
-            titleStyle={{ color: "black", margin: 10, fontWeight: "600" }}
-            buttonStyle={{ backgroundColor: "#C4C4C4", borderRadius: 8 }}
-            containerStyle={{ marginTop: 0, height: 60, width: width * 0.9 }}
           />
         </View>
-        <FlatList
-          key={"$"}
-          keyExtractor={(item, index) => String(index)}
-          data={friendsData}
-          renderItem={renderItem}
-          ItemSeparatorComponent={() => (
-            <View style={{ paddingHorizontal: 13 }} />
-          )}
-          showsHorizontalScrollIndicator={false}
-          style={{
-            marginVertical: 10,
-            width: width * 0.9,
-            marginLeft: width * 0.05,
-          }}
-        />
-        <View style={styles.buttonsContainer}>
+        <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={() => navigation.navigate("Contacts")}
             style={styles.createRouteContainer}
           >
             <Icon name="pluscircleo" type="antdesign" size={45} />
-            <Text style={styles.buttonText}>Add From Contacts</Text>
+            <Text style={styles.bodyFonts}>Add From Contacts</Text>
           </TouchableOpacity>
-          <Button
-            title="Send Current Location"
-            titleStyle={{ color: "black", margin: 10, fontWeight: "600" }}
-            buttonStyle={{ backgroundColor: "#FFD64D", borderRadius: 8 }}
-            containerStyle={{ marginTop: 0, height: 60, width: width * 0.9 }}
-            onPress={createTwoButtonAlert}
-          />
         </View>
+        <Button
+          title="Send Current Location"
+          titleStyle={styles.buttonTextStyle}
+          buttonStyle={styles.buttonStyle}
+          containerStyle={styles.buttonContainer}
+          onPress={createTwoButtonAlert}
+        />
       </View>
     </>
   );
@@ -214,57 +207,45 @@ const EmergencyContacts = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
-    flex: 1,
-  },
-  buttonText: {
-    fontWeight: "600",
-    marginLeft: 5,
-    fontSize: 18,
-  },
-  titleText: {
-    fontWeight: "800",
-    marginLeft: 5,
-    fontSize: 26,
-  },
-  titleHolder: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
+    marginTop: 15,
+    marginHorizontal: 15,
   },
   headerContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
-    marginLeft: 30,
-    marginRight: 30,
-    marginTop: 30,
+    alignItems: 'center',
+    marginTop: 30
+  },
+  bodyContainer: {
+    marginTop: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  titleText: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    textAlign: 'center'
   },
   bodyFonts: {
-    fontSize: 14,
-    marginBottom: 8,
+    fontSize: 18,
+    marginLeft: 8,
+    fontWeight: "bold",
+    textAlign: 'center'
   },
-  titleFonts: {
-    fontSize: 16,
-    fontWeight: "500",
-  },
-  buttonStyle: {
-    backgroundColor: "#FFD64D",
-  },
-  map: {
-    marginLeft: 10,
+  textInput: {
+    height: 50,
+    width: width*0.9,
     marginTop: 10,
-    width: 400,
-    height: 700,
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 10,
+    fontSize: 16,
   },
   item: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     backgroundColor: "white",
-  },
-  sendToFriends: {
-    flexDirection: "column",
   },
   createRouteContainer: {
     flexDirection: "row",
@@ -273,33 +254,34 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255, 255, 255, 0.7)",
     borderColor: "black",
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 8,
     height: 60,
-    marginTop: 10,
-    marginBottom: 10,
-    shadowOffset: { width: 2, height: 2 },
-    shadowColor: "black",
-    shadowOpacity: 0.1,
+    marginTop: 45,
     width: width * 0.9,
-  },
-  friendName: {
-    backgroundColor: "yellow",
-  },
-
-  buttonTextStyle: {
-    color: "black",
-    margin: 10,
-    fontWeight: "600",
-  },
-  buttonsContainer: {
-    width: width,
-    marginBottom: 50,
-    alignItems: "center",
   },
   friendIcon: {
     flexDirection: "row",
     alignItems: "center",
   },
+  buttonStyle: {
+    backgroundColor: '#FFD64D',
+    borderRadius: 8,
+    height: 60,
+    width: width*0.9,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonTextStyle: {
+    color: 'black',
+    margin: 10,
+    fontWeight: '600',
+    fontSize: 20
+  },
+  buttonContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 15,
+  }
 });
 
 export default EmergencyContacts;

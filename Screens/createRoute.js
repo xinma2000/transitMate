@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
     marginTop: 0
   },
   iconContainer: {
-    flexDirection: 'column', 
-    justifyContent: 'center', 
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center'
   },
   onGoingRoutes: {
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   buttonStyle: {
       backgroundColor: "#FFD64D"
   }
- 
+
 });
 
 export default CreateRoute;

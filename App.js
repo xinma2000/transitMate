@@ -8,6 +8,8 @@ import EmergencyContacts from './Screens/emergencyContacts';
 import CreateRoute from './Screens/createRoute'
 import MyLocation from './Screens/myLocation';
 import FriendsLocation from './Screens/friendsLocation';
+import RouteView from './Screens/routeView';
+import Confirmation from './Screens/confirmation'
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from '@react-navigation/native';
 import AppContext from './Screens/appContext';
@@ -41,6 +43,8 @@ export default function App() {
         <Stack.Screen name="EmergencyContacts" component={EmergencyContacts}/>
         <Stack.Screen name="SentConfirmation" component={SentConfirmation}/>
         <Stack.Screen name="Contacts" component={Contacts}/>
+        <Stack.Screen name="RouteView" component={RouteView}/>
+        <Stack.Screen name="Confirmation" component={Confirmation}/>
     </Stack.Navigator>
 </NavigationContainer>
 </AppContext.Provider>

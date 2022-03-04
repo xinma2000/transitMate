@@ -10,7 +10,7 @@ import {
 import { Text, Card, Button, Icon } from "react-native-elements";
 import { Marker } from "react-native-maps";
 import images from "../Constants/images";
-import MapView from "react-native-maps";
+import MapView , { PROVIDER_GOOGLE } from "react-native-maps";
 import MapViewDirections from 'react-native-maps-directions';
 
 
@@ -26,9 +26,17 @@ const coordinates = [
     longitude: -122.4053769,
   },
 ];
-const GOOGLE_MAPS_APIKEY = "AIzaSyBsODdzfnULgD0kcOrsedLKtA4-pbe0Og0"
+const GOOGLE_MAPS_APIKEY = "AIzaSyBV_EvsR_SI9az9aAUM_ch9UU3MswZAqJM"
 
-const MyLocation = ({ navigation }) => {
+const RouteMapView = ({ route, navigation }) => {
+    const [endPoint, setEndPoint] = useState(null)
+    React.useEffect(() => {
+        let {destination} = route.params;
+        console.log("destination is", destination)
+       setEndPoint(destination)
+      })
+
+
   return (
     <>
       <View style={styles.container}>
@@ -56,6 +64,7 @@ const MyLocation = ({ navigation }) => {
           <Text style={styles.titleFonts}>My Current Location</Text>
           <MapView
             style={styles.map}
+            provider={PROVIDER_GOOGLE}
             initialRegion={{
               latitude: 37.78825,
               longitude: -122.4324,
@@ -143,4 +152,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyLocation;
+export default RouteMapView;

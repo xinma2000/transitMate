@@ -10,8 +10,9 @@ import {
 import { Text, Card, Button, Icon } from "react-native-elements";
 import { Marker } from "react-native-maps";
 import images from "../Constants/images";
-import MapView from "react-native-maps";
+import MapView , { PROVIDER_GOOGLE } from "react-native-maps";
 import MapViewDirections from 'react-native-maps-directions';
+import Geocoder from 'react-native-geocoding';
 
 
 const width = Dimensions.get("window").width;
@@ -26,9 +27,27 @@ const coordinates = [
     longitude: -122.4053769,
   },
 ];
-const GOOGLE_MAPS_APIKEY = "AIzaSyBsODdzfnULgD0kcOrsedLKtA4-pbe0Og0"
+const GOOGLE_MAPS_APIKEY = "AIzaSyBV_EvsR_SI9az9aAUM_ch9UU3MswZAqJM"
+const GOOGLE_MAPS_APITKEY_GEOCODING = "AIzaSyA4EvUX1w061o9J8CsYOYFWJWVfPZSSs0s"
 
-const MyLocation = ({ navigation }) => {
+const RouteView = ({ route, navigation }) => {
+    Geocoder.init(GOOGLE_MAPS_APITKEY_GEOCODING)
+
+    const [endPoint, setEndPoint] = useState(null)
+    const [dest, setDest] = useState(null)
+    React.useEffect(() => {
+        let {destination} = route.params;
+        console.log("destination is", destination)
+        setEndPoint(destination)
+      })
+
+    Geocoder.from(endPoint) 
+    .then(json => {
+        var location = json.results[0].geometry.location;
+        console.log(location);
+    })
+    .catch(error => console.warn(error));
+
   return (
     <>
       <View style={styles.container}>
@@ -56,6 +75,7 @@ const MyLocation = ({ navigation }) => {
           <Text style={styles.titleFonts}>My Current Location</Text>
           <MapView
             style={styles.map}
+            provider={PROVIDER_GOOGLE}
             initialRegion={{
               latitude: 37.78825,
               longitude: -122.4324,
@@ -73,7 +93,7 @@ const MyLocation = ({ navigation }) => {
     longitude: -122.4053769,}}/>
             <MapViewDirections
               origin={coordinates[0]}
-              destination={coordinates[1]}
+              destination={endPoint}
               apikey={GOOGLE_MAPS_APIKEY}
               strokeWidth = {3}
               strokeColor = "hotpink"
@@ -143,4 +163,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyLocation;
+export default RouteView;

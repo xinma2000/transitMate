@@ -6,31 +6,37 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
-  TextInput,
+  FlatList
 } from "react-native";
 import { Text, Card, Button, Icon } from "react-native-elements";
+
 import { Marker } from "react-native-maps";
 import images from "../Constants/images";
-import MapView from "react-native-maps";
-import {Picker} from '@react-native-picker/picker';
-
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
+import Geocoder from "react-native-geocoding";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
-const coordinates = [
-  {
-    latitude: 37.3318456,
-    longitude: -122.0296002,
-  },
-  {
-    latitude: 37.771707,
-    longitude: -122.4053769,
-  },
-];
-const GOOGLE_MAPS_APIKEY = "AIzaSyBsODdzfnULgD0kcOrsedLKtA4-pbe0Og0"
 
-const CreateRoute = ({ navigation }) => {
-  const [destintation, setDestination] = useState("")
+
+const SavedList = ({ navigation }) => {
+    const [routesData, setRoutesData] = useState([
+        { destination: "Apple Park", index: 1 },
+        { destination: "Stanford University", index: 2 },
+        { destination: "Golden Gate Park", index: 3 },
+      ]);
+
+  const Item = ({ destination }) => (
+    <View style={styles.item} key={destination.index}>
+      <TouchableOpacity
+      onPress = {() => navigation.navigate("SavedRoutes", {destination: destination.destination})}>
+        <Text style={styles.titleText}>{destination.destination}</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+  const renderItem = ({ item }) => <Item destination={item} />;
 
   return (
     <>
@@ -56,51 +62,19 @@ const CreateRoute = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.bodyContainer}>
-          <Text style={styles.titleFonts}> Enter Destination</Text>
-      <TextInput
-        style={styles.textInput}
-        onChangeText={setDestination}
-        value={destintation}
-        placeholder="🔍 Search"
-        keyboardType="numeric"
-      />
-          <MapView
-            style={styles.map}
-            initialRegion={{
-              latitude: 37.771707,
-              longitude: -122.4053769,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
+          <Text style={styles.titleFonts}>Saved Routes</Text>
+          <FlatList
+            key={"$"}
+            keyExtractor={(item, index) => String(index)}
+            data={routesData}
+            renderItem={renderItem}
+            ItemSeparatorComponent={() => <View style={{}} />}
+            style={{
+              marginTop: 15,
+              width: width * 0.9,
+              height: height * 0.5,
             }}
-          >
-            <Marker draggable 
-              coordinate = {{
-                latitude: 37.771707,
-                longitude: -122.4053769
-              }}
-            />
-          </MapView>
-        </View>
-        <View style={styles.buttonContainer}>
-        <TouchableOpacity
-            style={styles.buttonStyle}
-            underlayColor="#fff"
-            onPress={() =>
-              navigation.navigate("SavedList")
-            }
-          >
-            <Text style={styles.buttonTextStyle}>Saved Routes</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.buttonStyle}
-            underlayColor="#fff"
-            onPress={() =>
-              navigation.navigate("RouteView", {destination: destintation})
-              //navigation.navigate("Confirmation")
-            }
-          >
-            <Text style={styles.buttonTextStyle}>Search Route</Text>
-          </TouchableOpacity>
+          />
         </View>
       </View>
     </>
@@ -111,10 +85,6 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 15,
     marginHorizontal: 15,
-  },
-  test: {
-    alignItems: 'center',
-
   },
   headerContainer: {
     flexDirection: "row",
@@ -135,7 +105,7 @@ const styles = StyleSheet.create({
   map: {
     marginTop: 10,
     width: width * 0.9,
-    height: height * 0.6,
+    height: height * 0.7,
   },
   buttonStyle: {
     backgroundColor: "#FFD64D",
@@ -156,15 +126,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 15,
   },
-  textInput: {
-    height: 50,
-    width: width*0.9,
-    marginTop: 10,
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: 10,
-    fontSize: 16,
-  },
 });
 
-export default CreateRoute;
+export default SavedList;

@@ -9,7 +9,9 @@ import CreateRoute from './Screens/createRoute'
 import MyLocation from './Screens/myLocation';
 import FriendsLocation from './Screens/friendsLocation';
 import RouteView from './Screens/routeView';
-import Confirmation from './Screens/confirmation'
+import Confirmation from './Screens/confirmation';
+import SavedRoutes from './Screens/savedRoutes';
+import SavedList from './Screens/savedList';
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from '@react-navigation/native';
 import AppContext from './Screens/appContext';
@@ -45,6 +47,9 @@ export default function App() {
         <Stack.Screen name="Contacts" component={Contacts}/>
         <Stack.Screen name="RouteView" component={RouteView}/>
         <Stack.Screen name="Confirmation" component={Confirmation}/>
+        <Stack.Screen name="SavedList" component={SavedList} />
+        <Stack.Screen name="SavedRoutes" component={SavedRoutes} />
+
     </Stack.Navigator>
 </NavigationContainer>
 </AppContext.Provider>

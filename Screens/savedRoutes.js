@@ -18,37 +18,60 @@ import Geocoder from 'react-native-geocoding';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const coordinates = [
+    {
+        latitude: 37.771707,
+        longitude: -122.4053769,
+   },
   {
     latitude: 37.3318456,
     longitude: -122.0296002,
   },
+  
   {
-    latitude: 37.771707,
-    longitude: -122.4053769,
+    latitude: 37.4275,
+    longitude: -122.1697,
+  },
+  {
+    latitude: 37.7694,
+    longitude: -122.4862,
   },
 ];
 const GOOGLE_MAPS_APIKEY = "AIzaSyBV_EvsR_SI9az9aAUM_ch9UU3MswZAqJM"
 const GOOGLE_MAPS_APITKEY_GEOCODING = "AIzaSyA4EvUX1w061o9J8CsYOYFWJWVfPZSSs0s"
 
-const RouteView = ({ route, navigation }) => {
+const SavedRoutes = ({ route, navigation }) => {
     Geocoder.init(GOOGLE_MAPS_APITKEY_GEOCODING)
 
-    const [endPoint, setEndPoint] = useState(null)
-    const [dest, setDest] = useState(null)
+    const [endPoint, setEndPoint] = useState(0)
+    const [centerLat, setCenterLat] = useState(0)
+    const [centerLng, setCenterLng] = useState(0)
+
     React.useEffect(() => {
         let {destination} = route.params;
-        console.log("destination is", destination)
-        setEndPoint(destination)
-        Geocoder.from(endPoint) 
-            .then(json => {
-                var location = json.results[0].geometry.location;
-                setDest(location);
-            console.log("destination", dest);
-      })
-      .catch(error => console.warn(error));
+        console.log(destination)
+        if (destination === "Apple Park") {
+            setEndPoint(1)
+            var lat = (coordinates[0].latitude + coordinates[1].latitude) / 2
+            var lng = (coordinates[0].longitude + coordinates[1].longitude) / 2
+            setCenterLng(lng)
+            setCenterLat(lat)
+        }
+        else if (destination === "Stanford University") {
+            setEndPoint(2)
+            var lat = (coordinates[0].latitude + coordinates[2].latitude) / 2
+            var lng = (coordinates[0].longitude + coordinates[2].longitude) / 2
+            setCenterLng(lng)
+            setCenterLat(lat)
+        }
+        else {
+            setEndPoint(3)
+            var lat = (coordinates[0].latitude + coordinates[3].latitude) / 2
+            var lng = (coordinates[0].longitude + coordinates[3].longitude) / 2
+            setCenterLng(lng)
+            setCenterLat(lat)
+        }
       }, [])
 
-      
 
   return (
     <>
@@ -79,23 +102,21 @@ const RouteView = ({ route, navigation }) => {
             style={styles.map}
             provider={PROVIDER_GOOGLE}
             initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
+            latitude: centerLat,
+            longitude: centerLng,
+              latitudeDelta: 0.522,
+              longitudeDelta: 0.221,
             }}
           >
-            <Marker
-              coordinate={{
-                latitude: 37.78825,
-                longitude: -122.4324,
-              }}
-            />
             <Marker coordinate = {{latitude: 37.771707,
     longitude: -122.4053769,}}/>
+     <Marker 
+        coordinate = {coordinates[endPoint]}
+            pinColor = {"navy"}
+    />
             <MapViewDirections
               origin={coordinates[0]}
-              destination={{dest}}
+              destination={coordinates[endPoint]}
               apikey={GOOGLE_MAPS_APIKEY}
               strokeWidth = {3}
               strokeColor = "hotpink"
@@ -165,4 +186,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RouteView;
+export default SavedRoutes;

@@ -96,7 +96,6 @@ const CreateRoute = ({ navigation }) => {
             underlayColor="#fff"
             onPress={() =>
               navigation.navigate("RouteView", {destination: destintation})
-              //navigation.navigate("Confirmation")
             }
           >
             <Text style={styles.buttonTextStyle}>Search Route</Text>

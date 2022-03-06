@@ -13,10 +13,9 @@ const height = Dimensions.get('window').height;
 
 //https://reactnativeelements.com/docs/1.2.0/card
 const Home  = ({ navigation }) => {
-
   const [scroll, setScroll] = useState(false);
   const myContext = useContext(AppContext);
-  console.log(myContext)
+  console.log("mycontext is", myContext)
   const [buttons] = useState([
     {name: 'Send My Location', icon:"location", type: "entypo", page: "MyLocation"},
     {name:'See/Request A Friend\'s Location', icon:"people", type: "ionicon", page: "FriendsLocation", location: images.FriendsLocation, },
@@ -53,7 +52,9 @@ const Home  = ({ navigation }) => {
           <TouchableOpacity
             style = {styles.buttonContainer}
             underlayColor='#fff'
-            onPress = {() => item.item.page == "FriendsLocation" ? navigation.navigate(item.item.page, {name: item.item.name, location: item.item.location}): navigation.navigate(item.item.page)}
+            onPress = {() => item.item.page == "FriendsLocation" ? navigation.navigate(item.item.page, {name: item.item.name, location: item.item.location}): item.item.page === "EmergencyContacts"?  navigation.navigate(item.item.page, {newFriendsData: [], title:"Emergency Contacts"}) :navigation.navigate(item.item.page)}
+        
+        
           >
             <Icon
               name = {item.item.icon}
@@ -68,14 +69,15 @@ const Home  = ({ navigation }) => {
   }
 
   const onPress = (item) => {
-    if (item.item.page === "FriendsLocation") {
+    /*if (item.item.page === "FriendsLocation") {
       navigation.navigate(item.item.page, {name: item.item.name, location: item.item.location})
     } else if (item.item.page === "EmergencyContacts") {
       navigation.navigate(item.item.page, {newFriendsData: [], title:"Emergency Contacts"})
     }
     else {
       navigation.navigate(item.item.page)
-    }
+    }*/
+    console.log(item)
   }
 
   const renderFriends= (item, index, separators) => {

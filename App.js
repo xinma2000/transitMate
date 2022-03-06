@@ -26,13 +26,14 @@ export default function App() {
   const [onRoute, setOnRoute] = useState(false);
  
 
-  const userRouteStatus = {
-    onRoute: onRoute,
-    setOnRoute
+  
+
+  const toggleOnRoute = () => {
+    setOnRoute(true)
   }
 
   return (
-    <AppContext.Provider value={userRouteStatus}>
+    <AppContext.Provider value={{onRoute, toggleOnRoute}}>
     <NavigationContainer>
     <Stack.Navigator
         screenOptions={{

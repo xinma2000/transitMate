@@ -153,3 +153,21 @@ const styles = StyleSheet.create({
 });
 
 export default RouteMapView;
+
+
+
+    const calcRoute = () => {
+      var start = document.getElementById('start').value;
+      var end = document.getElementById('end').value;
+      var request = {
+        origin: coordinates[1],
+        destination: dest,
+        travelMode: 'DRIVING'
+      };
+      directionsService.route(request, function(result, status) {
+        if (status == 'OK') {
+          var results = directionsRenderer.getDirections();
+          console.log(results)
+        }
+      });
+    }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   ScrollView,
@@ -7,13 +7,20 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import AppContext from './appContext';
 import { Text, Card, Button, Icon } from "react-native-elements";
 import { Marker } from "react-native-maps";
 import images from "../Constants/images";
 import MapView , { PROVIDER_GOOGLE } from "react-native-maps";
 import MapViewDirections from 'react-native-maps-directions';
 import Geocoder from 'react-native-geocoding';
-
+import { DirectionsService } from '@react-google-maps/api';
+import {
+  withGoogleMap,
+  withScriptjs,
+  GoogleMap,
+  Polyline,
+} from "react-google-maps";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -31,13 +38,18 @@ const GOOGLE_MAPS_APIKEY = "AIzaSyBV_EvsR_SI9az9aAUM_ch9UU3MswZAqJM"
 const GOOGLE_MAPS_APITKEY_GEOCODING = "AIzaSyA4EvUX1w061o9J8CsYOYFWJWVfPZSSs0s"
 
 const RouteView = ({ route, navigation }) => {
+  const myContext = useContext(AppContext);
+
     Geocoder.init(GOOGLE_MAPS_APITKEY_GEOCODING)
 
     const [endPoint, setEndPoint] = useState(route.params.destination)
     const [destLat, setDestLat] = useState(0)
     const [destLng, setDestLng] = useState(0)
     const [dest, setDest] = useState(null)
-
+    const [response, setResponse] = React.useState(null);
+    const [centerLat, setCenterLat] = useState(0)
+    const [centerLng, setCenterLng] = useState(0)
+   
     React.useEffect(() => {
         Geocoder.from(endPoint) 
             .then(json => {
@@ -47,11 +59,18 @@ const RouteView = ({ route, navigation }) => {
                 setDest(location);
                 setDestLat(location.lat);
                 setDestLng(location.lng);
+                var lat = (coordinates[1].latitude + destLat) / 2;
+                var lng = (coordinates[1].longitude + destLng) / 2;
+                setCenterLat(lat);
+                setCenterLng(lng);
+
       })
       .catch(error => console.warn(error));
       }, [])
 
-      
+      const onPress = () => {
+        navigation.navigate("EmergencyContacts", { newFriendsData: [], title: "hello" })
+      }
 
   return (
     <>
@@ -77,14 +96,15 @@ const RouteView = ({ route, navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.bodyContainer}>
-          <Text style={styles.titleFonts}>My Current Location</Text>
+          <Text style={styles.titleFonts}>Edit Checkpoint</Text>
+          
           <MapView
             style={styles.map}
             provider={PROVIDER_GOOGLE}
             initialRegion={{
               latitude: 37.78825,
               longitude: -122.4324,
-              latitudeDelta: 0.0922,
+              latitudeDelta: 0.1522,
               longitudeDelta: 0.0421,
             }}
           >
@@ -103,15 +123,14 @@ const RouteView = ({ route, navigation }) => {
               strokeWidth = {3}
               strokeColor = "hotpink"
             />
+            
           </MapView>
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.buttonStyle}
             underlayColor="#fff"
-            onPress={() =>
-              navigation.navigate("EmergencyContacts", { newFriendsData: [] })
-            }
+            onPress={onPress}
           >
             <Text style={styles.buttonTextStyle}>Send to friends</Text>
           </TouchableOpacity>

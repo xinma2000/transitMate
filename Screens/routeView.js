@@ -7,13 +7,13 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import AppContext from './appContext';
+import AppContext from "./appContext";
 import { Text, Card, Button, Icon } from "react-native-elements";
 import { Marker } from "react-native-maps";
 import images from "../Constants/images";
-import MapView , { PROVIDER_GOOGLE } from "react-native-maps";
-import MapViewDirections from 'react-native-maps-directions';
-import Geocoder from 'react-native-geocoding';
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
+import Geocoder from "react-native-geocoding";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -27,43 +27,51 @@ const coordinates = [
     longitude: -122.4053769,
   },
 ];
-const GOOGLE_MAPS_APIKEY = "AIzaSyBV_EvsR_SI9az9aAUM_ch9UU3MswZAqJM"
-const GOOGLE_MAPS_APITKEY_GEOCODING = "AIzaSyA4EvUX1w061o9J8CsYOYFWJWVfPZSSs0s"
+const GOOGLE_MAPS_APIKEY = "AIzaSyBV_EvsR_SI9az9aAUM_ch9UU3MswZAqJM";
+const GOOGLE_MAPS_APITKEY_GEOCODING = "AIzaSyA4EvUX1w061o9J8CsYOYFWJWVfPZSSs0s";
 
 const RouteView = ({ route, navigation }) => {
   const myContext = useContext(AppContext);
 
-    Geocoder.init(GOOGLE_MAPS_APITKEY_GEOCODING)
+  Geocoder.init(GOOGLE_MAPS_APITKEY_GEOCODING);
 
-    const [endPoint, setEndPoint] = useState(route.params.destination)
-    const [destLat, setDestLat] = useState(0)
-    const [destLng, setDestLng] = useState(0)
-    const [dest, setDest] = useState(null)
-    const [response, setResponse] = React.useState(null);
-    const [centerLat, setCenterLat] = useState(0)
-    const [centerLng, setCenterLng] = useState(0)
-   
-    React.useEffect(() => {
-        Geocoder.from(endPoint)
-            .then(json => {
-                var location = json.results[0].geometry.location;
-                console.log("location is", location)
-                console.log("location latitude is", location.lat)
-                setDest(location);
-                setDestLat(location.lat);
-                setDestLng(location.lng);
-                var lat = (coordinates[1].latitude + destLat) / 2;
-                var lng = (coordinates[1].longitude + destLng) / 2;
-                setCenterLat(lat);
-                setCenterLng(lng);
-
+  const [endPoint, setEndPoint] = useState(route.params.destination);
+  const [destLat, setDestLat] = useState(0);
+  const [destLng, setDestLng] = useState(0);
+  const [dest, setDest] = useState(null);
+  const [coordList, setCoordList] = useState([]);
+  React.useEffect(() => {
+    Geocoder.from(endPoint)
+      .then((json) => {
+        var location = json.results[0].geometry.location;
+        console.log("location is", location);
+        console.log("location latitude is", location.lat);
+        setDest(location);
+        setDestLat(location.lat);
+        setDestLng(location.lng);
+        var startLat = coordinates[1].latitude - 0.161
+        var arr = []
+        for (var i = 0; i < 5; i++) {
+          arr.push({latitude: startLat + i * 0.032, longitude: coordinates[1].longitude + 0.12})
+          console.log(arr)
+        }
+        setCoordList(arr);
       })
-      .catch(error => console.warn(error));
-      }, [])
+      .catch((error) => console.warn(error));
+  }, []);
 
-      const onPress = () => {
-        navigation.navigate("EmergencyContacts", { newFriendsData: [], title: "hello" })
-      }
+  const onPress = () => {
+    navigation.navigate("EmergencyContacts", {
+      newFriendsData: [],
+      title: "hello",
+    });
+  };
+
+  const moveCoord = (coordinate, index) => {
+    coordList[index].latitude = coordinate.latitude;
+    coordList[index].longitude = coordinate.longitude;
+    setCoordList(coordList);
+  }
 
   return (
     <>
@@ -90,33 +98,43 @@ const RouteView = ({ route, navigation }) => {
         </View>
         <View style={styles.bodyContainer}>
           <Text style={styles.titleFonts}>Edit Checkpoint</Text>
-          
+
           <MapView
             style={styles.map}
             provider={PROVIDER_GOOGLE}
             initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.1522,
-              longitudeDelta: 0.0421,
+              latitude: coordinates[1].latitude,
+              longitude: coordinates[1].longitude,
+              latitudeDelta: 0.322,
+              longitudeDelta: 0.2421,
             }}
           >
-
-            <Marker coordinate = {coordinates[1]}/>
-    <Marker coordinate = {{
-        latitude: destLat,
-        longitude: destLng
-    }}/>
-    {console.log("destinationLat is", destLat)}
-    {console.log("destinationLng is", destLng)}
+            <Marker coordinate={coordinates[1]} />
+            <Marker
+              coordinate={{
+                latitude: destLat,
+                longitude: destLng,
+              }}
+            />
+            {coordList.map((item, index)=>{
+         return  <Marker draggable
+         key={index}
+         coordinate={{
+           latitude:item.latitude,
+           longitude: item.longitude,
+         }}
+         pinColor ={"orange"}
+         onDragEnd={(e) => moveCoord(e.nativeEvent.coordinate, index)}
+       />
+     })}
+            
             <MapViewDirections
               origin={coordinates[1]}
-              destination={{latitude: destLat, longitude: destLng}}
+              destination={{ latitude: destLat, longitude: destLng }}
               apikey={GOOGLE_MAPS_APIKEY}
-              strokeWidth = {3}
-              strokeColor = "hotpink"
+              strokeWidth={3}
+              strokeColor="hotpink"
             />
-            
           </MapView>
         </View>
         <View style={styles.buttonContainer}>
@@ -124,7 +142,10 @@ const RouteView = ({ route, navigation }) => {
             style={styles.buttonStyle}
             underlayColor="#fff"
             onPress={() =>
-              navigation.navigate("EmergencyContacts", { newFriendsData: [], title:"Send Route to" })
+              navigation.navigate("EmergencyContacts", {
+                newFriendsData: [],
+                title: "Send Route to",
+              })
             }
           >
             <Text style={styles.buttonTextStyle}>Send to friends</Text>
@@ -168,8 +189,8 @@ const styles = StyleSheet.create({
     width: width * 0.9,
     alignItems: "center",
     justifyContent: "center",
-    shadowOffset: {width: 2, height: 2,},
-    shadowColor: 'black',
+    shadowOffset: { width: 2, height: 2 },
+    shadowColor: "black",
     shadowOpacity: 0.1,
   },
   buttonTextStyle: {

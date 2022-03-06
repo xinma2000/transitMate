@@ -11,7 +11,7 @@ import {
 import { Text, Card, Button, Icon } from "react-native-elements";
 import { Marker } from "react-native-maps";
 import images from "../Constants/images";
-import MapView from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Picker } from '@react-native-picker/picker';
 
 const width = Dimensions.get("window").width;
@@ -30,7 +30,10 @@ const GOOGLE_MAPS_APIKEY = "AIzaSyBsODdzfnULgD0kcOrsedLKtA4-pbe0Og0"
 
 const CreateRoute = ({ navigation }) => {
   const [destintation, setDestination] = useState("")
-
+  const [x, setX] = useState({
+    latitude: 37.771707,
+    longitude: -122.4053769
+  })
   return (
     <>
       <View style={styles.container}>
@@ -80,6 +83,7 @@ const CreateRoute = ({ navigation }) => {
           </View>
           <MapView
             style={styles.map}
+            provider={PROVIDER_GOOGLE}
             initialRegion={{
               latitude: 37.771707,
               longitude: -122.4053769,
@@ -88,10 +92,8 @@ const CreateRoute = ({ navigation }) => {
             }}
           >
             <Marker draggable
-              coordinate = {{
-                latitude: 37.771707,
-                longitude: -122.4053769
-              }}
+              coordinate = {x}
+              onDragEnd={(e) => setX(e.nativeEvent.coordinate)}
             />
           </MapView>
         </View>

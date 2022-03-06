@@ -88,13 +88,8 @@ const EmergencyContacts = ({ route, navigation }) => {
       }
       setFriendsData([...data,...route.params.newFriendsData]);
     }
-<<<<<<< HEAD
     
     setPageTitle(route.params.title) 
-=======
-    let {title} = route.params;
-    setPageTitle(title)
->>>>>>> 026595c715d977d1e7cbe95fa67b64df626e7d9f
   },[route.params.newFriendsData]);
 
   const [chosen, setChosen] = useState([]);

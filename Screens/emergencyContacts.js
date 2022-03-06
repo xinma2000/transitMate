@@ -79,6 +79,7 @@ const EmergencyContacts = ({ route, navigation }) => {
 
   const renderItem = ({ item }) => {console.log("item", item); return <Item friend={item} />};
   const [friendsData, setFriendsData] = useState(data)
+  const [pageTitle, setPageTitle] = useState("")
 
   React.useEffect(() => {
     if (route.params.newFriendsData && route.params.newFriendsData.length > 0) {
@@ -87,6 +88,8 @@ const EmergencyContacts = ({ route, navigation }) => {
       }
       setFriendsData([...data,...route.params.newFriendsData]);
     }
+    let {title} = route.params;
+    setPageTitle(title) 
   },[route.params.newFriendsData]);
 
   const [chosen, setChosen] = useState([]);
@@ -164,7 +167,7 @@ const EmergencyContacts = ({ route, navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.bodyContainer}>
-          <Text style={styles.titleText}> Send Location To </Text>
+          <Text style={styles.titleText}> {pageTitle} </Text>
           <TextInput
             placeholder="🔍 Search friends"
             style={styles.textInput}

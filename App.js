@@ -12,6 +12,8 @@ import RouteView from './Screens/routeView';
 import Confirmation from './Screens/confirmation';
 import SavedRoutes from './Screens/savedRoutes';
 import SavedList from './Screens/savedList';
+import FriendsRoutes from './Screens/friendsRoutes';
+import FriendsStatus from './Screens/friendsStatus';
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from '@react-navigation/native';
 import AppContext from './Screens/appContext';
@@ -49,6 +51,8 @@ export default function App() {
         <Stack.Screen name="Confirmation" component={Confirmation}/>
         <Stack.Screen name="SavedList" component={SavedList} />
         <Stack.Screen name="SavedRoutes" component={SavedRoutes} />
+        <Stack.Screen name="FriendsRoutes" component={FriendsRoutes} />
+        <Stack.Screen name="FriendsStatus" component={FriendsStatus} />
 
     </Stack.Navigator>
 </NavigationContainer>

@@ -30,7 +30,8 @@ const FriendsLocation  = ({ route , navigation }) => {
               size = {30}
             />
           </TouchableOpacity>
-          <TouchableOpacity >
+          <TouchableOpacity 
+            onPress={() => navigation.navigate("Home")}>
             <Image
               source ={images.Logo}
               style={{
@@ -63,20 +64,20 @@ const FriendsLocation  = ({ route , navigation }) => {
             source={photo}
             resizeMode="cover"
             style={{
-              width: 0.9*width,
-              height: 575,
+              marginTop: 10,
+              width: width*0.9,
+              height: height*0.65,
               alignSelf: 'center',
-              marginTop: 15,
             }}
           />
           {friendName == "See/Request A Friend\'s Location"?
-          <Button
-            title="Request Friends' Location"
-            titleStyle={{ fontSize: 20, color: 'black', margin: 10, fontWeight: '600' }}
-            buttonStyle={{ backgroundColor: '#FFD64D', borderRadius: 8,}}
-            containerStyle={{ marginTop: 15, height: 60, width: width*0.9,}}
-            onPress={() => Alert.alert(' Button pressed')}
-          /> : null}
+           <TouchableOpacity
+           style ={styles.buttonStyle}
+           underlayColor='#fff'
+           onPress = {() => navigation.navigate("EmergencyContacts", {newFriendsData: [], title:"Request Location From"})}
+         >
+           <Text style = {styles.buttonTextStyle}>Request Friends' Location</Text>
+         </TouchableOpacity>: null}
         </View>
       </View>
     </>
@@ -110,6 +111,26 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     fontSize: 16,
+  },
+  buttonStyle: {
+    backgroundColor: "#FFD64D",
+    borderRadius: 8,
+    height: 60,
+    width: width * 0.9,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10
+  },
+  buttonTextStyle: {
+    color: 'black',
+    margin: 10,
+    fontWeight: '600',
+    fontSize: 20
+  },
+  map: {
+    marginTop: 10,
+    width: width*0.9,
+    height: height*0.7,
   },
 
 });

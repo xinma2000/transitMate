@@ -66,7 +66,7 @@ const MyLocation  = ({ navigation }) => {
           <TouchableOpacity
             style ={styles.buttonStyle}
             underlayColor='#fff'
-            onPress = {() => navigation.navigate("EmergencyContacts", {newFriendsData: []})}
+            onPress = {() => navigation.navigate("EmergencyContacts", {newFriendsData: [], title: "Send My Location To"})}
           >
             <Text style = {styles.buttonTextStyle}>Send to friends</Text>
           </TouchableOpacity>

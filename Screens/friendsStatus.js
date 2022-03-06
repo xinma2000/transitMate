@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   View,
-  ScrollView,
   StyleSheet,
   Image,
   Dimensions,
@@ -10,48 +9,37 @@ import {
 import { Text, Card, Button, Icon } from "react-native-elements";
 import { Marker } from "react-native-maps";
 import images from "../Constants/images";
-import MapView , { PROVIDER_GOOGLE } from "react-native-maps";
-import MapViewDirections from 'react-native-maps-directions';
-import Geocoder from 'react-native-geocoding';
-
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
+import Geocoder from "react-native-geocoding";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
-const coordinates = [
-  {
-    latitude: 37.3318456,
-    longitude: -122.0296002,
-  },
-  {
-    latitude: 37.771707,
-    longitude: -122.4053769,
-  },
-];
-const GOOGLE_MAPS_APIKEY = "AIzaSyBV_EvsR_SI9az9aAUM_ch9UU3MswZAqJM"
-const GOOGLE_MAPS_APITKEY_GEOCODING = "AIzaSyA4EvUX1w061o9J8CsYOYFWJWVfPZSSs0s"
+const GOOGLE_MAPS_APIKEY = "AIzaSyBV_EvsR_SI9az9aAUM_ch9UU3MswZAqJM";
 
-const RouteView = ({ route, navigation }) => {
-    Geocoder.init(GOOGLE_MAPS_APITKEY_GEOCODING)
+const FriendsStatus = ({ route, navigation }) => {
 
-    const [endPoint, setEndPoint] = useState(route.params.destination)
-    const [destLat, setDestLat] = useState(0)
-    const [destLng, setDestLng] = useState(0)
-    const [dest, setDest] = useState(null)
+  const [startLat, setStartLat] = useState(0);
+  const [startLng, setStartLng] = useState(0);
+  const [endLat, setEndLat] = useState(0);
+  const [endLng, setEndLng] = useState(0);
+  const [centerLat, setCenterLat] = useState(0);
+  const [centerLng, setCenterLng] = useState(0);
 
-    React.useEffect(() => {
-        Geocoder.from(endPoint) 
-            .then(json => {
-                var location = json.results[0].geometry.location;
-                console.log("location is", location)
-                console.log("location latitude is", location.lat)
-                setDest(location);
-                setDestLat(location.lat);
-                setDestLng(location.lng);
-      })
-      .catch(error => console.warn(error));
-      }, [])
-
-      
+  React.useEffect(() => {
+    let { startLat, startLng, endLat, endLng } = route.params;
+    {
+      console.log("startLat here is", startLat);
+    }
+    setStartLat(startLat);
+    setStartLng(startLng);
+    setEndLat(endLat);
+    setEndLng(endLng);
+    var lat = (startLat + endLat) / 2;
+    var lng = (startLng + endLng) / 2;
+    setCenterLng(lng);
+    setCenterLat(lat);
+  }, []);
 
   return (
     <>
@@ -82,26 +70,25 @@ const RouteView = ({ route, navigation }) => {
             style={styles.map}
             provider={PROVIDER_GOOGLE}
             initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
+              latitude: centerLat,
+              longitude: centerLng,
+              latitudeDelta: 0.522,
+              longitudeDelta: 0.221,
             }}
           >
-           
-            <Marker coordinate = {coordinates[1]}/>
-    <Marker coordinate = {{
-        latitude: destLat,
-        longitude: destLng
-    }}/>
-    {console.log("destinationLat is", destLat)}
-    {console.log("destinationLng is", destLng)}
+            <Marker coordinate={{ latitude: startLat, longitude: startLng }} />
+            <Marker
+              coordinate={{ latitude: endLat, longitude: endLng }}
+              pinColor={"navy"}
+            />
+            {console.log(centerLat)}
+            {console.log("startLat there is", startLat)}
             <MapViewDirections
-              origin={coordinates[1]}
-              destination={{latitude: destLat, longitude: destLng}}
+              origin={{ latitude: startLat, longitude: startLng }}
+              destination={{ latitude: endLat, longitude: endLng }}
               apikey={GOOGLE_MAPS_APIKEY}
-              strokeWidth = {3}
-              strokeColor = "hotpink"
+              strokeWidth={3}
+              strokeColor="hotpink"
             />
           </MapView>
         </View>
@@ -168,4 +155,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RouteView;
+export default FriendsStatus;

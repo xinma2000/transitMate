@@ -14,7 +14,6 @@ import MapView , { PROVIDER_GOOGLE } from "react-native-maps";
 import MapViewDirections from 'react-native-maps-directions';
 import Geocoder from 'react-native-geocoding';
 
-
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const coordinates = [
@@ -39,7 +38,7 @@ const RouteView = ({ route, navigation }) => {
     const [dest, setDest] = useState(null)
 
     React.useEffect(() => {
-        Geocoder.from(endPoint) 
+        Geocoder.from(endPoint)
             .then(json => {
                 var location = json.results[0].geometry.location;
                 console.log("location is", location)
@@ -51,7 +50,7 @@ const RouteView = ({ route, navigation }) => {
       .catch(error => console.warn(error));
       }, [])
 
-      
+
 
   return (
     <>
@@ -77,7 +76,7 @@ const RouteView = ({ route, navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.bodyContainer}>
-          <Text style={styles.titleFonts}>My Current Location</Text>
+          <Text style={styles.titleFonts}>My Current Route</Text>
           <MapView
             style={styles.map}
             provider={PROVIDER_GOOGLE}
@@ -88,7 +87,7 @@ const RouteView = ({ route, navigation }) => {
               longitudeDelta: 0.0421,
             }}
           >
-           
+
             <Marker coordinate = {coordinates[1]}/>
     <Marker coordinate = {{
         latitude: destLat,
@@ -110,7 +109,7 @@ const RouteView = ({ route, navigation }) => {
             style={styles.buttonStyle}
             underlayColor="#fff"
             onPress={() =>
-              navigation.navigate("EmergencyContacts", { newFriendsData: [] })
+              navigation.navigate("EmergencyContacts", { newFriendsData: [], title:"Send Route to" })
             }
           >
             <Text style={styles.buttonTextStyle}>Send to friends</Text>
@@ -154,6 +153,9 @@ const styles = StyleSheet.create({
     width: width * 0.9,
     alignItems: "center",
     justifyContent: "center",
+    shadowOffset: {width: 2, height: 2,},
+    shadowColor: 'black',
+    shadowOpacity: 0.1,
   },
   buttonTextStyle: {
     color: "black",

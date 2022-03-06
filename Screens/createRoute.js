@@ -12,8 +12,7 @@ import { Text, Card, Button, Icon } from "react-native-elements";
 import { Marker } from "react-native-maps";
 import images from "../Constants/images";
 import MapView from "react-native-maps";
-import {Picker} from '@react-native-picker/picker';
-
+import { Picker } from '@react-native-picker/picker';
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -56,14 +55,29 @@ const CreateRoute = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.bodyContainer}>
-          <Text style={styles.titleFonts}> Enter Destination</Text>
-      <TextInput
-        style={styles.textInput}
-        onChangeText={setDestination}
-        value={destintation}
-        placeholder="🔍 Search"
-        keyboardType="numeric"
-      />
+          <Text style={styles.titleFonts}>Enter Destination</Text>
+          <View style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: "center",
+            marginTop: 10,
+          }}
+          >
+            <TextInput
+              style={styles.textInput}
+              onChangeText={setDestination}
+              value={destintation}
+              placeholder="🔍 Search"
+              keyboardType="numeric"
+            />
+            <TouchableOpacity
+              style={styles.smallButton}
+              underlayColor="#fff"
+              onPress={() => navigation.navigate("SavedList")}
+            >
+              <Text style={styles.buttonTextStyle}>★</Text>
+            </TouchableOpacity>
+          </View>
           <MapView
             style={styles.map}
             initialRegion={{
@@ -73,7 +87,7 @@ const CreateRoute = ({ navigation }) => {
               longitudeDelta: 0.0421,
             }}
           >
-            <Marker draggable 
+            <Marker draggable
               coordinate = {{
                 latitude: 37.771707,
                 longitude: -122.4053769
@@ -82,15 +96,6 @@ const CreateRoute = ({ navigation }) => {
           </MapView>
         </View>
         <View style={styles.buttonContainer}>
-        <TouchableOpacity
-            style={styles.buttonStyle}
-            underlayColor="#fff"
-            onPress={() =>
-              navigation.navigate("SavedList")
-            }
-          >
-            <Text style={styles.buttonTextStyle}>Saved Routes</Text>
-          </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonStyle}
             underlayColor="#fff"
@@ -112,10 +117,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginHorizontal: 15,
   },
-  test: {
-    alignItems: 'center',
-
-  },
   headerContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
   map: {
     marginTop: 10,
     width: width * 0.9,
-    height: height * 0.6,
+    height: height * 0.63,
   },
   buttonStyle: {
     backgroundColor: "#FFD64D",
@@ -144,6 +145,9 @@ const styles = StyleSheet.create({
     width: width * 0.9,
     alignItems: "center",
     justifyContent: "center",
+    shadowOffset: {width: 2, height: 2,},
+    shadowColor: 'black',
+    shadowOpacity: 0.1,
   },
   buttonTextStyle: {
     color: "black",
@@ -158,13 +162,24 @@ const styles = StyleSheet.create({
   },
   textInput: {
     height: 50,
-    width: width*0.9,
-    marginTop: 10,
+    width: width*0.75,
     borderWidth: 1,
     borderRadius: 8,
     padding: 10,
     fontSize: 16,
   },
+  smallButton: {
+    backgroundColor: "#FFD64D",
+    borderRadius: 8,
+    height: 50,
+    width: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: 10,
+    shadowOffset: {width: 2, height: 2,},
+    shadowColor: 'black',
+    shadowOpacity: 0.1,
+  }
 });
 
 export default CreateRoute;

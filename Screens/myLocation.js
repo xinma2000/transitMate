@@ -108,7 +108,10 @@ const styles = StyleSheet.create({
     height: 60,
     width: width*0.9,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    shadowOffset: {width: 2, height: 2,},
+    shadowColor: 'black',
+    shadowOpacity: 0.1,
   },
   buttonTextStyle: {
     color: 'black',

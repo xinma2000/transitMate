@@ -30,7 +30,7 @@ const FriendsLocation  = ({ route , navigation }) => {
               size = {30}
             />
           </TouchableOpacity>
-          <TouchableOpacity 
+          <TouchableOpacity
             onPress={() => navigation.navigate("Home")}>
             <Image
               source ={images.Logo}
@@ -119,7 +119,10 @@ const styles = StyleSheet.create({
     width: width * 0.9,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 10
+    marginTop: 10,
+    shadowOffset: {width: 2, height: 2,},
+    shadowColor: 'black',
+    shadowOpacity: 0.1,
   },
   buttonTextStyle: {
     color: 'black',

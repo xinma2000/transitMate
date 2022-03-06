@@ -18,7 +18,7 @@ const height = Dimensions.get("window").height;
 const GOOGLE_MAPS_APIKEY = "AIzaSyBV_EvsR_SI9az9aAUM_ch9UU3MswZAqJM";
 
 const FriendsStatus = ({ route, navigation }) => {
-
+  const [name, setName] = useState(0);
   const [startLat, setStartLat] = useState(0);
   const [startLng, setStartLng] = useState(0);
   const [endLat, setEndLat] = useState(0);
@@ -27,14 +27,13 @@ const FriendsStatus = ({ route, navigation }) => {
   const [centerLng, setCenterLng] = useState(0);
 
   React.useEffect(() => {
-    let { startLat, startLng, endLat, endLng } = route.params;
-    {
-      console.log("startLat here is", startLat);
-    }
+    let { name, startLat, startLng, endLat, endLng } = route.params;
+    {console.log("startLat here is", startLat)}
     setStartLat(startLat);
     setStartLng(startLng);
     setEndLat(endLat);
     setEndLng(endLng);
+    setName(name);
     var lat = (startLat + endLat) / 2;
     var lng = (startLng + endLng) / 2;
     setCenterLng(lng);
@@ -65,7 +64,7 @@ const FriendsStatus = ({ route, navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.bodyContainer}>
-          <Text style={styles.titleFonts}>My Current Location</Text>
+          <Text style={styles.titleFonts}>{name}'s Route</Text>
           <MapView
             style={styles.map}
             provider={PROVIDER_GOOGLE}
@@ -97,10 +96,10 @@ const FriendsStatus = ({ route, navigation }) => {
             style={styles.buttonStyle}
             underlayColor="#fff"
             onPress={() =>
-              navigation.navigate("EmergencyContacts", { newFriendsData: [] })
+              navigation.goBack()
             }
           >
-            <Text style={styles.buttonTextStyle}>Send to friends</Text>
+            <Text style={styles.buttonTextStyle}>Ok</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -141,6 +140,9 @@ const styles = StyleSheet.create({
     width: width * 0.9,
     alignItems: "center",
     justifyContent: "center",
+    shadowOffset: {width: 2, height: 2,},
+    shadowColor: 'black',
+    shadowOpacity: 0.1,
   },
   buttonTextStyle: {
     color: "black",

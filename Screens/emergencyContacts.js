@@ -88,8 +88,13 @@ const EmergencyContacts = ({ route, navigation }) => {
       }
       setFriendsData([...data,...route.params.newFriendsData]);
     }
+<<<<<<< HEAD
     
     setPageTitle(route.params.title) 
+=======
+    let {title} = route.params;
+    setPageTitle(title)
+>>>>>>> 026595c715d977d1e7cbe95fa67b64df626e7d9f
   },[route.params.newFriendsData]);
 
   const [chosen, setChosen] = useState([]);
@@ -167,7 +172,7 @@ const EmergencyContacts = ({ route, navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.bodyContainer}>
-          <Text style={styles.titleText}> {pageTitle} </Text>
+          <Text style={styles.titleText}>{pageTitle}</Text>
           <TextInput
             placeholder="🔍 Search friends"
             style={styles.textInput}
@@ -196,13 +201,22 @@ const EmergencyContacts = ({ route, navigation }) => {
             <Text style={styles.bodyFonts}>Add From Contacts</Text>
           </TouchableOpacity>
         </View>
-        <Button
-          title="Send Current Location"
-          titleStyle={styles.buttonTextStyle}
-          buttonStyle={styles.buttonStyle}
-          containerStyle={styles.buttonContainer}
-          onPress={createTwoButtonAlert}
-        />
+        {pageTitle == "Request Location From"?
+          <Button
+            title="Request"
+            titleStyle={styles.buttonTextStyle}
+            buttonStyle={styles.buttonStyle}
+            containerStyle={styles.buttonContainer}
+            onPress={createTwoButtonAlert}
+          /> :
+          <Button
+            title="Send"
+            titleStyle={styles.buttonTextStyle}
+            buttonStyle={styles.buttonStyle}
+            containerStyle={styles.buttonContainer}
+            onPress={createTwoButtonAlert}
+          />
+        }
       </View>
     </>
   );
@@ -272,7 +286,10 @@ const styles = StyleSheet.create({
     height: 60,
     width: width*0.9,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    shadowOffset: {width: 2, height: 2,},
+    shadowColor: 'black',
+    shadowOpacity: 0.1,
   },
   buttonTextStyle: {
     color: 'black',

@@ -14,13 +14,6 @@ import images from "../Constants/images";
 import MapView , { PROVIDER_GOOGLE } from "react-native-maps";
 import MapViewDirections from 'react-native-maps-directions';
 import Geocoder from 'react-native-geocoding';
-import { DirectionsService } from '@react-google-maps/api';
-import {
-  withGoogleMap,
-  withScriptjs,
-  GoogleMap,
-  Polyline,
-} from "react-google-maps";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -51,7 +44,7 @@ const RouteView = ({ route, navigation }) => {
     const [centerLng, setCenterLng] = useState(0)
    
     React.useEffect(() => {
-        Geocoder.from(endPoint) 
+        Geocoder.from(endPoint)
             .then(json => {
                 var location = json.results[0].geometry.location;
                 console.log("location is", location)
@@ -108,7 +101,7 @@ const RouteView = ({ route, navigation }) => {
               longitudeDelta: 0.0421,
             }}
           >
-           
+
             <Marker coordinate = {coordinates[1]}/>
     <Marker coordinate = {{
         latitude: destLat,
@@ -130,7 +123,9 @@ const RouteView = ({ route, navigation }) => {
           <TouchableOpacity
             style={styles.buttonStyle}
             underlayColor="#fff"
-            onPress={onPress}
+            onPress={() =>
+              navigation.navigate("EmergencyContacts", { newFriendsData: [], title:"Send Route to" })
+            }
           >
             <Text style={styles.buttonTextStyle}>Send to friends</Text>
           </TouchableOpacity>
@@ -173,6 +168,9 @@ const styles = StyleSheet.create({
     width: width * 0.9,
     alignItems: "center",
     justifyContent: "center",
+    shadowOffset: {width: 2, height: 2,},
+    shadowColor: 'black',
+    shadowOpacity: 0.1,
   },
   buttonTextStyle: {
     color: "black",

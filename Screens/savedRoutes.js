@@ -26,7 +26,7 @@ const coordinates = [
     latitude: 37.3318456,
     longitude: -122.0296002,
   },
-  
+
   {
     latitude: 37.4275,
     longitude: -122.1697,
@@ -97,7 +97,7 @@ const SavedRoutes = ({ route, navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.bodyContainer}>
-          <Text style={styles.titleFonts}>My Current Location</Text>
+          <Text style={styles.titleFonts}>My Current Route</Text>
           <MapView
             style={styles.map}
             provider={PROVIDER_GOOGLE}
@@ -110,7 +110,7 @@ const SavedRoutes = ({ route, navigation }) => {
           >
             <Marker coordinate = {{latitude: 37.771707,
     longitude: -122.4053769,}}/>
-     <Marker 
+     <Marker
         coordinate = {coordinates[endPoint]}
             pinColor = {"navy"}
     />
@@ -128,7 +128,7 @@ const SavedRoutes = ({ route, navigation }) => {
             style={styles.buttonStyle}
             underlayColor="#fff"
             onPress={() =>
-              navigation.navigate("EmergencyContacts", { newFriendsData: [] })
+              navigation.navigate("EmergencyContacts", { newFriendsData: [], title: "Send My Route To" })
             }
           >
             <Text style={styles.buttonTextStyle}>Send to friends</Text>
@@ -172,6 +172,9 @@ const styles = StyleSheet.create({
     width: width * 0.9,
     alignItems: "center",
     justifyContent: "center",
+    shadowOffset: {width: 2, height: 2,},
+    shadowColor: 'black',
+    shadowOpacity: 0.1,
   },
   buttonTextStyle: {
     color: "black",

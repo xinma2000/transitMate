@@ -19,19 +19,25 @@ import Geocoder from "react-native-geocoding";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
-
 const SavedList = ({ navigation }) => {
-    const [routesData, setRoutesData] = useState([
-        { destination: "Apple Park", index: 1 },
-        { destination: "Stanford University", index: 2 },
-        { destination: "Golden Gate Park", index: 3 },
-      ]);
+  const [routesData, setRoutesData] = useState([
+    { destination: "Apple Park", index: 1 },
+    { destination: "Stanford University", index: 2 },
+    { destination: "Golden Gate Park", index: 3 },
+  ]);
 
   const Item = ({ destination }) => (
     <View style={styles.item} key={destination.index}>
       <TouchableOpacity
-      onPress = {() => navigation.navigate("SavedRoutes", {destination: destination.destination})}>
-        <Text style={styles.titleText}>{destination.destination}</Text>
+        style = {styles.locName}
+        onPress = {() =>
+          navigation.navigate("SavedRoutes", {destination: destination.destination})}
+      >
+        <Icon name="location-sharp" type="ionicon" size={35} />
+        <Text style={styles.bodyFonts}>{destination.destination}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Icon name="pencil" type="simple-line-icon" size={25} />
       </TouchableOpacity>
     </View>
   );
@@ -102,30 +108,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-  map: {
-    marginTop: 10,
-    width: width * 0.9,
-    height: height * 0.7,
+  locName:{
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  buttonStyle: {
-    backgroundColor: "#FFD64D",
-    borderRadius: 8,
-    height: 60,
-    width: width * 0.9,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonTextStyle: {
-    color: "black",
-    margin: 10,
-    fontWeight: "600",
+  bodyFonts: {
     fontSize: 20,
+    marginLeft: 8,
   },
-  buttonContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 15,
-  },
+  item: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 15
+  }
 });
 
 export default SavedList;

@@ -100,7 +100,6 @@ const SavedRoutes = ({ route, navigation }) => {
           <Text style={styles.titleFonts}>My Current Route</Text>
           <MapView
             style={styles.map}
-            provider={PROVIDER_GOOGLE}
             initialRegion={{
             latitude: centerLat,
             longitude: centerLng,

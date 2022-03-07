@@ -83,7 +83,6 @@ const CreateRoute = ({ navigation }) => {
           </View>
           <MapView
             style={styles.map}
-            provider={PROVIDER_GOOGLE}
             initialRegion={{
               latitude: 37.771707,
               longitude: -122.4053769,

@@ -3,7 +3,6 @@ import { View, ScrollView, StyleSheet, Image, Dimensions, TouchableOpacity } fro
 import { Text, Card, Button, Icon } from 'react-native-elements';
 import { Marker } from 'react-native-maps';
 import  images  from '../Constants/images';
-import MapView from 'react-native-maps';
 import * as Progress from 'react-native-progress';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;

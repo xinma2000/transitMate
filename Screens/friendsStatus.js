@@ -16,7 +16,16 @@ import Geocoder from "react-native-geocoding";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const GOOGLE_MAPS_APIKEY = "AIzaSyBV_EvsR_SI9az9aAUM_ch9UU3MswZAqJM";
-
+const coordinates = [
+  {
+    latitude: 37.3318456,
+    longitude: -122.0296002,
+  },
+  {
+    latitude: 37.771707,
+    longitude: -122.4053769,
+  },
+];
 const FriendsStatus = ({ route, navigation }) => {
   const [name, setName] = useState(0);
   const [startLat, setStartLat] = useState(0);
@@ -34,10 +43,10 @@ const FriendsStatus = ({ route, navigation }) => {
     setEndLat(endLat);
     setEndLng(endLng);
     setName(name);
-    var lat = (startLat + endLat) / 2;
-    var lng = (startLng + endLng) / 2;
-    setCenterLng(lng);
-    setCenterLat(lat);
+    //var lat = (startLat + endLat) / 2;
+    //var lng = (startLng + endLng) / 2;
+    //setCenterLng(lng);
+    //setCenterLat(lat);
   }, []);
 
   return (
@@ -67,12 +76,17 @@ const FriendsStatus = ({ route, navigation }) => {
           <Text style={styles.titleFonts}>{name}'s Route</Text>
           <MapView
             style={styles.map}
-            provider={PROVIDER_GOOGLE}
-            initialRegion={{
-              latitude: centerLat,
-              longitude: centerLng,
+            /*initialRegion={{
+              latitude: startLat,
+              longitude: startLng,
               latitudeDelta: 0.522,
               longitudeDelta: 0.221,
+            }}*/
+            initialRegion={{
+              latitude: coordinates[1].latitude,
+              longitude: coordinates[1].longitude,
+              latitudeDelta: 0.322,
+              longitudeDelta: 0.2421,
             }}
           >
             <Marker coordinate={{ latitude: startLat, longitude: startLng }} />
@@ -80,8 +94,6 @@ const FriendsStatus = ({ route, navigation }) => {
               coordinate={{ latitude: endLat, longitude: endLng }}
               pinColor={"navy"}
             />
-            {console.log(centerLat)}
-            {console.log("startLat there is", startLat)}
             <MapViewDirections
               origin={{ latitude: startLat, longitude: startLng }}
               destination={{ latitude: endLat, longitude: endLng }}

@@ -47,11 +47,14 @@ const RouteView = ({ route, navigation }) => {
         console.log("location latitude is", location.lat);
         setDestLat(location.lat);
         setDestLng(location.lng);
-        var startLat = coordinates[1].latitude - 0.161
-        var arr = []
+        var startLat = coordinates[1].latitude - 0.161;
+        var arr = [];
         for (var i = 0; i < 5; i++) {
-          arr.push({latitude: startLat + i * 0.032, longitude: coordinates[1].longitude + 0.1})
-          console.log(arr)
+          arr.push({
+            latitude: startLat + i * 0.032,
+            longitude: coordinates[1].longitude + 0.1,
+          });
+          console.log(arr);
         }
         setCoordList(arr);
       })
@@ -65,14 +68,14 @@ const RouteView = ({ route, navigation }) => {
     });
     myContext.toggleOnRoute();
     //myContext.onRoute = true;
-    console.log("mycontext is", myContext.onRoute)
+    console.log("mycontext is", myContext.onRoute);
   };
 
   const moveCoord = (coordinate, index) => {
     coordList[index].latitude = coordinate.latitude;
     coordList[index].longitude = coordinate.longitude;
     setCoordList(coordList);
-  }
+  };
 
   return (
     <>
@@ -99,11 +102,13 @@ const RouteView = ({ route, navigation }) => {
         </View>
         <View style={styles.bodyContainer}>
           <Text style={styles.titleFonts}>Set Checkpoints</Text>
-          <Text>Drag the yellow markers to any point on your route to set checkpoints</Text>
+          <Text>
+            Drag the yellow markers to any point on your route to set
+            checkpoints
+          </Text>
 
           <MapView
             style={styles.map}
-            provider={PROVIDER_GOOGLE}
             initialRegion={{
               latitude: coordinates[1].latitude,
               longitude: coordinates[1].longitude,
@@ -118,18 +123,21 @@ const RouteView = ({ route, navigation }) => {
                 longitude: destLng,
               }}
             />
-            {coordList.map((item, index)=>{
-         return  <Marker draggable
-         key={index}
-         coordinate={{
-           latitude:item.latitude,
-           longitude: item.longitude,
-         }}
-         pinColor ={"orange"}
-         onDragEnd={(e) => moveCoord(e.nativeEvent.coordinate, index)}
-       />
-     })}
-            
+            {coordList.map((item, index) => {
+              return (
+                <Marker
+                  draggable
+                  key={index}
+                  coordinate={{
+                    latitude: item.latitude,
+                    longitude: item.longitude,
+                  }}
+                  pinColor={"orange"}
+                  onDragEnd={(e) => moveCoord(e.nativeEvent.coordinate, index)}
+                />
+              );
+            })}
+
             <MapViewDirections
               origin={coordinates[1]}
               destination={{ latitude: destLat, longitude: destLng }}
@@ -143,12 +151,12 @@ const RouteView = ({ route, navigation }) => {
           <TouchableOpacity
             style={styles.buttonStyle}
             underlayColor="#fff"
-            onPress={/*() =>
+            onPress={
+              () =>
               navigation.navigate("EmergencyContacts", {
                 newFriendsData: [],
                 title: "Send Route to",
-              })*/
-              onPress
+              })
             }
           >
             <Text style={styles.buttonTextStyle}>Send to friends</Text>

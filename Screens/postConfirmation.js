@@ -30,44 +30,34 @@ const coordinates = [
 const GOOGLE_MAPS_APIKEY = "AIzaSyBV_EvsR_SI9az9aAUM_ch9UU3MswZAqJM";
 const GOOGLE_MAPS_APITKEY_GEOCODING = "AIzaSyA4EvUX1w061o9J8CsYOYFWJWVfPZSSs0s";
 
-const RouteConfirmation = ({ route, navigation }) => {
+const PostConfirmation = ({ route, navigation }) => {
   const myContext = useContext(AppContext);
 
   Geocoder.init(GOOGLE_MAPS_APITKEY_GEOCODING);
 
-  const [endPoint, setEndPoint] = useState(route.params.destination);
+  //const [endPoint, setEndPoint] = useState(route.params.destination);
   const [destLat, setDestLat] = useState(0);
   const [destLng, setDestLng] = useState(0);
   const [coordList, setCoordList] = useState([]);
-  const [destination, setDestination] = useState("")
+  const [destination, setDestination] = useState("");
+  const [numMarkers, setNumMarkers] = useState(myContext.numMarkers);
   React.useEffect(() => {
-    let {destLat, destLng, markers, destinationString} = route.params;
+    /*let {destLat, destLng, markers, destinationString} = route.params;
     setDestination(destinationString)
     setDestLat(destLat)
     setDestLng(destLng)
-    setCoordList(markers)
+    setCoordList(markers)*/
   }, []);
 
-
-  const createTwoButtonAlert = () =>
-    Alert.alert(
-      "Saving your route to",
-      destination,
-      [
-        {
-          text: "Confirm",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "Cancel", onPress: () => console.log("OK Pressed") }
-      ]
-    );
-  
   const onPress = () => {
     navigation.navigate("EmergencyContacts", {
       newFriendsData: [],
       title: "Share Route With",
     });
+  };
+  const onPressEnd = () => {
+    myContext.notOnRoute();
+    navigation.navigate("Home");
   };
 
   return (
@@ -95,12 +85,8 @@ const RouteConfirmation = ({ route, navigation }) => {
         </View>
         <View style={styles.bodyContainer}>
           <Text style={styles.titleFonts}>Your Route</Text>
-          {console.log(myContext.counter)}
-              {console.log("route confirmation", myContext.numMarkers)}
-          <Text>
-             
-            {(myContext.counter/myContext.numMarkers)}% Complete
-          </Text>
+
+          <Text>{myContext.counter / numMarkers}% Complete</Text>
 
           <MapView
             style={styles.map}
@@ -112,24 +98,30 @@ const RouteConfirmation = ({ route, navigation }) => {
             }}
           >
             <Marker coordinate={myContext.origin} />
-            <Marker
-              coordinate={{
-                latitude: myContext.destination.latitude,
-                longitude: myContext.destination.longitude,
-              }}
-            />
-            {myContext.markers.map((item, index)=>{
-         return  <Marker 
-         key={index}
-         coordinate={{
-           latitude:item.latitude,
-           longitude: item.longitude,
-         }}
-         pinColor ='orange'
-       />
-     })}
+            <Marker coordinate={myContext.destination} />
+            {myContext.markers.map((item, index) => {
+              return index <= myContext.counter ? (
+                <Marker
+                  key={index}
+                  coordinate={{
+                    latitude: item.latitude,
+                    longitude: item.longitude,
+                  }}
+                  pinColor="blue"
+                />
+              ) : (
+                <Marker
+                  key={index}
+                  coordinate={{
+                    latitude: item.latitude,
+                    longitude: item.longitude,
+                  }}
+                  pinColor="orange"
+                />
+              );
+            })}
             <MapViewDirections
-              origin={coordinates[1]}
+              origin={myContext.origin}
               destination={myContext.destination}
               apikey={GOOGLE_MAPS_APIKEY}
               strokeWidth={3}
@@ -137,28 +129,24 @@ const RouteConfirmation = ({ route, navigation }) => {
             />
           </MapView>
         </View>
-        <Button
-            title="Save Route"
-            titleStyle={styles.buttonTextStyle}
-            buttonStyle={styles.whiteButtonStyle}
-            containerStyle={styles.buttonContainer}
-            onPress={createTwoButtonAlert}
-          /> 
-
-        <View style={styles.halfButtonContainer}>
-        <TouchableOpacity
-            style={styles.halfButtonStyle}
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.buttonStyle}
             underlayColor="#fff"
-            onPress={onPress}
+            onPress={() =>
+              navigation.navigate("EmergencyContacts", {
+                title: "Share Route with",
+              })
+            }
           >
             <Text style={styles.buttonTextStyle}>Share Route</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.halfButtonStyle}
+            style={styles.blackbuttonStyle}
             underlayColor="#fff"
-            onPress={() => navigation.navigate("SentConfirmation", {title: "Route Sent"})}
+            onPress={onPressEnd}
           >
-            <Text style={styles.buttonTextStyle}>Continue</Text>
+            <Text style={styles.whitebuttonTextStyle}>End Route</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -167,6 +155,24 @@ const RouteConfirmation = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  blackbuttonStyle: {
+    backgroundColor: "black",
+    borderRadius: 8,
+    height: 50,
+    width: width * 0.9,
+    marginBottom: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowOffset: { width: 2, height: 2 },
+    shadowColor: "black",
+    shadowOpacity: 0.1,
+  },
+  whitebuttonTextStyle: {
+    color: "white",
+    margin: 10,
+    fontWeight: "600",
+    fontSize: 20,
+  },
   container: {
     marginTop: 15,
     marginHorizontal: 15,
@@ -238,30 +244,31 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginTop: 15,
-    marginLeft: 7
+    marginLeft: 7,
   },
   buttonStyle: {
-    backgroundColor: '#FFD64D',
+    backgroundColor: "#FFD64D",
     borderRadius: 8,
-    height: 60,
-    width: width*0.9,
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowOffset: {width: 2, height: 2,},
-    shadowColor: 'black',
+    height: 50,
+    width: width * 0.9,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowOffset: { width: 2, height: 2 },
+    shadowColor: "black",
     shadowOpacity: 0.1,
+    marginBottom: 10,
   },
   buttonTextStyle: {
-    color: 'black',
+    color: "black",
     margin: 10,
-    fontWeight: '600',
-    fontSize: 20
+    fontWeight: "600",
+    fontSize: 20,
   },
   buttonContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 15,
-  }
+  },
 });
 
-export default RouteConfirmation;
+export default PostConfirmation;

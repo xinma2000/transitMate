@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
   View,
-  ScrollView,
+  Alert,
   StyleSheet,
   Image,
   Dimensions,
@@ -100,7 +100,7 @@ const CreateRoute = ({ navigation }) => {
             style={styles.buttonStyle}
             underlayColor="#fff"
             onPress={() =>
-              navigation.navigate("RouteView", {destination: destintation})
+              navigation.navigate("ModeSelection", {destination: destintation})
             }
           >
             <Text style={styles.buttonTextStyle}>Search Route</Text>

@@ -14,7 +14,10 @@ import SavedRoutes from './Screens/savedRoutes';
 import SavedList from './Screens/savedList';
 import FriendsRoutes from './Screens/friendsRoutes';
 import FriendsStatus from './Screens/friendsStatus';
+import CheckPoints from './Screens/checkPoints';
 import NotSafe from './Screens/notSafe';
+import PostConfirmation from './Screens/postConfirmation';
+import ModeSelection from './Screens/modeSelection';
 import RouteConfirmation from './Screens/routeConfirmation';
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from '@react-navigation/native';
@@ -27,26 +30,49 @@ const Stack = createStackNavigator();
 export default function App() {
   const [onRoute, setOnRoute] = useState(false);
   const toggleOnRoute = () => {
-    setOnRoute(true)
+      setOnRoute(true)
   }
 
+  const notOnRoute = () => {
+    setOnRoute(false)
+  }
+
+  const [counter, setCounter] = useState(0);
+  //increment checkpoints that have been completed
+  const increment = () => {
+    counter++;
+    setCounter(counter)
+  }
+  //number of markers used (utilized in checkPoints)
+  const [numMarkers, setNumMarkers] = useState(0);
+  const regNumMarkers = (num) => {
+    setNumMarkers(num);
+  }
+  //destination of the trip
   const [destination, setDestination] = useState(null);
   const changeDestination = (destination) => {
       setDestination(destination)
   }
-
+  //origin of the trip
   const [origin, setOrigin] = useState(null);
   const changeOrigin = (origin) => {
       setOrigin(origin)
   }
-
+  //coordinate list of markers
   const [markers, setMarkers] = useState([]);
   const changeMarkers = (markers) => {
     setMarkers(markers)
   }
 
   return (
-    <AppContext.Provider value={{onRoute, toggleOnRoute, destination,changeDestination, origin, changeOrigin, markers, changeMarkers}}>
+    <AppContext.Provider value={{
+      onRoute, toggleOnRoute, notOnRoute,
+      destination,changeDestination, 
+      origin, changeOrigin, 
+      markers, changeMarkers, 
+      counter, increment, 
+      numMarkers, regNumMarkers,
+      }}>
     <NavigationContainer>
     <Stack.Navigator
         screenOptions={{
@@ -68,7 +94,10 @@ export default function App() {
         <Stack.Screen name="FriendsRoutes" component={FriendsRoutes} />
         <Stack.Screen name="FriendsStatus" component={FriendsStatus} />
         <Stack.Screen name="NotSafe" component={NotSafe} />
+        <Stack.Screen name="CheckPoints" component={CheckPoints} />
+        <Stack.Screen name="ModeSelection" component={ModeSelection} />
         <Stack.Screen name="RouteConfirmation" component={RouteConfirmation} />
+        <Stack.Screen name="PostConfirmation" component={PostConfirmation} />
     </Stack.Navigator>
 </NavigationContainer>
 </AppContext.Provider>

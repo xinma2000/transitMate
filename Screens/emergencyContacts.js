@@ -127,7 +127,7 @@ const EmergencyContacts = ({ route, navigation }) => {
           },
           {
             text: "Confirm",
-            onPress: () => navigation.navigate("SentConfirmation"),
+            onPress: () => (pageTitle === "Share Route With" ?navigation.navigate("SentConfirmation", {title: "Route sent"}) :navigation.navigate("SentConfirmation", {title: "Location sent"})),
           },
         ])
       : Alert.alert(

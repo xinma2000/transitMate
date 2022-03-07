@@ -8,7 +8,7 @@ import MapView from 'react-native-maps';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
-const SentConfirmation  = ({ navigation }) => {
+const SentConfirmation  = ({ route, navigation }) => {
 
   return (
     <>
@@ -22,7 +22,7 @@ const SentConfirmation  = ({ navigation }) => {
               marginBottom: 10,
             }}
           />
-          <Text style={styles.confirmationText}>Location sent!</Text>
+          <Text style={styles.confirmationText}>{route.params.title}</Text>
         </View>
         <TouchableOpacity
           onPress = {() => navigation.navigate('Home')}

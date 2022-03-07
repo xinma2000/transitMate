@@ -37,21 +37,27 @@ const RouteView = ({ route, navigation }) => {
 
   const [endPoint, setEndPoint] = useState(route.params.destination);
   const [destLat, setDestLat] = useState(0);
+  const [dest, setDest] = useState(null);
   const [destLng, setDestLng] = useState(0);
   const [coordList, setCoordList] = useState([]);
+  const [markerNum, setMarkerNum] = useState(myContext.numMarkers)
   React.useEffect(() => {
     Geocoder.from(endPoint)
       .then((json) => {
         var location = json.results[0].geometry.location;
         console.log("location is", location);
         console.log("location latitude is", location.lat);
+        var tempDest = {latitude: 0, longitude: 0}
+        tempDest.longitude = location.lng
+        tempDest.latitude = location.lat
+        setDest(tempDest);
         setDestLat(location.lat);
         setDestLng(location.lng);
         var startLat = coordinates[1].latitude - 0.161;
         var arr = [];
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < markerNum; i++) {
           arr.push({
-            latitude: startLat + i * 0.032,
+            latitude: startLat + i * (0.161/markerNum),
             longitude: coordinates[1].longitude + 0.1,
           });
           console.log(arr);
@@ -70,9 +76,10 @@ const RouteView = ({ route, navigation }) => {
       destinationString: endPoint
     });
     myContext.toggleOnRoute();
+    //myContext.changeDestCoord(dest);
     myContext.changeDestination({latitude: destLat, longitude: destLng});
     myContext.changeOrigin(coordinates[1]);
-    myContext.changeMarkers(coordList)
+    myContext.changeMarkers(coordList);
     //myContext.onRoute = true;
     console.log("mycontext in routeview is", myContext.onRoute);
   };
@@ -143,10 +150,11 @@ const RouteView = ({ route, navigation }) => {
 
             <MapViewDirections
               origin={coordinates[1]}
-              destination={{ latitude: destLat, longitude: destLng }}
+              destination={dest}
               apikey={GOOGLE_MAPS_APIKEY}
               strokeWidth={3}
               strokeColor="hotpink"
+              mode="TRANSIT"
             />
           </MapView>
         </View>

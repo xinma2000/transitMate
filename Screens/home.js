@@ -60,8 +60,8 @@ const Home  = ({ navigation }) => {
             style = {styles.buttonContainer}
             underlayColor='#fff'
             onPress = {() => item.item.page == "FriendsLocation" ? navigation.navigate(item.item.page, {name: item.item.name, location: item.item.location}): item.item.page === "EmergencyContacts"?  navigation.navigate(item.item.page, {newFriendsData: [], title:"Emergency Contacts"}) :navigation.navigate(item.item.page)}
-        
-        
+
+
           >
             <Icon
               name = {item.item.icon}
@@ -121,7 +121,10 @@ const Home  = ({ navigation }) => {
               }}>
             </Image>
           </TouchableOpacity>
-          <TouchableOpacity underlayColor='#fff'>
+          <TouchableOpacity
+            underlayColor='#fff'
+            onPress = {() => navigation.navigate('NotSafe')}
+          >
             <Icon
               name = "setting"
               type = "antdesign"

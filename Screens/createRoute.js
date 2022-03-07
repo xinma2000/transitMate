@@ -71,7 +71,6 @@ const CreateRoute = ({ navigation }) => {
               onChangeText={setDestination}
               value={destintation}
               placeholder="🔍 Search"
-              keyboardType="numeric"
             />
             <TouchableOpacity
               style={styles.smallButton}

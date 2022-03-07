@@ -107,12 +107,14 @@ const SavedRoutes = ({ route, navigation }) => {
               longitudeDelta: 0.221,
             }}
           >
-            <Marker coordinate = {{latitude: 37.771707,
-    longitude: -122.4053769,}}/>
-     <Marker
-        coordinate = {coordinates[endPoint]}
-            pinColor = {"navy"}
-    />
+            <Marker coordinate = {{
+              latitude: 37.771707,
+              longitude: -122.4053769,}}
+            />
+            <Marker
+              coordinate = {coordinates[endPoint]}
+              pinColor = {"navy"}
+            />
             <MapViewDirections
               origin={coordinates[0]}
               destination={coordinates[endPoint]}

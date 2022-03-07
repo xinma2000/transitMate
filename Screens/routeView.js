@@ -123,20 +123,17 @@ const RouteView = ({ route, navigation }) => {
                 longitude: destLng,
               }}
             />
-            {coordList.map((item, index) => {
-              return (
-                <Marker
-                  draggable
-                  key={index}
-                  coordinate={{
-                    latitude: item.latitude,
-                    longitude: item.longitude,
-                  }}
-                  pinColor={"orange"}
-                  onDragEnd={(e) => moveCoord(e.nativeEvent.coordinate, index)}
-                />
-              );
-            })}
+            {coordList.map((item, index)=>{
+         return  <Marker draggable
+         key={index}
+         coordinate={{
+           latitude:item.latitude,
+           longitude: item.longitude,
+         }}
+         pinColor ='wheat'
+         onDragEnd={(e) => moveCoord(e.nativeEvent.coordinate, index)}
+       />
+     })}
 
             <MapViewDirections
               origin={coordinates[1]}

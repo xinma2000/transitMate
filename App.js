@@ -15,6 +15,7 @@ import SavedList from './Screens/savedList';
 import FriendsRoutes from './Screens/friendsRoutes';
 import FriendsStatus from './Screens/friendsStatus';
 import NotSafe from './Screens/notSafe';
+import RouteConfirmation from './Screens/routeConfirmation';
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from '@react-navigation/native';
 import AppContext from './Screens/appContext';
@@ -29,8 +30,23 @@ export default function App() {
     setOnRoute(true)
   }
 
+  const [destination, setDestination] = useState(null);
+  const changeDestination = (destination) => {
+      setDestination(destination)
+  }
+
+  const [origin, setOrigin] = useState(null);
+  const changeOrigin = (origin) => {
+      setOrigin(origin)
+  }
+
+  const [markers, setMarkers] = useState([]);
+  const changeMarkers = (markers) => {
+    setMarkers(markers)
+  }
+
   return (
-    <AppContext.Provider value={{onRoute, toggleOnRoute}}>
+    <AppContext.Provider value={{onRoute, toggleOnRoute, destination,changeDestination, origin, changeOrigin, markers, changeMarkers}}>
     <NavigationContainer>
     <Stack.Navigator
         screenOptions={{
@@ -52,6 +68,7 @@ export default function App() {
         <Stack.Screen name="FriendsRoutes" component={FriendsRoutes} />
         <Stack.Screen name="FriendsStatus" component={FriendsStatus} />
         <Stack.Screen name="NotSafe" component={NotSafe} />
+        <Stack.Screen name="RouteConfirmation" component={RouteConfirmation} />
     </Stack.Navigator>
 </NavigationContainer>
 </AppContext.Provider>

@@ -1,4 +1,4 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useFocusEffect, useIsFocused } from '@react-navigation/native';
 import React, {useState, useContext} from 'react';
 import { Dimensions, View, ScrollView, StyleSheet, Image, FlatList, TouchableOpacity, Touchable } from 'react-native';
 import { Text, Card, Button, Icon } from 'react-native-elements';
@@ -6,7 +6,12 @@ import FriendsLocation from './friendsLocation';
 import myLocation from './myLocation'
 import images from '../Constants/images';
 import AppContext from './appContext';
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
 import Svg, { Circle } from 'react-native-svg';
+import { Marker } from "react-native-maps";
+
+const GOOGLE_MAPS_APIKEY = "AIzaSyBV_EvsR_SI9az9aAUM_ch9UU3MswZAqJM";
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -16,11 +21,24 @@ const Home  = ({ navigation }) => {
   const [scroll, setScroll] = useState(false);
   const myContext = useContext(AppContext);
   const [onRoute, setOnRoute] = useState(myContext.onRoute);
+  const isFocused = useIsFocused(); 
 
   React.useEffect(() => {
     setOnRoute(myContext.onRoute)
+    console.log("dest is", myContext.destination)
+    console.log("origin is", myContext.origin)
+    console.log("myContext.onroute is", myContext.onRoute)
+    console.log("mycontext at home is", onRoute)
     console.log("hello")
   })
+
+  /*useFocusEffect(
+    React.useCallback(() => {
+      const unsubscribe = API.subscribe(myContext.onRoute, onRoute => setOnRoute(myContext.onRoute));
+
+      return () => unsubscribe();
+    }, [myContext.onRoute])
+  );*/
 
 
   const [buttons] = useState([
@@ -147,8 +165,39 @@ const Home  = ({ navigation }) => {
         </View>
         <View>
           <Text style={styles.titleFonts}>Ongoing route</Text>
-          {onRoute ?
-          <Text style={styles.titleFonts}>Route</Text>:
+          {isFocused && onRoute? 
+          <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: myContext.origin.latitude,
+            longitude: myContext.origin.longitude,
+            latitudeDelta: 0.322,
+            longitudeDelta: 0.2421,
+          }}
+        >
+          <Marker coordinate={myContext.origin} />
+          <Marker
+            coordinate={myContext.destination}
+          />
+          {myContext.markers.map((item, index)=>{
+       return  <Marker
+       key={index}
+       coordinate={{
+         latitude:item.latitude,
+         longitude: item.longitude,
+       }}
+       pinColor ='orange'
+     />
+   })}
+
+          <MapViewDirections
+            origin={myContext.origin}
+            destination={ myContext.destination }
+            apikey={GOOGLE_MAPS_APIKEY}
+            strokeWidth={3}
+            strokeColor="hotpink"
+          />
+        </MapView>:
           <TouchableOpacity
             onPress = {() => navigation.navigate('CreateRoute')}
             style={styles.createRouteContainer}
@@ -226,6 +275,11 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'column',
     justifyContent: 'center',
+  },
+  map: {
+    marginBottom: 10,
+    width: width * 0.9,
+    height: height * 0.23,
   },
 });
 

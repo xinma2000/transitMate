@@ -30,7 +30,7 @@ const coordinates = [
 const GOOGLE_MAPS_APIKEY = "AIzaSyBV_EvsR_SI9az9aAUM_ch9UU3MswZAqJM";
 const GOOGLE_MAPS_APITKEY_GEOCODING = "AIzaSyA4EvUX1w061o9J8CsYOYFWJWVfPZSSs0s";
 
-const RouteView = ({ route, navigation }) => {
+const RouteConfirmation = ({ route, navigation }) => {
   const myContext = useContext(AppContext);
 
   Geocoder.init(GOOGLE_MAPS_APITKEY_GEOCODING);
@@ -39,48 +39,41 @@ const RouteView = ({ route, navigation }) => {
   const [destLat, setDestLat] = useState(0);
   const [destLng, setDestLng] = useState(0);
   const [coordList, setCoordList] = useState([]);
+  const [destination, setDestination] = useState("")
   React.useEffect(() => {
-    Geocoder.from(endPoint)
-      .then((json) => {
-        var location = json.results[0].geometry.location;
-        console.log("location is", location);
-        console.log("location latitude is", location.lat);
-        setDestLat(location.lat);
-        setDestLng(location.lng);
-        var startLat = coordinates[1].latitude - 0.161;
-        var arr = [];
-        for (var i = 0; i < 5; i++) {
-          arr.push({
-            latitude: startLat + i * 0.032,
-            longitude: coordinates[1].longitude + 0.1,
-          });
-          console.log(arr);
-        }
-        setCoordList(arr);
-      })
-      .catch((error) => console.warn(error));
+    let {destLat, destLng, markers, destinationString} = route.params;
+    setDestination(destinationString)
+    setDestLat(destLat)
+    setDestLng(destLng)
+    setCoordList(markers)
   }, []);
 
-  const onPress = () => {
-    navigation.navigate("RouteConfirmation", {
-      destLat: destLat,
-      destLng: destLng,
-      markers: coordList,
-      origin: coordinates[1],
-      destinationString: endPoint
-    });
-    myContext.toggleOnRoute();
-    myContext.changeDestination({latitude: destLat, longitude: destLng});
-    myContext.changeOrigin(coordinates[1]);
-    myContext.changeMarkers(coordList)
-    //myContext.onRoute = true;
-    console.log("mycontext in routeview is", myContext.onRoute);
-  };
 
-  const moveCoord = (coordinate, index) => {
-    coordList[index].latitude = coordinate.latitude;
-    coordList[index].longitude = coordinate.longitude;
-    setCoordList(coordList);
+  const createTwoButtonAlert = () =>
+    Alert.alert(
+      "Saving your route to",
+      destination,
+      [
+        {
+          text: "Confirm",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "Cancel", onPress: () => console.log("OK Pressed") }
+      ]
+    );
+  
+  const onPress = () => {
+    navigation.navigate("EmergencyContacts", {
+      newFriendsData: [],
+      title: "Share Route With",
+    });
+   // myContext.toggleOnRoute();
+    //myContext.changeDestination({latitude: destLat, longitude: destLng});
+    //myContext.changeOrigin(coordinates[1]);
+    //myContext.changeMarkers(coordList)
+    //myContext.onRoute = true;
+    //console.log("mycontext in routeview is", myContext.onRoute);
   };
 
   return (
@@ -107,10 +100,9 @@ const RouteView = ({ route, navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.bodyContainer}>
-          <Text style={styles.titleFonts}>Set Checkpoints</Text>
+          <Text style={styles.titleFonts}>Your Route</Text>
           <Text>
-            Drag the yellow markers to any point on your route to set
-            checkpoints
+            0% Complete
           </Text>
 
           <MapView
@@ -130,14 +122,13 @@ const RouteView = ({ route, navigation }) => {
               }}
             />
             {coordList.map((item, index)=>{
-         return  <Marker draggable
+         return  <Marker 
          key={index}
          coordinate={{
            latitude:item.latitude,
            longitude: item.longitude,
          }}
          pinColor ='orange'
-         onDragEnd={(e) => moveCoord(e.nativeEvent.coordinate, index)}
        />
      })}
 
@@ -150,13 +141,28 @@ const RouteView = ({ route, navigation }) => {
             />
           </MapView>
         </View>
-        <View style={styles.buttonContainer}>
+        <Button
+            title="Save Route"
+            titleStyle={styles.buttonTextStyle}
+            buttonStyle={styles.whiteButtonStyle}
+            containerStyle={styles.buttonContainer}
+            onPress={createTwoButtonAlert}
+          /> 
+
+        <View style={styles.halfButtonContainer}>
         <TouchableOpacity
-            style={styles.buttonStyle}
+            style={styles.halfButtonStyle}
             underlayColor="#fff"
             onPress={onPress}
           >
-            <Text style={styles.buttonTextStyle}>Confirm</Text>
+            <Text style={styles.buttonTextStyle}>Share Route</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.halfButtonStyle}
+            underlayColor="#fff"
+            onPress={() => navigation.navigate("SentConfirmation")}
+          >
+            <Text style={styles.buttonTextStyle}>Continue</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -188,10 +194,33 @@ const styles = StyleSheet.create({
   map: {
     marginTop: 10,
     width: width * 0.9,
-    height: height * 0.7,
+    height: height * 0.63,
   },
   buttonStyle: {
     backgroundColor: "#FFD64D",
+    borderRadius: 8,
+    height: 60,
+    width: width * 0.9,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowOffset: { width: 2, height: 2 },
+    shadowColor: "black",
+    shadowOpacity: 0.1,
+  },
+  halfButtonStyle: {
+    backgroundColor: "#FFD64D",
+    borderRadius: 8,
+    height: 60,
+    width: width * 0.43,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowOffset: { width: 2, height: 2 },
+    shadowColor: "black",
+    shadowOpacity: 0.1,
+  },
+  whiteButtonStyle: {
+    backgroundColor: "white",
+    borderColor: "black",
     borderRadius: 8,
     height: 60,
     width: width * 0.9,
@@ -207,10 +236,13 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 20,
   },
-  buttonContainer: {
+  halfButtonContainer: {
+    width: width * 0.9,
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    justifyContent: "center",
     marginTop: 15,
+    marginLeft: 7
   },
   buttonStyle: {
     backgroundColor: '#FFD64D',
@@ -236,4 +268,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default RouteView;
+export default RouteConfirmation;

@@ -14,6 +14,7 @@ import SavedRoutes from './Screens/savedRoutes';
 import SavedList from './Screens/savedList';
 import FriendsRoutes from './Screens/friendsRoutes';
 import FriendsStatus from './Screens/friendsStatus';
+import NotSafe from './Screens/notSafe';
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from '@react-navigation/native';
 import AppContext from './Screens/appContext';
@@ -24,9 +25,9 @@ const Stack = createStackNavigator();
 
 export default function App() {
   const [onRoute, setOnRoute] = useState(false);
- 
 
-  
+
+
 
   const toggleOnRoute = () => {
     setOnRoute(true)
@@ -54,7 +55,7 @@ export default function App() {
         <Stack.Screen name="SavedRoutes" component={SavedRoutes} />
         <Stack.Screen name="FriendsRoutes" component={FriendsRoutes} />
         <Stack.Screen name="FriendsStatus" component={FriendsStatus} />
-
+        <Stack.Screen name="NotSafe" component={NotSafe} />
     </Stack.Navigator>
 </NavigationContainer>
 </AppContext.Provider>

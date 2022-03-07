@@ -49,10 +49,10 @@ const RouteView = ({ route, navigation }) => {
         setDest(location);
         setDestLat(location.lat);
         setDestLng(location.lng);
-        var startLat = coordinates[1].latitude - 0.161
+        var startLat = coordinates[1].latitude - 0.158
         var arr = []
         for (var i = 0; i < 5; i++) {
-          arr.push({latitude: startLat + i * 0.032, longitude: coordinates[1].longitude + 0.12})
+          arr.push({latitude: startLat + i * 0.027, longitude: coordinates[1].longitude + 0.110})
           console.log(arr)
         }
         setCoordList(arr);
@@ -123,11 +123,11 @@ const RouteView = ({ route, navigation }) => {
            latitude:item.latitude,
            longitude: item.longitude,
          }}
-         pinColor ={"orange"}
+         pinColor ='wheat'
          onDragEnd={(e) => moveCoord(e.nativeEvent.coordinate, index)}
        />
      })}
-            
+
             <MapViewDirections
               origin={coordinates[1]}
               destination={{ latitude: destLat, longitude: destLng }}

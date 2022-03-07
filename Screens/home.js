@@ -15,7 +15,14 @@ const height = Dimensions.get('window').height;
 const Home  = ({ navigation }) => {
   const [scroll, setScroll] = useState(false);
   const myContext = useContext(AppContext);
-  console.log("mycontext is", myContext)
+  const [onRoute, setOnRoute] = useState(myContext.onRoute);
+
+  React.useEffect(() => {
+    setOnRoute(myContext.onRoute)
+    console.log("hello")
+  })
+
+
   const [buttons] = useState([
     {name: 'Send My Location', icon:"location", type: "entypo", page: "MyLocation"},
     {name:'See/Request A Friend\'s Location', icon:"people", type: "ionicon", page: "FriendsLocation", location: images.FriendsLocation, },
@@ -87,7 +94,6 @@ const Home  = ({ navigation }) => {
           onPress = {() => navigation.navigate('FriendsLocation', {name: item.item.name, location: item.item.location})}
           style={styles.iconContainer}
         >
-          {console.log("hello" + item.item.location)}
           <Image
             source = {item.item.profilePic}
             style ={{
@@ -138,7 +144,7 @@ const Home  = ({ navigation }) => {
         </View>
         <View>
           <Text style={styles.titleFonts}>Ongoing route</Text>
-          {myContext.onRoute ?
+          {onRoute ?
           <Text style={styles.titleFonts}>Route</Text>:
           <TouchableOpacity
             onPress = {() => navigation.navigate('CreateRoute')}

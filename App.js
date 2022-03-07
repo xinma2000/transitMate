@@ -25,10 +25,6 @@ const Stack = createStackNavigator();
 
 export default function App() {
   const [onRoute, setOnRoute] = useState(false);
-
-
-
-
   const toggleOnRoute = () => {
     setOnRoute(true)
   }

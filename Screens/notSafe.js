@@ -76,13 +76,18 @@ const NotSafe  = ({ navigation }) => {
   const [index, setIndex] = React.useState(0);
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setIndex((index + 1) % (10 + 1));
+      setIndex((index + 1));
+      console.log("index", index)
     }, 1000)
+
+    if (index === 10)
+      clearInterval(interval);
 
     return () => {
       clearInterval(interval);
     };
   }, [index]);
+
 
   return (
     <>

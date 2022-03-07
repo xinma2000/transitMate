@@ -38,7 +38,6 @@ const RouteView = ({ route, navigation }) => {
   const [endPoint, setEndPoint] = useState(route.params.destination);
   const [destLat, setDestLat] = useState(0);
   const [destLng, setDestLng] = useState(0);
-  const [dest, setDest] = useState(null);
   const [coordList, setCoordList] = useState([]);
   React.useEffect(() => {
     Geocoder.from(endPoint)
@@ -46,7 +45,6 @@ const RouteView = ({ route, navigation }) => {
         var location = json.results[0].geometry.location;
         console.log("location is", location);
         console.log("location latitude is", location.lat);
-        setDest(location);
         setDestLat(location.lat);
         setDestLng(location.lng);
         var startLat = coordinates[1].latitude - 0.158
@@ -65,6 +63,9 @@ const RouteView = ({ route, navigation }) => {
       newFriendsData: [],
       title: "hello",
     });
+    myContext.toggleOnRoute();
+    //myContext.onRoute = true;
+    console.log("mycontext is", myContext.onRoute)
   };
 
   const moveCoord = (coordinate, index) => {
@@ -97,7 +98,8 @@ const RouteView = ({ route, navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.bodyContainer}>
-          <Text style={styles.titleFonts}>Edit Checkpoint</Text>
+          <Text style={styles.titleFonts}>Set Checkpoints</Text>
+          <Text>Drag the yellow markers to any point on your route to set checkpoints</Text>
 
           <MapView
             style={styles.map}
@@ -141,11 +143,12 @@ const RouteView = ({ route, navigation }) => {
           <TouchableOpacity
             style={styles.buttonStyle}
             underlayColor="#fff"
-            onPress={() =>
+            onPress={/*() =>
               navigation.navigate("EmergencyContacts", {
                 newFriendsData: [],
                 title: "Send Route to",
-              })
+              })*/
+              onPress
             }
           >
             <Text style={styles.buttonTextStyle}>Send to friends</Text>

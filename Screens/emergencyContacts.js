@@ -77,7 +77,7 @@ const EmergencyContacts = ({ route, navigation }) => {
     </View>
   );
 
-  const renderItem = ({ item }) => {console.log("item", item); return <Item friend={item} />};
+  const renderItem = ({ item }) => {return <Item friend={item} />};
   const [friendsData, setFriendsData] = useState(data)
   const [pageTitle, setPageTitle] = useState("")
 

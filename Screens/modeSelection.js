@@ -13,7 +13,8 @@ import {
     FlatList,
     TouchableOpacity,
     Touchable,
-    TextInput
+    TextInput,
+    Alert
   } from "react-native";
   import { Text, Card, Button, Icon } from "react-native-elements";
   import FriendsLocation from "./friendsLocation";
@@ -90,11 +91,7 @@ import {
             <TouchableOpacity
               style={styles.buttonContainer}
               underlayColor="#fff"
-              onPress={() =>
-                navigation.navigate("RouteView", {
-                  destination: endPoint,
-                })
-              }
+              onPress={onPress}
             >
               <Icon name={item.item.icon} type={item.item.type} size={75} />
               <Text style={styles.bodyFonts}>{item.item.name}</Text>
@@ -104,7 +101,39 @@ import {
       );
     };
   
-    const onChangeText = (numMarker) => {
+    const onPress = () => {
+      if (myContext.numMarkers == 0) {
+        Alert.alert(
+          "Please indicate the number of markers",
+          
+          [
+            {
+              text: "Confirm",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },
+            { text: "Cancel", onPress: () => console.log("OK Pressed") }
+          ]
+        );
+      } else if (myContext.numMarkers !== parseInt(myContext.numMarkers, 10)){
+        Alert.alert(
+          "Number of markers must be a number",
+          
+          [
+            {
+              text: "Confirm",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },
+            { text: "Cancel", onPress: () => console.log("OK Pressed") }
+          ]
+        );
+      } else {
+        myContext.numMarkers = 0;
+        navigation.navigate("RouteView", {
+          destination: endPoint,
+        })
+      }
     }
   
     return (

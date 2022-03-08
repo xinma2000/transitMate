@@ -62,6 +62,19 @@ const RouteConfirmation = ({ route, navigation }) => {
         { text: "Cancel", onPress: () => console.log("OK Pressed") }
       ]
     );
+    const createTwoButtonAlertToHome = () =>
+    Alert.alert(
+      "Starting your route to",
+      destination,
+      [
+        {
+          text: "Confirm",
+          onPress: () => navigation.navigate("Home"),
+          style: "cancel"
+        },
+        { text: "Cancel", onPress: () => console.log("OK Pressed") }
+      ]
+    );
 
   const onPress = () => {
     navigation.navigate("EmergencyContacts", {
@@ -157,13 +170,13 @@ const RouteConfirmation = ({ route, navigation }) => {
           >
             <Text style={styles.buttonTextStyle}>Share Route</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.halfButtonStyle}
-            underlayColor="#fff"
-            onPress={() => navigation.navigate("SentConfirmation", {title: "Route Sent"})}
-          >
-            <Text style={styles.buttonTextStyle}>Continue</Text>
-          </TouchableOpacity>
+          <Button
+          title="Save Route"
+          titleStyle={styles.buttonTextStyle}
+          buttonStyle={styles.halfButtonStyle}
+          onPress={createTwoButtonAlertToHome}
+        />
+         
         </View>
       </View>
     </>

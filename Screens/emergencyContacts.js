@@ -124,14 +124,13 @@ const EmergencyContacts = ({ route, navigation }) => {
       setChosen(chosenData);
     }
   };
-
-  const createTwoButtonAlert = () => {
+  /*const createTwoButtonAlert = () => {
     friends.length > 0
       ? pageTitle === "Request Location" ? Alert.alert("You are requesting locations from ", friends, [
          
           {
             text: "Confirm",
-            onPress: () => (pageTitle === "Share Route With" ?navigation.navigate("SentConfirmation", {title: "Route sent"}) :pageTitle === "Request Location" ?navigation.navigate("SentConfirmation", {title: "Request sent"}) :navigation.navigate("SentConfirmation", {title: "Location sent"})),
+            onPress: () => (pageTitle === "Share Route With" ?  navigation.navigate("SentConfirmation", {title: "Route sent"}) :pageTitle === "Request Location" ?navigation.navigate("SentConfirmation", {title: "Request sent"}) :navigation.navigate("SentConfirmation", {title: "Location sent"})),
           },
           {
             text: "Cancel",
@@ -151,6 +150,49 @@ const EmergencyContacts = ({ route, navigation }) => {
           style: "cancel",
         },
       ]) :Alert.alert(
+          "Please select friends to send your location to!",
+          friends,
+          [
+            {
+              text: "Got it",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel",
+            },
+          ]
+        );
+  }; */
+
+  const onButtonPress = () => {
+    console.log("onbuttonpress")
+    for (var i = 0; i < myContext.contactsData.length; i++) {
+      myContext.contactsData[i].checked = false;
+    }
+    var title = ""
+    if (pageTitle === "Share Route With") {
+      title = "Route sent"
+    }
+    else if (pageTitle === "Request Location") {
+      title = "Request sent"
+    } else {
+      title = "Location sent"
+    }
+    navigation.navigate("SentConfirmation", {title: title})
+  }
+
+  const createTwoButtonAlert = () => {
+    friends.length > 0
+      ? Alert.alert("You are requesting locations from ", friends, [
+          {
+            text: "Confirm",
+            onPress: onButtonPress,
+          },
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel",
+          },
+        ])
+       :Alert.alert(
           "Please select friends to send your location to!",
           friends,
           [
@@ -183,7 +225,7 @@ const EmergencyContacts = ({ route, navigation }) => {
             ></Image>
           </TouchableOpacity>
           <TouchableOpacity underlayColor="#fff">
-            <Icon name="setting" type="antdesign" size={30} />
+            <Icon name="home" type="simplelineicons" size={30} />
           </TouchableOpacity>
         </View>
         <View style={styles.bodyContainer}>

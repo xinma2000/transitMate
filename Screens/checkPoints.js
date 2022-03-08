@@ -40,7 +40,7 @@ const CheckPoints = ({ navigation }) => {
   const [destLng, setDestLng] = useState(0);
   const [coordList, setCoordList] = useState([]);
   React.useEffect(() => {
-    
+
   }, []);
 
   const onPress = () => {
@@ -143,7 +143,7 @@ myContext.increment();
                 strokeColor="hotpink"
               />
             </MapView>
-          
+
         </View>
         <Text style={styles.buttonTextStyle}>Do you feel safe?</Text>
 
@@ -164,7 +164,7 @@ myContext.increment();
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainer}>
-       
+
           <TouchableOpacity
             style={styles.buttonStyle}
             underlayColor="#fff"
@@ -172,7 +172,7 @@ myContext.increment();
           >
             <Text style={styles.buttonTextStyle}>End Route</Text>
           </TouchableOpacity>
-         
+
         </View>
       </View>
     </>
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     width: width * 0.9,
     height: height * 0.6,
   },
- 
+
   buttonTextStyle: {
     color: "black",
     fontWeight: "600",

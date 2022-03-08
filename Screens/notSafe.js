@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Animated,
   TouchableWithoutFeedback,
-
+  Alert,
 }from 'react-native';
 import { Text, Card, Button, Icon } from 'react-native-elements';
 import { Marker } from 'react-native-maps';
@@ -73,6 +73,10 @@ const Progress = ({step, steps, height}) => {
 
 const NotSafe  = ({ navigation }) => {
 
+  const handlePress = () => {
+    Alert.alert('You pressed')
+  }
+
   const [index, setIndex] = React.useState(0);
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -120,9 +124,12 @@ const NotSafe  = ({ navigation }) => {
             <TouchableOpacity
               style={styles.buttonStyle}
               underlayColor="#fff"
+              delayLongPress={1500}
+              onLongPress={handlePress}
             >
               <Text style={styles.notSafeText}>Don't contact yet</Text>
             </TouchableOpacity>
+            <Text style={styles.bodyFonts}>Press and hold to cancel.</Text>
           </View>
         </View>
       </View>
@@ -174,6 +181,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 2 },
     shadowColor: "black",
     shadowOpacity: 0.1,
+    marginBottom: 15,
   },
   buttonContainer: {
     alignItems: "center",

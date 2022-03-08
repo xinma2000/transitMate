@@ -18,7 +18,7 @@ const height = Dimensions.get("window").height;
 
 const AllFriendsLocation = ({ route, navigation }) => {
 
-    
+
   return (
     <>
       <View style={styles.container}>

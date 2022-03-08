@@ -8,7 +8,7 @@ const height = Dimensions.get('window').height;
 
 const Contacts  = ({ route, navigation }) => {
 
-  const Context = createContext();
+  //const Context = createContext();
 
   const Item = ({ friend }) => (
     <View style={styles.item} key={friend.name}>

@@ -16,6 +16,7 @@ import FriendsRoutes from './Screens/friendsRoutes';
 import FriendsStatus from './Screens/friendsStatus';
 import CheckPoints from './Screens/checkPoints';
 import NotSafe from './Screens/notSafe';
+import AllFriendsLocation from './Screens/allFriendsLocation';
 import PostConfirmation from './Screens/postConfirmation';
 import ModeSelection from './Screens/modeSelection';
 import RouteConfirmation from './Screens/routeConfirmation';
@@ -32,6 +33,45 @@ export default function App() {
   const toggleOnRoute = () => {
       setOnRoute(true)
   }
+
+  const [contactsData, setContactsData] = useState([
+    {
+      name: "Angela",
+      profilePic: images.AngelaPic,
+      location: images.AngelaLoc,
+      checked: false,
+    },
+    {
+      name: "Ben",
+      profilePic: images.BenPic,
+      location: images.BenLoc,
+      checked: false,
+    },
+    {
+      name: "Christine",
+      profilePic: images.ChristinePic,
+      location: images.ChristineLoc,
+      checked: false,
+    },
+    {
+      name: "Jess",
+      profilePic: images.JessPic,
+      location: images.JessLoc,
+      checked: false,
+    },
+    {
+      name: "David",
+      profilePic: images.DavidPic,
+      location: images.DavidLoc,
+      checked: false,
+    },
+    {
+      name: "Timmy",
+      profilePic: images.TimmyPic,
+      location: images.TimmyLoc,
+      checked: false,
+    },
+  ]);
 
   const notOnRoute = () => {
     setOnRoute(false)
@@ -73,6 +113,7 @@ export default function App() {
       markers, changeMarkers, 
       counter, increment, 
       numMarkers, regNumMarkers,
+      contactsData
       }}>
     <NavigationContainer>
     <Stack.Navigator
@@ -98,6 +139,7 @@ export default function App() {
         <Stack.Screen name="CheckPoints" component={CheckPoints} />
         <Stack.Screen name="ModeSelection" component={ModeSelection} />
         <Stack.Screen name="RouteConfirmation" component={RouteConfirmation} />
+        <Stack.Screen name="AllFriendsLocation" component={AllFriendsLocation} />
         <Stack.Screen name="PostConfirmation" component={PostConfirmation} />
     </Stack.Navigator>
 </NavigationContainer>

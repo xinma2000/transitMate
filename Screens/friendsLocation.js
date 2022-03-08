@@ -1,71 +1,33 @@
-import React, {useState} from 'react';
-import { TextInput, Alert, Dimensions, View, ScrollView, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
+/*import React, {useState} from 'react';
+import { View, ScrollView, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { Text, Card, Button, Icon } from 'react-native-elements';
-import { Marker } from "react-native-maps";
-import images from "../Constants/images";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import MapViewDirections from "react-native-maps-directions";
+import { Marker } from 'react-native-maps';
+import  images  from '../Constants/images';
+import MapView from 'react-native-maps';
+
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
-const friendsData = [
-  {
-    name: "Angela",
-    profilePic: images.AngelaPicAct,
-    location: images.AngelaLoc,
-    latitude: 37.3346,
-    longitdue: -122.0090
-  },
-  { name: "Ben", 
-    profilePic: images.BenPicAct, 
-    location: images.BenLoc,
-    latitude: 37.7956,
-    longitude: -122.3935 },
-  {
-    name: "Christine",
-    profilePic: images.ChristinePicAct,
-    location: images.ChristineLoc,
-    latitude: 37.7956,
-    longitude: -122.3935 
-  },
-  { name: "Jess", 
-    profilePic: images.JessPic, 
-    location: images.JessLoc,
-    latitude:37.4139,
-    latitude: -122.1258 
-  },
-  { name: "David", 
-    profilePic: images.DavidPic, 
-    location: images.DavidLoc,
-    latitude: 37.4268,
-    longitude: -122.1671 
-  },
-  { name: "Timmy", 
-    profilePic: images.TimmyPic, 
-    location: images.TimmyLoc,
-    latitude: 37.4365,
-    longtidue: -122.1568 
-  },
-];
-const FriendsLocation  = ({ route , navigation }) => {
 
-  const [friendName, setFriendName] = React.useState(null);
-  const [photo, setPhoto] = React.useState(null);
-const [longitdue, setLongitude] = useState(null);
-const [latitude, setLatitude] = useState(null);
+const FriendsLocation  = ({ route, navigation }) => {
+  const [friendLat, setFriendLat] = useState(route.params.latitude);
+  const [friendLng, setFriendLng] = useState(route.params.longitude);
+  const [photo, setPhoto] = useState(route.params.photo);
+  const [name, setName] = useState(route.params.name);
+const [markerLoc, setMarkerLoc] = useState(null);
   React.useEffect(() => {
-    let {name, photo, longitude, latitude} = route.params;
-    setFriendName(name);
-    setLatitude(latitude);
-    setLongitude(longitude);
-    setPhoto(photo);
-  })
+    
+    var dest = {longitude: 0, latitude: 0}
+    dest.longitude = friendLat;
+    dest.latitude = friendLng;
+    setMarkerLoc(dest)
+  }, []);
   return (
     <>
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <TouchableOpacity
-            underlayColor='#fff'
-            onPress = {() => navigation.goBack()}
+              underlayColor='#fff'
+              onPress = {() => navigation.goBack()}
           >
             <Icon
               name = "arrow-back"
@@ -74,14 +36,15 @@ const [latitude, setLatitude] = useState(null);
             />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate("Home")}>
+            onPress = {() => navigation.navigate("Home")}
+          >
             <Image
               source ={images.Logo}
               style={{
-                width: 55,
-                height: 55,
-              }}>
-            </Image>
+                width: 50,
+                height: 50,
+              }}
+            />
           </TouchableOpacity>
           <TouchableOpacity
             underlayColor='#fff'
@@ -94,55 +57,52 @@ const [latitude, setLatitude] = useState(null);
           </TouchableOpacity>
         </View>
         <View style={styles.bodyContainer}>
-          {friendName == "See/Request A Friend\'s Location"?
-          <>
-            <Text style={styles.titleFonts}>Recently shared location</Text>
-            <TextInput
-              placeholder="🔍 Search friends"
-              style={styles.textInput}
-            />
-          </> :
-          <View>
-            <Text> Viewing Location </Text>
-           <MapView
+          <Text style={styles.titleFonts}>View {name}'s Location</Text>
+          <MapView
             style={styles.map}
             initialRegion={{
-              latitude: 37.771707,
-              longitude: -122.4053769,
-              latitudeDelta: 0.322,
-              longitudeDelta: 0.2421,
-            }}/>
-
-            </View>
-          
-}
-          {friendName == "See/Request A Friends\' Locations"?
-           <TouchableOpacity
-           style ={styles.buttonStyle}
-           underlayColor='#fff'
-           onPress = {() => navigation.navigate("EmergencyContacts", {newFriendsData: [], title:"Request Location From"})}
-         >
-           <Text style = {styles.buttonTextStyle}>Request Friends' Locations</Text>
-         </TouchableOpacity>: null}
+              latitude: friendLat,
+              longitude: friendLng,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}>
+            <Marker coordinate =
+              {{
+                latitude: 37.78825,
+                longitude: -122.4324,
+              }}
+            />
+          </MapView>
         </View>
-      </View>
+        <View style ={styles.buttonContainer}>
+          <TouchableOpacity
+            style ={styles.buttonStyle}
+            underlayColor='#fff'
+            onPress = {() => navigation.navigate("EmergencyContacts", {newFriendsData: [], title: "Send My Location To"})}
+          >
+            <Text style = {styles.buttonTextStyle}>Send to friends</Text>
+          </TouchableOpacity>
+        </View>
+        </View>
     </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: height*0.05,
+    marginTop: 15,
     marginHorizontal: 15,
   },
   headerContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: 'center',
+    marginTop: 30
   },
   bodyContainer: {
-    marginVertical: 10,
-    alignItems: 'center'
+    marginTop: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   titleFonts: {
     fontSize: 26,
@@ -151,26 +111,16 @@ const styles = StyleSheet.create({
   },
   map: {
     marginTop: 10,
-    width: width * 0.9,
-    height: height * 0.7,
-  },
-  textInput: {
-    height: 50,
     width: width*0.9,
-    marginTop: 10,
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: 10,
-    fontSize: 16,
+    height: height*0.7,
   },
   buttonStyle: {
-    backgroundColor: "#FFD64D",
+    backgroundColor: '#FFD64D',
     borderRadius: 8,
     height: 60,
-    width: width * 0.9,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
+    width: width*0.9,
+    alignItems: 'center',
+    justifyContent: 'center',
     shadowOffset: {width: 2, height: 2,},
     shadowColor: 'black',
     shadowOpacity: 0.1,
@@ -181,12 +131,164 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 20
   },
-  map: {
-    marginTop: 10,
-    width: width*0.9,
-    height: height*0.7,
-  },
-
+  buttonContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 15,
+  }
 });
 
-export default FriendsLocation;
+export default FriendsLocation;*/
+import React, { useState } from "react";
+import {
+  View,
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
+import { Text, Card, Button, Icon } from "react-native-elements";
+import { Marker } from "react-native-maps";
+import images from "../Constants/images";
+import MapView from "react-native-maps";
+import RouteConfirmation from "./routeConfirmation";
+
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
+
+const FriendLocation = ({ route, navigation }) => {
+  const createTwoButtonAlert = () =>
+    Alert.alert(
+      "Requesting current location from",
+      route.params.name,
+      [
+        {
+          text: "Confirm",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "Cancel", onPress: () => console.log("OK Pressed") }
+      ]
+    );
+
+  return (
+    <>
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <TouchableOpacity
+            underlayColor="#fff"
+            onPress={() => navigation.goBack()}
+          >
+            <Icon name="arrow-back" type="ionicon" size={30} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+            <Image
+              source={images.Logo}
+              style={{
+                width: 50,
+                height: 50,
+              }}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity underlayColor="#fff">
+            <Icon name="setting" type="antdesign" size={30} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.bodyContainer}>
+          <Text style={styles.titleFonts}>
+            Viewing {route.params.name}'s Last Shared Location
+          </Text>
+          <MapView
+            style={styles.map}
+            initialRegion={{
+              latitude: route.params.latitude,
+              longitude: route.params.longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          >
+            <Marker
+              coordinate={{
+                latitude: route.params.latitude,
+                longitude: route.params.longitude,
+              }}
+              title={route.params.name}
+              description={route.params.time}
+            >
+              <Image source={route.params.photo} style={{
+          borderColor: "black",
+          borderWidth: 5,
+          borderRadius: 40,
+          height: 60,
+          width:60
+        }}/>
+              </Marker>
+          </MapView>
+        </View>
+        <View style={styles.buttonContainer}>
+        <Button
+          title="Request Current Location"
+          titleStyle={styles.buttonTextStyle}
+          buttonStyle={styles.buttonStyle}
+          containerStyle={styles.buttonContainer}
+          onPress={createTwoButtonAlert}
+        />
+        </View>
+      </View>
+    </>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 15,
+    marginHorizontal: 15,
+  },
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 30,
+  },
+  bodyContainer: {
+    marginTop: 15,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  titleFonts: {
+    fontSize: 22,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  map: {
+    marginTop: 10,
+    width: width * 0.9,
+    height: height * 0.7,
+  },
+  buttonStyle: {
+    backgroundColor: "#FFD64D",
+    borderRadius: 8,
+    height: 60,
+    width: width * 0.9,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowOffset: { width: 2, height: 2 },
+    shadowColor: "black",
+    shadowOpacity: 0.1,
+  },
+  buttonTextStyle: {
+    color: "black",
+    margin: 10,
+    fontWeight: "600",
+    fontSize: 20,
+  },
+  buttonContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 15,
+  },
+});
+
+export default FriendLocation;

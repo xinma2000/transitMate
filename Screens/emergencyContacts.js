@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Alert,
@@ -10,7 +10,10 @@ import {
   TextInput,
 } from "react-native";
 import { Text, Button, CheckBox, Icon } from "react-native-elements";
+import { useIsFocused } from '@react-navigation/native';
 import images from "../Constants/images";
+import AppContext from "./appContext";
+
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -52,7 +55,13 @@ const data = [
     checked: false,
   },
 ];
+
 const EmergencyContacts = ({ route, navigation }) => {
+
+  const isFocused = useIsFocused();
+  const myContext = useContext(AppContext);
+
+
   const Item = ({ friend }) => (
     <View style={styles.item} key={friend.name}>
       <View style={styles.friendIcon}>
@@ -78,15 +87,14 @@ const EmergencyContacts = ({ route, navigation }) => {
   );
 
   const renderItem = ({ item }) => {return <Item friend={item} />};
-  const [friendsData, setFriendsData] = useState(data)
+  const [friendsData, setFriendsData] = useState(myContext.contactsData)
   const [pageTitle, setPageTitle] = useState("")
-
   React.useEffect(() => {
     if (route.params.newFriendsData && route.params.newFriendsData.length > 0) {
       for (var i = 0; i < route.params.newFriendsData.length; i++) {
         route.params.newFriendsData[i].checked = false
       }
-      setFriendsData([...data,...route.params.newFriendsData]);
+      setFriendsData([...myContext.contactsData,...route.params.newFriendsData]);
     }
 
     setPageTitle(route.params.title)
@@ -119,18 +127,30 @@ const EmergencyContacts = ({ route, navigation }) => {
 
   const createTwoButtonAlert = () => {
     friends.length > 0
-      ? Alert.alert("You are sending your location to ", friends, [
+      ? pageTitle === "Request Location" ? Alert.alert("You are requesting locations from ", friends, [
+         
+          {
+            text: "Confirm",
+            onPress: () => (pageTitle === "Share Route With" ?navigation.navigate("SentConfirmation", {title: "Route sent"}) :pageTitle === "Request Location" ?navigation.navigate("SentConfirmation", {title: "Request sent"}) :navigation.navigate("SentConfirmation", {title: "Location sent"})),
+          },
           {
             text: "Cancel",
             onPress: () => console.log("Cancel Pressed"),
             style: "cancel",
           },
-          {
-            text: "Confirm",
-            onPress: () => (pageTitle === "Share Route With" ?navigation.navigate("SentConfirmation", {title: "Route sent"}) :navigation.navigate("SentConfirmation", {title: "Location sent"})),
-          },
         ])
-      : Alert.alert(
+      : Alert.alert("You are sending your location to ", friends, [
+       
+        {
+          text: "Confirm",
+          onPress: () => (pageTitle === "Share Route With" ?navigation.navigate("SentConfirmation", {title: "Route sent"}) :navigation.navigate("SentConfirmation", {title: "Location sent"})),
+        },
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+      ]) :Alert.alert(
           "Please select friends to send your location to!",
           friends,
           [
@@ -183,7 +203,8 @@ const EmergencyContacts = ({ route, navigation }) => {
             style={{
               marginTop: 15,
               width: width * 0.9,
-              height: height * 0.5,
+              height: height * 0.55,
+              marginBottom: 0
             }}
           />
         </View>
@@ -196,7 +217,7 @@ const EmergencyContacts = ({ route, navigation }) => {
             <Text style={styles.bodyFonts}>Add From Contacts</Text>
           </TouchableOpacity>
         </View>
-        {pageTitle == "Request Location From"?
+        {pageTitle == "Request Location"?
           <Button
             title="Request"
             titleStyle={styles.buttonTextStyle}
@@ -295,7 +316,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 15,
+    marginBottom:10,
   }
 });
 

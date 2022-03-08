@@ -42,14 +42,6 @@ const Home = ({ navigation }) => {
     console.log("hello");
   });
 
-  /*useFocusEffect(
-    React.useCallback(() => {
-      const unsubscribe = API.subscribe(myContext.onRoute, onRoute => setOnRoute(myContext.onRoute));
-
-      return () => unsubscribe();
-    }, [myContext.onRoute])
-  );*/
-
   const [buttons] = useState([
     {
       name: "Send My Location",
@@ -61,7 +53,7 @@ const Home = ({ navigation }) => {
       name: "See/Request Friends' Locations",
       icon: "people",
       type: "ionicon",
-      page: "FriendsLocation",
+      page: "AllFriendsLocation",
       location: images.FriendsLocation,
     },
     {
@@ -84,37 +76,47 @@ const Home = ({ navigation }) => {
       profilePic: images.AngelaPicAct,
       location: images.AngelaLoc,
       latitude: 37.3346,
-      longitdue: -122.0090
+      longitude: -122.0090,
+      time: "2:47"
     },
     { name: "Ben", 
       profilePic: images.BenPicAct, 
       location: images.BenLoc,
       latitude: 37.7956,
-      longitude: -122.3935 },
+      longitude: -122.3935,
+      time: "2:31" 
+    },
     {
       name: "Christine",
       profilePic: images.ChristinePicAct,
       location: images.ChristineLoc,
       latitude: 37.7956,
-      longitude: -122.3935 
+      longitude: -122.3935,
+      time: "4:11" 
     },
     { name: "Jess", 
       profilePic: images.JessPic, 
       location: images.JessLoc,
       latitude:37.4139,
-      latitude: -122.1258 
+      longitude: -122.1258,
+      time: "4:41"
+ 
     },
     { name: "David", 
       profilePic: images.DavidPic, 
       location: images.DavidLoc,
       latitude: 37.4268,
-      longitude: -122.1671 
+      longitude: -122.1671,
+      time: "1:50"
+ 
     },
     { name: "Timmy", 
       profilePic: images.TimmyPic, 
       location: images.TimmyLoc,
       latitude: 37.4365,
-      longtidue: -122.1568 
+      longitude: -122.1568,
+      time: "3:20"
+ 
     },
   ];
 
@@ -139,10 +141,9 @@ const Home = ({ navigation }) => {
             style={styles.buttonContainer}
             underlayColor="#fff"
             onPress={() =>
-              item.item.page == "FriendsLocation"
+              item.item.page == "AllFriendsLocation"
                 ? navigation.navigate(item.item.page, {
-                    name: item.item.name,
-                    location: item.item.location,
+                    friendsData: friendsData
                   })
                 : item.item.page === "EmergencyContacts"
                 ? navigation.navigate(item.item.page, {
@@ -170,7 +171,8 @@ const Home = ({ navigation }) => {
               name: item.item.name,
               photo: item.item.profilePic,
               latitude: item.item.latitude,
-              longitude: item.item.longitdue,
+              longitude: item.item.longitude,
+              time: item.item.time
 
             })
           }

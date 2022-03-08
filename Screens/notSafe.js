@@ -80,8 +80,10 @@ const NotSafe  = ({ navigation }) => {
       console.log("index", index)
     }, 1000)
 
-    if (index === 10)
+    if (index == 11) {
+      navigation.navigate('SentConfirmation', {title: "Alert Sent!"});
       clearInterval(interval);
+    }
 
     return () => {
       clearInterval(interval);

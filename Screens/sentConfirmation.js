@@ -14,16 +14,22 @@ const SentConfirmation  = ({ route, navigation }) => {
     <>
       <View style={styles.container}>
         <View style={styles.confirmationContainer}>
+          {route.params.title == "Alert Sent!"?
+            <Text style={styles.confirmationText}>{route.params.title}</Text>: null}
           <Image
             source ={images.check}
             style={{
               width: 140,
               height: 140,
-              marginBottom: 10,
+              marginVertical: 10,
             }}
           />
-          <Text style={styles.confirmationText}>{route.params.title}</Text>
+          {route.params.title != "Alert Sent!"?
+            <Text style={styles.confirmationText}>{route.params.title}</Text>: null}
         </View>
+        {route.params.title == "Alert Sent!"?
+          <Text style={styles.confirmationText}>Help is on the way.</Text>: null
+        }
         <TouchableOpacity
           onPress = {() => navigation.navigate('Home')}
         >
@@ -45,16 +51,16 @@ const styles = StyleSheet.create({
     marginTop: 0.35*height,
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 15,
   },
   bodyFonts: {
     fontSize: 18,
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: 10
   },
   confirmationText: {
     fontSize: 26,
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
   },
 });
 

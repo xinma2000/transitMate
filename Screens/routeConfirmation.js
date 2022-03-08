@@ -62,7 +62,7 @@ const RouteConfirmation = ({ route, navigation }) => {
         { text: "Cancel", onPress: () => console.log("OK Pressed") }
       ]
     );
-  
+
   const onPress = () => {
     navigation.navigate("EmergencyContacts", {
       newFriendsData: [],
@@ -97,11 +97,14 @@ const RouteConfirmation = ({ route, navigation }) => {
           <Text style={styles.titleFonts}>Your Route</Text>
           {console.log(myContext.counter)}
               {console.log("route confirmation", myContext.numMarkers)}
-          <Text>
-             
+          <Text
+            style={{
+              textAlign: 'center',
+              paddingHorizontal: 40,
+              marginVertical: 2}}
+          >
             {(myContext.counter/myContext.numMarkers)}% Complete
           </Text>
-
           <MapView
             style={styles.map}
             initialRegion={{
@@ -119,15 +122,16 @@ const RouteConfirmation = ({ route, navigation }) => {
               }}
             />
             {myContext.markers.map((item, index)=>{
-         return  <Marker 
-         key={index}
-         coordinate={{
-           latitude:item.latitude,
-           longitude: item.longitude,
-         }}
-         pinColor ='orange'
-       />
-     })}
+              return
+                <Marker
+                  key={index}
+                  coordinate={{
+                    latitude:item.latitude,
+                    longitude: item.longitude,
+                  }}
+                  pinColor ='orange'
+                />
+            })}
             <MapViewDirections
               origin={coordinates[1]}
               destination={myContext.destination}
@@ -138,15 +142,14 @@ const RouteConfirmation = ({ route, navigation }) => {
           </MapView>
         </View>
         <Button
-            title="Save Route"
-            titleStyle={styles.buttonTextStyle}
-            buttonStyle={styles.whiteButtonStyle}
-            containerStyle={styles.buttonContainer}
-            onPress={createTwoButtonAlert}
-          /> 
-
+          title="Save Route"
+          titleStyle={styles.buttonTextStyle}
+          buttonStyle={styles.whiteButtonStyle}
+          containerStyle={styles.buttonContainer}
+          onPress={createTwoButtonAlert}
+        />
         <View style={styles.halfButtonContainer}>
-        <TouchableOpacity
+          <TouchableOpacity
             style={styles.halfButtonStyle}
             underlayColor="#fff"
             onPress={onPress}
@@ -217,6 +220,7 @@ const styles = StyleSheet.create({
   whiteButtonStyle: {
     backgroundColor: "white",
     borderColor: "black",
+    borderWidth: 1,
     borderRadius: 8,
     height: 60,
     width: width * 0.9,

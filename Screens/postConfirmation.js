@@ -86,7 +86,14 @@ const PostConfirmation = ({ route, navigation }) => {
         <View style={styles.bodyContainer}>
           <Text style={styles.titleFonts}>Your Route</Text>
 
-          <Text>{myContext.counter / numMarkers}% Complete</Text>
+          <Text
+            style={{
+              textAlign: 'center',
+              paddingHorizontal: 40,
+              marginVertical: 2
+            }}>
+            {myContext.counter / numMarkers}% Complete
+          </Text>
 
           <MapView
             style={styles.map}

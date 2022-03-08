@@ -69,8 +69,8 @@ const Home = ({ navigation }) => {
     },
     {
       name: "View Friends' Ongoing Routes",
-      icon: "road",
-      type: "fontawesome",
+      icon: "map",
+      type: "ionicon",
       page: "FriendsRoutes",
     },
     {
@@ -319,9 +319,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   map: {
-    marginBottom: 10,
+    marginVertical: 10,
     width: width * 0.9,
-    height: height * 0.23,
+    height: height * 0.21,
   },
 });
 

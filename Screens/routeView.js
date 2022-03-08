@@ -115,7 +115,7 @@ const RouteView = ({ route, navigation }) => {
         </View>
         <View style={styles.bodyContainer}>
           <Text style={styles.titleFonts}>Set Checkpoints</Text>
-          <Text>
+          <Text style={{ textAlign: 'center', paddingHorizontal: 40, marginVertical: 2}}>
             Drag the yellow markers to any point on your route to set
             checkpoints
           </Text>
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
   map: {
     marginTop: 10,
     width: width * 0.9,
-    height: height * 0.7,
+    height: height * 0.67,
   },
   buttonStyle: {
     backgroundColor: "#FFD64D",

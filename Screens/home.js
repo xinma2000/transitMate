@@ -15,13 +15,10 @@ import {
   Touchable,
 } from "react-native";
 import { Text, Card, Button, Icon } from "react-native-elements";
-import FriendsLocation from "./friendsLocation";
-import myLocation from "./myLocation";
 import images from "../Constants/images";
 import AppContext from "./appContext";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
-import Svg, { Circle } from "react-native-svg";
 import { Marker } from "react-native-maps";
 
 const GOOGLE_MAPS_APIKEY = "AIzaSyBV_EvsR_SI9az9aAUM_ch9UU3MswZAqJM";
@@ -61,7 +58,7 @@ const Home = ({ navigation }) => {
       page: "MyLocation",
     },
     {
-      name: "See/Request A Friend's Location",
+      name: "See/Request Friends' Locations",
       icon: "people",
       type: "ionicon",
       page: "FriendsLocation",
@@ -69,8 +66,8 @@ const Home = ({ navigation }) => {
     },
     {
       name: "View Friends' Ongoing Routes",
-      icon: "road",
-      type: "fontawesome",
+      icon: "map-location-dot",
+      type: "fontawesome6",
       page: "FriendsRoutes",
     },
     {
@@ -86,16 +83,39 @@ const Home = ({ navigation }) => {
       name: "Angela",
       profilePic: images.AngelaPicAct,
       location: images.AngelaLoc,
+      latitude: 37.3346,
+      longitdue: -122.0090
     },
-    { name: "Ben", profilePic: images.BenPicAct, location: images.BenLoc },
+    { name: "Ben", 
+      profilePic: images.BenPicAct, 
+      location: images.BenLoc,
+      latitude: 37.7956,
+      longitude: -122.3935 },
     {
       name: "Christine",
       profilePic: images.ChristinePicAct,
       location: images.ChristineLoc,
+      latitude: 37.7956,
+      longitude: -122.3935 
     },
-    { name: "Jess", profilePic: images.JessPic, location: images.JessLoc },
-    { name: "David", profilePic: images.DavidPic, location: images.DavidLoc },
-    { name: "Timmy", profilePic: images.TimmyPic, location: images.TimmyLoc },
+    { name: "Jess", 
+      profilePic: images.JessPic, 
+      location: images.JessLoc,
+      latitude:37.4139,
+      latitude: -122.1258 
+    },
+    { name: "David", 
+      profilePic: images.DavidPic, 
+      location: images.DavidLoc,
+      latitude: 37.4268,
+      longitude: -122.1671 
+    },
+    { name: "Timmy", 
+      profilePic: images.TimmyPic, 
+      location: images.TimmyLoc,
+      latitude: 37.4365,
+      longtidue: -122.1568 
+    },
   ];
 
   const renderItem = (item, index, separators) => {
@@ -148,7 +168,10 @@ const Home = ({ navigation }) => {
           onPress={() =>
             navigation.navigate("FriendsLocation", {
               name: item.item.name,
-              location: item.item.location,
+              photo: item.item.profilePic,
+              latitude: item.item.latitude,
+              longitude: item.item.longitdue,
+
             })
           }
           style={styles.iconContainer}
@@ -191,7 +214,7 @@ const Home = ({ navigation }) => {
         </View>
         <View style={{ marginVertical: 20 }}>
           <Text style={styles.titleFonts}>
-            Tap to see friends' last shared location
+            Tap to see friends' last shared locations
           </Text>
           <FlatList
             horizontal

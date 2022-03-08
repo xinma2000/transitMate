@@ -1,20 +1,63 @@
 import React, {useState} from 'react';
 import { TextInput, Alert, Dimensions, View, ScrollView, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { Text, Card, Button, Icon } from 'react-native-elements';
-import  images  from '../Constants/images';
-
+import { Marker } from "react-native-maps";
+import images from "../Constants/images";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
-
+const friendsData = [
+  {
+    name: "Angela",
+    profilePic: images.AngelaPicAct,
+    location: images.AngelaLoc,
+    latitude: 37.3346,
+    longitdue: -122.0090
+  },
+  { name: "Ben", 
+    profilePic: images.BenPicAct, 
+    location: images.BenLoc,
+    latitude: 37.7956,
+    longitude: -122.3935 },
+  {
+    name: "Christine",
+    profilePic: images.ChristinePicAct,
+    location: images.ChristineLoc,
+    latitude: 37.7956,
+    longitude: -122.3935 
+  },
+  { name: "Jess", 
+    profilePic: images.JessPic, 
+    location: images.JessLoc,
+    latitude:37.4139,
+    latitude: -122.1258 
+  },
+  { name: "David", 
+    profilePic: images.DavidPic, 
+    location: images.DavidLoc,
+    latitude: 37.4268,
+    longitude: -122.1671 
+  },
+  { name: "Timmy", 
+    profilePic: images.TimmyPic, 
+    location: images.TimmyLoc,
+    latitude: 37.4365,
+    longtidue: -122.1568 
+  },
+];
 const FriendsLocation  = ({ route , navigation }) => {
 
   const [friendName, setFriendName] = React.useState(null);
   const [photo, setPhoto] = React.useState(null);
-
+const [longitdue, setLongitude] = useState(null);
+const [latitude, setLatitude] = useState(null);
   React.useEffect(() => {
-    let {name, location} = route.params;
-    setFriendName(name)
-    setPhoto(location)
+    let {name, photo, longitude, latitude} = route.params;
+    setFriendName(name);
+    setLatitude(latitude);
+    setLongitude(longitude);
+    setPhoto(photo);
   })
   return (
     <>
@@ -59,24 +102,27 @@ const FriendsLocation  = ({ route , navigation }) => {
               style={styles.textInput}
             />
           </> :
-          <Text style={styles.titleFonts}>Viewing {friendName}'s Location</Text>}
-          <Image
-            source={photo}
-            resizeMode="cover"
-            style={{
-              marginTop: 10,
-              width: width*0.9,
-              height: height*0.65,
-              alignSelf: 'center',
-            }}
-          />
-          {friendName == "See/Request A Friend\'s Location"?
+          <View>
+            <Text> Viewing Location </Text>
+           <MapView
+            style={styles.map}
+            initialRegion={{
+              latitude: 37.771707,
+              longitude: -122.4053769,
+              latitudeDelta: 0.322,
+              longitudeDelta: 0.2421,
+            }}/>
+
+            </View>
+          
+}
+          {friendName == "See/Request A Friends\' Locations"?
            <TouchableOpacity
            style ={styles.buttonStyle}
            underlayColor='#fff'
            onPress = {() => navigation.navigate("EmergencyContacts", {newFriendsData: [], title:"Request Location From"})}
          >
-           <Text style = {styles.buttonTextStyle}>Request Friends' Location</Text>
+           <Text style = {styles.buttonTextStyle}>Request Friends' Locations</Text>
          </TouchableOpacity>: null}
         </View>
       </View>
@@ -102,6 +148,11 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: 'bold',
     textAlign: 'center'
+  },
+  map: {
+    marginTop: 10,
+    width: width * 0.9,
+    height: height * 0.7,
   },
   textInput: {
     height: 50,

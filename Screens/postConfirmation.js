@@ -135,11 +135,11 @@ const PostConfirmation = ({ route, navigation }) => {
             underlayColor="#fff"
             onPress={() =>
               navigation.navigate("EmergencyContacts", {
-                title: "Share Route with",
+                title: "Send My Location To"
               })
             }
           >
-            <Text style={styles.buttonTextStyle}>Share Route</Text>
+            <Text style={styles.buttonTextStyle}>Send My Location</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.blackbuttonStyle}

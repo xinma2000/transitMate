@@ -145,7 +145,7 @@ const CheckPoints = ({ navigation }) => {
             </MapView>
           
         </View>
-        <Text>Do you feel safe?</Text>
+        <Text style={styles.buttonTextStyle}>Do you feel safe?</Text>
 
         <View style={styles.halfButtonContainer}>
         <TouchableOpacity
@@ -164,19 +164,13 @@ const CheckPoints = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainer}>
-        <TouchableOpacity
-            style={styles.buttonStyle}
-            underlayColor="#fff"
-            onPress={() => navigation.navigate("MyLocation")}
-          >
-            <Text style={styles.buttonTextStyle}>Send My Location</Text>
-          </TouchableOpacity>
+       
           <TouchableOpacity
-            style={styles.blackbuttonStyle}
+            style={styles.buttonStyle}
             underlayColor="#fff"
             onPress={onPressEnd}
           >
-            <Text style={styles.whitebuttonTextStyle}>End Route</Text>
+            <Text style={styles.buttonTextStyle}>End Route</Text>
           </TouchableOpacity>
          
         </View>
@@ -195,10 +189,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 15,
+    marginTop: 0,
     marginLeft: 7
   },
   greenhalfButtonStyle: {
+      marginTop: 0,
     backgroundColor: "#3FE465",
     borderRadius: 8,
     height: 50,
@@ -244,13 +239,6 @@ const styles = StyleSheet.create({
  
   buttonTextStyle: {
     color: "black",
-    margin: 10,
-    fontWeight: "600",
-    fontSize: 20,
-  },
-  whitebuttonTextStyle: {
-    color: "white",
-    margin: 10,
     fontWeight: "600",
     fontSize: 20,
   },
@@ -261,18 +249,6 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     backgroundColor: '#FFD64D',
-    borderRadius: 8,
-    height: 50,
-    width: width*0.9,
-    marginBottom: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowOffset: {width: 2, height: 2,},
-    shadowColor: 'black',
-    shadowOpacity: 0.1,
-  },
-  blackbuttonStyle: {
-    backgroundColor: 'black',
     borderRadius: 8,
     height: 50,
     width: width*0.9,

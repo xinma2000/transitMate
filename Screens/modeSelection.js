@@ -36,7 +36,7 @@ import {
     const myContext = useContext(AppContext);
     const [onRoute, setOnRoute] = useState(myContext.onRoute);
     const isFocused = useIsFocused();
-
+    const [color, setColor] = useState("#FFD64D")
     const [endPoint, setEndPoint] = useState(route.params.destination);
 
 
@@ -81,7 +81,7 @@ import {
               marginTop: 15,
               width: 170,
               height: 170,
-              backgroundColor: "#FFD64D",
+              backgroundColor: color,
               borderRadius: 10,
               shadowOffset: { width: 2, height: 2 },
               shadowColor: "black",

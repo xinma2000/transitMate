@@ -171,3 +171,47 @@ export default RouteMapView;
         }
       });
     }
+
+
+    <TouchableOpacity
+            style={styles.buttonStyle}
+            underlayColor="#fff"
+            onPress={onPress}
+          >
+            <Text style={styles.buttonTextStyle}>Confirm</Text>
+          </TouchableOpacity>
+
+
+ <MapView
+            style={styles.map}
+            initialRegion={{
+              latitude: coordinates[1].latitude,
+              longitude: coordinates[1].longitude,
+              latitudeDelta: 0.322,
+              longitudeDelta: 0.2421,
+            }}
+          >
+            <Marker coordinate={coordinates[1]} />
+            <Marker
+              coordinate={{
+                latitude: destLat,
+                longitude: destLng,
+              }}
+            /> 
+
+
+          </MapView>
+
+           <MapView
+           style={styles.map}
+           initialRegion={{
+             latitude: friendLocation.latitude,
+             longitude: friendLocation.longitude,
+             latitudeDelta: 0.322,
+             longitudeDelta: 0.2421,
+           }}
+         >
+           <Marker coordinate={friendLocation} >
+             <Image source={photo}/>
+             </Marker>
+         </MapView>

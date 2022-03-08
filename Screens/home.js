@@ -245,8 +245,15 @@ const Home = ({ navigation }) => {
               <Marker coordinate={myContext.origin} />
               <Marker coordinate={myContext.destination} />
               {myContext.markers.map((item, index) => {
-                return (
-                  <Marker
+                return(
+                  (index < myContext.counter? <Marker
+                  key={index}
+                  coordinate={{
+                    latitude: item.latitude,
+                    longitude: item.longitude,
+                  }}
+                  pinColor="blue"
+                />: <Marker
                     key={index}
                     coordinate={{
                       latitude: item.latitude,
@@ -254,7 +261,7 @@ const Home = ({ navigation }) => {
                     }}
                     pinColor="orange"
                   />
-                );
+                ));
               })}
 
               <MapViewDirections
@@ -342,9 +349,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   map: {
-    marginBottom: 10,
+    marginVertical: 10,
     width: width * 0.9,
-    height: height * 0.23,
+    height: height * 0.21,
   },
 });
 

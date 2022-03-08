@@ -66,8 +66,8 @@ const CheckPoints = ({ navigation }) => {
   };
 
   const onPressYes = () => {
-      //increase the counter
-      myContext.regNumMarkers();
+myContext.increment();
+      myContext.increment();
       navigation.navigate("PostConfirmation")
 
   }

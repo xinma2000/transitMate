@@ -70,14 +70,16 @@ const CreateRoute = ({ navigation }) => {
               style={styles.textInput}
               onChangeText={setDestination}
               value={destintation}
-              placeholder="🔍 Search"
+              placeholder="Search"
             />
             <TouchableOpacity
               style={styles.smallButton}
               underlayColor="#fff"
-              onPress={() => navigation.navigate("SavedList")}
+              onPress={() =>
+                navigation.navigate("ModeSelection", {destination: destintation})
+              }
             >
-              <Text style={styles.buttonTextStyle}>★</Text>
+              <Icon name="search" type="ionicon" size={25}/>
             </TouchableOpacity>
           </View>
           <MapView
@@ -99,11 +101,9 @@ const CreateRoute = ({ navigation }) => {
           <TouchableOpacity
             style={styles.buttonStyle}
             underlayColor="#fff"
-            onPress={() =>
-              navigation.navigate("ModeSelection", {destination: destintation})
-            }
+            onPress={() => navigation.navigate("SavedList")}
           >
-            <Text style={styles.buttonTextStyle}>Search Route</Text>
+            <Text style={styles.buttonTextStyle}>Saved Routes</Text>
           </TouchableOpacity>
         </View>
       </View>

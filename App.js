@@ -40,12 +40,13 @@ export default function App() {
   const [counter, setCounter] = useState(0);
   //increment checkpoints that have been completed
   const increment = () => {
-    counter++;
-    setCounter(counter)
+    setCounter(counter+1)
+   
   }
   //number of markers used (utilized in checkPoints)
   const [numMarkers, setNumMarkers] = useState(0);
   const regNumMarkers = (num) => {
+    console.log("app.js regnumMarkers", num);
     setNumMarkers(num);
   }
   //destination of the trip

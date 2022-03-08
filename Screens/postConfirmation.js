@@ -85,8 +85,16 @@ const PostConfirmation = ({ route, navigation }) => {
         </View>
         <View style={styles.bodyContainer}>
           <Text style={styles.titleFonts}>Your Route</Text>
-
-          <Text>{myContext.counter / numMarkers}% Complete</Text>
+          {console.log("counter is", myContext.counter)}
+          {console.log("numMarker is", myContext.numMarkers)}
+          <Text
+            style={{
+              textAlign: 'center',
+              paddingHorizontal: 40,
+              marginVertical: 2
+            }}>
+            {100 * (myContext.counter / myContext.numMarkers)}% Complete
+          </Text>
 
           <MapView
             style={styles.map}
@@ -100,7 +108,7 @@ const PostConfirmation = ({ route, navigation }) => {
             <Marker coordinate={myContext.origin} />
             <Marker coordinate={myContext.destination} />
             {myContext.markers.map((item, index) => {
-              return index <= myContext.counter ? (
+              return index < myContext.counter ? (
                 <Marker
                   key={index}
                   coordinate={{

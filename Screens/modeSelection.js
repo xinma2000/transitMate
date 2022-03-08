@@ -36,10 +36,8 @@ import {
     const myContext = useContext(AppContext);
     const [onRoute, setOnRoute] = useState(myContext.onRoute);
     const isFocused = useIsFocused();
-    const [color, setColor] = useState("#FFD64D")
     const [endPoint, setEndPoint] = useState(route.params.destination);
-
-
+  
     React.useEffect(() => {
       setOnRoute(myContext.onRoute);
       console.log("dest is", myContext.destination);
@@ -71,7 +69,7 @@ import {
         type: "materialcommunityIcons",
       },
     ]);
-
+  
     const renderItem = (item, index, separators) => {
       return (
         <View>
@@ -81,7 +79,7 @@ import {
               marginTop: 15,
               width: 170,
               height: 170,
-              backgroundColor: color,
+              backgroundColor: "#FFD64D",
               borderRadius: 10,
               shadowOffset: { width: 2, height: 2 },
               shadowColor: "black",
@@ -94,8 +92,8 @@ import {
               underlayColor="#fff"
               onPress={() =>
                 navigation.navigate("RouteView", {
-                    destination: endPoint,
-                  })
+                  destination: endPoint,
+                })
               }
             >
               <Icon name={item.item.icon} type={item.item.type} size={75} />
@@ -107,9 +105,7 @@ import {
     };
   
     const onChangeText = (numMarker) => {
-
     }
-
   
     return (
       <>
@@ -122,7 +118,8 @@ import {
                   width: 55,
                   height: 55,
                 }}
-              ></Image>
+              >
+              </Image>
             </TouchableOpacity>
             <TouchableOpacity
               underlayColor="#fff"
@@ -132,25 +129,25 @@ import {
             </TouchableOpacity>
           </View>
           <View style={styles.bodyContainer}>
-          <Text style={styles.titleText}>How many checkpoints do you want?</Text>
-          <TextInput
+            <Text style={styles.titleText}>How many checkpoints do you want?</Text>
+            <TextInput
               style={styles.textInput}
               onChangeText={myContext.regNumMarkers}
               value={myContext.numMarkers}
-              placeholder="🔍 Search"
+              keyboardType="numeric"
+              placeholder="Enter a number"
             />
-        </View>
-          
-          <Text style={styles.titleText}>Select Mode of Transportation</Text>
-          <FlatList
-            key={"#"}
-            keyExtractor={(item) => "#" + item.name}
-            data={buttons}
-            renderItem={renderItem}
-            numColumns={2}
-            scrollEnabled={scroll}
-            style={styles.cardContainer}
-          />
+            <Text style={styles.titleText}>Select Mode of Transportation</Text>
+            <FlatList
+              key={"#"}
+              keyExtractor={(item) => "#" + item.name}
+              data={buttons}
+              renderItem={renderItem}
+              numColumns={2}
+              scrollEnabled={scroll}
+              style={styles.cardContainer}
+            />
+          </View>
         </View>
       </>
     );
@@ -217,21 +214,20 @@ import {
         justifyContent: 'center',
         alignItems: 'center',
       },
-      textInput: {
-        height: 50,
-        width: width*0.9,
-        marginTop: 10,
-        borderWidth: 1,
-        borderRadius: 8,
-        padding: 10,
-        fontSize: 16,
-      },
-      titleText: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center'
-      },
+    textInput: {
+      height: 50,
+      width: width*0.9,
+      marginVertical: 10,
+      borderWidth: 1,
+      borderRadius: 8,
+      padding: 10,
+      fontSize: 16,
+    },
+    titleText: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      textAlign: 'center'
+    },
   });
   
   export default ModeSelection;
-  

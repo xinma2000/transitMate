@@ -233,6 +233,7 @@ const Home = ({ navigation }) => {
         </View>
         <View>
           <Text style={styles.titleFonts}>Ongoing route</Text>
+          
           {isFocused && onRoute ? (
             <MapView
               style={styles.map}

@@ -57,8 +57,8 @@ const RouteView = ({ route, navigation }) => {
         var arr = [];
         for (var i = 0; i < markerNum; i++) {
           arr.push({
-            latitude: startLat + (markerNum - i) * (0.161/markerNum),
-            longitude: coordinates[1].longitude + 0.1,
+            latitude: startLat + (markerNum - i) * (0.09/markerNum),
+            longitude: coordinates[1].longitude + 0.11,
           });
           console.log(arr);
         }

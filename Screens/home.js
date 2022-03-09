@@ -79,12 +79,12 @@ const Home = ({ navigation }) => {
       longitude: -122.0090,
       time: "2:47"
     },
-    { name: "Ben", 
-      profilePic: images.BenPicAct, 
+    { name: "Ben",
+      profilePic: images.BenPicAct,
       location: images.BenLoc,
       latitude: 37.7956,
       longitude: -122.3935,
-      time: "2:31" 
+      time: "2:31"
     },
     {
       name: "Christine",
@@ -92,31 +92,31 @@ const Home = ({ navigation }) => {
       location: images.ChristineLoc,
       latitude: 37.7956,
       longitude: -122.3935,
-      time: "4:11" 
+      time: "4:11"
     },
-    { name: "Jess", 
-      profilePic: images.JessPic, 
+    { name: "Jess",
+      profilePic: images.JessPic,
       location: images.JessLoc,
       latitude:37.4139,
       longitude: -122.1258,
       time: "4:41"
- 
+
     },
-    { name: "David", 
-      profilePic: images.DavidPic, 
+    { name: "David",
+      profilePic: images.DavidPic,
       location: images.DavidLoc,
       latitude: 37.4268,
       longitude: -122.1671,
       time: "1:50"
- 
+
     },
-    { name: "Timmy", 
-      profilePic: images.TimmyPic, 
+    { name: "Timmy",
+      profilePic: images.TimmyPic,
       location: images.TimmyLoc,
       latitude: 37.4365,
       longitude: -122.1568,
       time: "3:20"
- 
+
     },
   ];
 
@@ -265,7 +265,6 @@ const Home = ({ navigation }) => {
                   />
                 ));
               })}
-
               <MapViewDirections
                 origin={myContext.origin}
                 destination={myContext.destination}
@@ -273,6 +272,13 @@ const Home = ({ navigation }) => {
                 strokeWidth={3}
                 strokeColor="hotpink"
               />
+              <View>
+                <Icon
+                  name="pluscircleo"
+                  type="antdesign"
+                  size={45}
+                />
+              </View>
             </MapView>
           ) : (
             <TouchableOpacity

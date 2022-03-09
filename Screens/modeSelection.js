@@ -25,12 +25,12 @@ import {
   import MapViewDirections from "react-native-maps-directions";
   import Svg, { Circle } from "react-native-svg";
   import { Marker } from "react-native-maps";
-  
+
   const GOOGLE_MAPS_APIKEY = "AIzaSyBV_EvsR_SI9az9aAUM_ch9UU3MswZAqJM";
-  
+
   const width = Dimensions.get("window").width;
   const height = Dimensions.get("window").height;
-  
+
   //https://reactnativeelements.com/docs/1.2.0/card
   const ModeSelection = ({ route, navigation }) => {
     const [scroll, setScroll] = useState(false);
@@ -38,7 +38,7 @@ import {
     const [onRoute, setOnRoute] = useState(myContext.onRoute);
     const isFocused = useIsFocused();
     const [endPoint, setEndPoint] = useState(route.params.destination);
-  
+
     React.useEffect(() => {
       setOnRoute(myContext.onRoute);
       console.log("dest is", myContext.destination);
@@ -47,7 +47,7 @@ import {
       console.log("mycontext at home is", onRoute);
       console.log("hello");
     });
-  
+
     const [buttons] = useState([
       {
         name: "Bus",
@@ -70,7 +70,7 @@ import {
         type: "materialcommunityIcons",
       },
     ]);
-  
+
     const renderItem = (item, index, separators) => {
       return (
         <View>
@@ -100,47 +100,48 @@ import {
         </View>
       );
     };
-  
+
     const onPress = () => {
       if (myContext.numMarkers == 0) {
         Alert.alert(
           "Please indicate the number of markers",
-          
+          "",
           [
             {
-              text: "Confirm",
+              text: "Cancel",
               onPress: () => console.log("Cancel Pressed"),
               style: "cancel"
             },
-            { text: "Cancel", onPress: () => console.log("OK Pressed") }
+            { text: "Ok", onPress: () => console.log("OK Pressed") }
           ]
         );
-      } else if (myContext.numMarkers !== parseInt(myContext.numMarkers, 10)){
+      } else if (isNaN(myContext.numMarkers)){
         Alert.alert(
           "Number of markers must be a number",
-          
+          "",
           [
             {
-              text: "Confirm",
-              onPress: () => console.log("Cancel Pressed"),
+              text: "Cancel",
+              onPress: () => console.log("hi"),
               style: "cancel"
             },
-            { text: "Cancel", onPress: () => console.log("OK Pressed") }
+            { text: "Ok", onPress: () => console.log("OK Pressed") }
           ]
         );
       } else {
-        myContext.numMarkers = 0;
         navigation.navigate("RouteView", {
           destination: endPoint,
         })
       }
     }
-  
+
     return (
       <>
         <View style={styles.container}>
           <View style={styles.homeHeaderContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Home")}
+            >
               <Image
                 source={images.Logo}
                 style={{
@@ -181,7 +182,7 @@ import {
       </>
     );
   };
-  
+
   const styles = StyleSheet.create({
     container: {
       marginTop: height * 0.05,
@@ -220,10 +221,10 @@ import {
       alignItems: "center",
     },
     bodyFonts: {
-      fontSize: 15,
+      fontSize: 24,
       fontWeight: "500",
       textAlign: "center",
-      marginTop: 10,
+      marginTop: 5,
     },
     titleFonts: {
       fontSize: 17,
@@ -258,5 +259,5 @@ import {
       textAlign: 'center'
     },
   });
-  
+
   export default ModeSelection;

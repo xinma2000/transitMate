@@ -176,7 +176,7 @@ const RouteConfirmation = ({ route, navigation }) => {
           buttonStyle={styles.halfButtonStyle}
           onPress={createTwoButtonAlertToHome}
         />
-         
+
         </View>
       </View>
     </>

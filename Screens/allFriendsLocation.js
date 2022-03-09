@@ -86,7 +86,7 @@ const AllFriendsLocation = ({ route, navigation }) => {
             onPress={() =>
               navigation.navigate("EmergencyContacts", {
                 newFriendsData: [],
-                title: "Request Location",
+                title: "Request Location From",
               })
             }
           >

@@ -127,7 +127,7 @@ const EmergencyContacts = ({ route, navigation }) => {
   /*const createTwoButtonAlert = () => {
     friends.length > 0
       ? pageTitle === "Request Location" ? Alert.alert("You are requesting locations from ", friends, [
-         
+
           {
             text: "Confirm",
             onPress: () => (pageTitle === "Share Route With" ?  navigation.navigate("SentConfirmation", {title: "Route sent"}) :pageTitle === "Request Location" ?navigation.navigate("SentConfirmation", {title: "Request sent"}) :navigation.navigate("SentConfirmation", {title: "Location sent"})),
@@ -139,7 +139,7 @@ const EmergencyContacts = ({ route, navigation }) => {
           },
         ])
       : Alert.alert("You are sending your location to ", friends, [
-       
+
         {
           text: "Confirm",
           onPress: () => (pageTitle === "Share Route With" ?navigation.navigate("SentConfirmation", {title: "Route sent"}) :navigation.navigate("SentConfirmation", {title: "Location sent"})),
@@ -171,7 +171,7 @@ const EmergencyContacts = ({ route, navigation }) => {
     if (pageTitle === "Share Route With") {
       title = "Route sent"
     }
-    else if (pageTitle === "Request Location") {
+    else if (pageTitle === "Request Location From") {
       title = "Request sent"
     } else {
       title = "Location sent"
@@ -181,7 +181,10 @@ const EmergencyContacts = ({ route, navigation }) => {
 
   const createTwoButtonAlert = () => {
     friends.length > 0
-      ? Alert.alert("You are requesting locations from ", friends, [
+      ? Alert.alert(
+        pageTitle,
+        friends,
+        [
           {
             text: "Confirm",
             onPress: onButtonPress,
@@ -259,7 +262,7 @@ const EmergencyContacts = ({ route, navigation }) => {
             <Text style={styles.bodyFonts}>Add From Contacts</Text>
           </TouchableOpacity>
         </View>
-        {pageTitle == "Request Location"?
+        {pageTitle == "Request Location From"?
           <Button
             title="Request"
             titleStyle={styles.buttonTextStyle}

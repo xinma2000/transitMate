@@ -68,8 +68,8 @@ const AllFriendsLocation = ({ route, navigation }) => {
                     source={item.profilePic}
                     style={{
                       borderColor: "black",
-                      borderWidth: 5,
-                      borderRadius: 40,
+                      borderWidth: 2,
+                      borderRadius: 50,
                       height: 50,
                       width: 50,
                     }}
@@ -86,7 +86,7 @@ const AllFriendsLocation = ({ route, navigation }) => {
             onPress={() =>
               navigation.navigate("EmergencyContacts", {
                 newFriendsData: [],
-                title: "Request Location",
+                title: "Request Location From",
               })
             }
           >

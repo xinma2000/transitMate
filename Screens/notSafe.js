@@ -73,9 +73,19 @@ const Progress = ({step, steps, height}) => {
 
 const NotSafe  = ({ navigation }) => {
 
-  const handlePress = () => {
-    Alert.alert('You pressed')
-  }
+  const handlePress = () =>
+    Alert.alert(
+      "Don't contact emergency list",
+      "",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "Confirm", onPress: () => navigation.navigate("CheckPoints") }
+      ]
+  );
 
   const [index, setIndex] = React.useState(0);
   React.useEffect(() => {

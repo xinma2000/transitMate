@@ -35,6 +35,9 @@ const FriendsRoutes = ({ navigation }) => {
         <Image
           source={friend.profilePic}
           style={{
+            borderWidth: 2,
+            borderColor: '#FFD64D',
+            borderRadius: 50,
             width: 75,
             height: 75,
           }}

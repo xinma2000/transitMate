@@ -18,15 +18,14 @@ import Geocoder from 'react-native-geocoding';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const coordinates = [
-    {
-        latitude: 37.771707,
-        longitude: -122.4053769,
-   },
+  {
+    latitude: 37.771707,
+    longitude: -122.4053769,
+  },
   {
     latitude: 37.3318456,
     longitude: -122.0296002,
   },
-
   {
     latitude: 37.4275,
     longitude: -122.1697,
@@ -47,31 +46,30 @@ const SavedRoutes = ({ route, navigation }) => {
     const [centerLng, setCenterLng] = useState(0)
 
     React.useEffect(() => {
-        let {destination} = route.params;
-        console.log(destination)
-        if (destination === "Apple Park") {
-            setEndPoint(1)
-            var lat = (coordinates[0].latitude + coordinates[1].latitude) / 2
-            var lng = (coordinates[0].longitude + coordinates[1].longitude) / 2
-            setCenterLng(lng)
-            setCenterLat(lat)
-        }
-        else if (destination === "Stanford University") {
-            setEndPoint(2)
-            var lat = (coordinates[0].latitude + coordinates[2].latitude) / 2
-            var lng = (coordinates[0].longitude + coordinates[2].longitude) / 2
-            setCenterLng(lng)
-            setCenterLat(lat)
-        }
-        else {
-            setEndPoint(3)
-            var lat = (coordinates[0].latitude + coordinates[3].latitude) / 2
-            var lng = (coordinates[0].longitude + coordinates[3].longitude) / 2
-            setCenterLng(lng)
-            setCenterLat(lat)
-        }
-      }, [])
-
+      let {destination} = route.params;
+      console.log(destination)
+      if (destination === "Apple Park") {
+        setEndPoint(1)
+        var lat = (coordinates[0].latitude + coordinates[1].latitude) / 2
+        var lng = (coordinates[0].longitude + coordinates[1].longitude) / 2
+        setCenterLng(lng)
+        setCenterLat(lat)
+      }
+      else if (destination === "Stanford University") {
+        setEndPoint(2)
+        var lat = (coordinates[0].latitude + coordinates[2].latitude) / 2
+        var lng = (coordinates[0].longitude + coordinates[2].longitude) / 2
+        setCenterLng(lng)
+        setCenterLat(lat)
+      }
+      else {
+        setEndPoint(3)
+        var lat = (coordinates[0].latitude + coordinates[3].latitude) / 2
+        var lng = (coordinates[0].longitude + coordinates[3].longitude) / 2
+        setCenterLng(lng)
+        setCenterLat(lat)
+      }
+    }, [])
 
   return (
     <>
@@ -101,15 +99,17 @@ const SavedRoutes = ({ route, navigation }) => {
           <MapView
             style={styles.map}
             initialRegion={{
-            latitude: centerLat,
-            longitude: centerLng,
+              latitude: 37.771707,
+              longitude: -122.3053769,
               latitudeDelta: 0.522,
-              longitudeDelta: 0.221,
+              longitudeDelta: 0.721,
             }}
           >
-            <Marker coordinate = {{
-              latitude: 37.771707,
-              longitude: -122.4053769,}}
+            <Marker
+              coordinate = {{
+                latitude: 37.771707,
+                longitude: -122.4053769,
+              }}
             />
             <Marker
               coordinate = {coordinates[endPoint]}

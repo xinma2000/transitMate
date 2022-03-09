@@ -79,12 +79,12 @@ const Home = ({ navigation }) => {
       longitude: -122.0090,
       time: "2:47"
     },
-    { name: "Ben", 
-      profilePic: images.BenPicAct, 
+    { name: "Ben",
+      profilePic: images.BenPicAct,
       location: images.BenLoc,
       latitude: 37.7956,
       longitude: -122.3935,
-      time: "2:31" 
+      time: "2:31"
     },
     {
       name: "Christine",
@@ -92,31 +92,31 @@ const Home = ({ navigation }) => {
       location: images.ChristineLoc,
       latitude: 37.7956,
       longitude: -122.3935,
-      time: "4:11" 
+      time: "4:11"
     },
-    { name: "Jess", 
-      profilePic: images.JessPic, 
+    { name: "Jess",
+      profilePic: images.JessPic,
       location: images.JessLoc,
       latitude:37.4139,
       longitude: -122.1258,
       time: "4:41"
- 
+
     },
-    { name: "David", 
-      profilePic: images.DavidPic, 
+    { name: "David",
+      profilePic: images.DavidPic,
       location: images.DavidLoc,
       latitude: 37.4268,
       longitude: -122.1671,
       time: "1:50"
- 
+
     },
-    { name: "Timmy", 
-      profilePic: images.TimmyPic, 
+    { name: "Timmy",
+      profilePic: images.TimmyPic,
       location: images.TimmyLoc,
       latitude: 37.4365,
       longitude: -122.1568,
       time: "3:20"
- 
+
     },
   ];
 
@@ -173,7 +173,6 @@ const Home = ({ navigation }) => {
               latitude: item.item.latitude,
               longitude: item.item.longitude,
               time: item.item.time
-
             })
           }
           style={styles.iconContainer}
@@ -235,6 +234,7 @@ const Home = ({ navigation }) => {
           <Text style={styles.titleFonts}>Ongoing route</Text>
           
           {isFocused && onRoute ? (
+          <View style={{ display: 'flex', justifyContent: 'center', alignItems: "center",}}>
             <MapView
               style={styles.map}
               initialRegion={{
@@ -266,7 +266,6 @@ const Home = ({ navigation }) => {
                   />
                 ));
               })}
-
               <MapViewDirections
                 origin={myContext.origin}
                 destination={myContext.destination}
@@ -275,6 +274,16 @@ const Home = ({ navigation }) => {
                 strokeColor="hotpink"
               />
             </MapView>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("CheckPoints")}
+              style={{position: 'absolute', bottom: 8, right: 8 }}>
+              <Icon
+                name="expand-outline"
+                type="ionicon"
+                size={45}
+              />
+            </TouchableOpacity>
+          </View>
           ) : (
             <TouchableOpacity
               onPress={() => navigation.navigate("CreateRoute")}

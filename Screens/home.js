@@ -173,7 +173,6 @@ const Home = ({ navigation }) => {
               latitude: item.item.latitude,
               longitude: item.item.longitude,
               time: item.item.time
-
             })
           }
           style={styles.iconContainer}
@@ -234,6 +233,7 @@ const Home = ({ navigation }) => {
         <View>
           <Text style={styles.titleFonts}>Ongoing route</Text>
           {isFocused && onRoute ? (
+          <View style={{ display: 'flex', justifyContent: 'center', alignItems: "center",}}>
             <MapView
               style={styles.map}
               initialRegion={{
@@ -272,14 +272,17 @@ const Home = ({ navigation }) => {
                 strokeWidth={3}
                 strokeColor="hotpink"
               />
-              <View>
-                <Icon
-                  name="pluscircleo"
-                  type="antdesign"
-                  size={45}
-                />
-              </View>
             </MapView>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("CheckPoints")}
+              style={{position: 'absolute', bottom: 8, right: 8 }}>
+              <Icon
+                name="expand-outline"
+                type="ionicon"
+                size={45}
+              />
+            </TouchableOpacity>
+          </View>
           ) : (
             <TouchableOpacity
               onPress={() => navigation.navigate("CreateRoute")}

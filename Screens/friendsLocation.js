@@ -15,7 +15,7 @@ const FriendsLocation  = ({ route, navigation }) => {
   const [name, setName] = useState(route.params.name);
 const [markerLoc, setMarkerLoc] = useState(null);
   React.useEffect(() => {
-    
+
     var dest = {longitude: 0, latitude: 0}
     dest.longitude = friendLat;
     dest.latitude = friendLng;
@@ -217,24 +217,27 @@ const FriendLocation = ({ route, navigation }) => {
               title={route.params.name}
               description={route.params.time}
             >
-              <Image source={route.params.photo} style={{
-          borderColor: "black",
-          borderWidth: 5,
-          borderRadius: 40,
-          height: 60,
-          width:60
-        }}/>
+              <Image
+                source={route.params.photo}
+                style={{
+                  borderColor: "black",
+                  borderWidth: 2,
+                  borderRadius: 40,
+                  height: 60,
+                  width:60
+                }}
+              />
               </Marker>
           </MapView>
         </View>
         <View style={styles.buttonContainer}>
-        <Button
-          title="Request Current Location"
-          titleStyle={styles.buttonTextStyle}
-          buttonStyle={styles.buttonStyle}
-          containerStyle={styles.buttonContainer}
-          onPress={createTwoButtonAlert}
-        />
+          <Button
+            title="Request Current Location"
+            titleStyle={styles.buttonTextStyle}
+            buttonStyle={styles.buttonStyle}
+            containerStyle={styles.buttonContainer}
+            onPress={createTwoButtonAlert}
+          />
         </View>
       </View>
     </>
@@ -265,7 +268,7 @@ const styles = StyleSheet.create({
   map: {
     marginTop: 10,
     width: width * 0.9,
-    height: height * 0.7,
+    height: height * 0.69,
   },
   buttonStyle: {
     backgroundColor: "#FFD64D",
@@ -285,9 +288,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   buttonContainer: {
+    marginTop: 15,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 15,
   },
 });
 

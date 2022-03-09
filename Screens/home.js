@@ -58,8 +58,8 @@ const Home = ({ navigation }) => {
     },
     {
       name: "View Friends' Ongoing Routes",
-      icon: "map-location-dot",
-      type: "fontawesome6",
+      icon: "map",
+      type: "feather",
       page: "FriendsRoutes",
     },
     {
@@ -206,11 +206,8 @@ const Home = ({ navigation }) => {
               }}
             ></Image>
           </TouchableOpacity>
-          <TouchableOpacity
-            underlayColor="#fff"
-            onPress={() => navigation.navigate("NotSafe")}
-          >
-            <Icon name="setting" type="antdesign" size={30} />
+          <TouchableOpacity underlayColor="#fff" onPress={() => navigation.navigate("Home")}>
+            <Icon name="home" type="simplelineicons" size={30} />
           </TouchableOpacity>
         </View>
         <View style={{ marginVertical: 20 }}>

@@ -34,14 +34,8 @@ const MyLocation  = ({ navigation }) => {
               }}
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            underlayColor='#fff'
-          >
-            <Icon
-              name = "setting"
-              type = "antdesign"
-              size = {30}
-            />
+          <TouchableOpacity underlayColor="#fff" onPress={() => navigation.navigate("Home")}>
+            <Icon name="home" type="simplelineicons" size={30} />
           </TouchableOpacity>
         </View>
         <View style={styles.bodyContainer}>

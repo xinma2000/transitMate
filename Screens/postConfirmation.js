@@ -95,7 +95,7 @@ const PostConfirmation = ({ route, navigation }) => {
               fontWeight: "600",
               fontSize: 16
             }}>
-            {100 * (myContext.counter / myContext.numMarkers)}% Complete
+            {100 * (myContext.counter /(1+ myContext.numMarkers))}% Complete
           </Text>
 
           <MapView

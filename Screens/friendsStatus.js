@@ -37,7 +37,9 @@ const FriendsStatus = ({ route, navigation }) => {
 
   React.useEffect(() => {
     let { name, startLat, startLng, endLat, endLng } = route.params;
-    {console.log("startLat here is", startLat)}
+    {
+      console.log("startLat here is", startLat);
+    }
     setStartLat(startLat);
     setStartLng(startLng);
     setEndLat(endLat);
@@ -68,7 +70,10 @@ const FriendsStatus = ({ route, navigation }) => {
               }}
             />
           </TouchableOpacity>
-          <TouchableOpacity underlayColor="#fff" onPress={() => navigation.navigate("Home")}>
+          <TouchableOpacity
+            underlayColor="#fff"
+            onPress={() => navigation.navigate("Home")}
+          >
             <Icon name="home" type="simplelineicons" size={30} />
           </TouchableOpacity>
         </View>
@@ -76,12 +81,6 @@ const FriendsStatus = ({ route, navigation }) => {
           <Text style={styles.titleFonts}>{name}'s Route</Text>
           <MapView
             style={styles.map}
-            /*initialRegion={{
-              latitude: startLat,
-              longitude: startLng,
-              latitudeDelta: 0.522,
-              longitudeDelta: 0.221,
-            }}*/
             initialRegion={{
               latitude: coordinates[1].latitude,
               longitude: coordinates[1].longitude,
@@ -107,9 +106,7 @@ const FriendsStatus = ({ route, navigation }) => {
           <TouchableOpacity
             style={styles.buttonStyle}
             underlayColor="#fff"
-            onPress={() =>
-              navigation.goBack()
-            }
+            onPress={() => navigation.goBack()}
           >
             <Text style={styles.buttonTextStyle}>Ok</Text>
           </TouchableOpacity>
@@ -152,8 +149,8 @@ const styles = StyleSheet.create({
     width: width * 0.9,
     alignItems: "center",
     justifyContent: "center",
-    shadowOffset: {width: 2, height: 2,},
-    shadowColor: 'black',
+    shadowOffset: { width: 2, height: 2 },
+    shadowColor: "black",
     shadowOpacity: 0.1,
   },
   buttonTextStyle: {

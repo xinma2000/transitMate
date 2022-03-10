@@ -68,11 +68,11 @@ const RouteConfirmation = ({ route, navigation }) => {
       destination,
       [
         {
-          text: "Confirm",
+          text: "Cancel",
           onPress: () => navigation.navigate("Home"),
           style: "cancel"
         },
-        { text: "Cancel", onPress: () => console.log("OK Pressed") }
+        { text: "Confirm", onPress: () => console.log("OK Pressed") }
       ]
     );
 
@@ -165,15 +165,22 @@ const RouteConfirmation = ({ route, navigation }) => {
           containerStyle={styles.buttonContainer}
           onPress={createTwoButtonAlert}
         />
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.buttonStyle}
-            underlayColor="#fff"
-            onPress={onPress}
-          >
-            <Text style={styles.buttonTextStyle}>Share Route</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.halfButtonContainer}>
+            <TouchableOpacity
+              style={styles.halfButtonStyle}
+              underlayColor="#fff"
+              onPress={onPress}
+            >
+              <Text style={styles.buttonTextStyle}>Share Route</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.halfButtonStyle}
+              underlayColor="#fff"
+              onPress={createTwoButtonAlertToHome}
+            >
+              <Text style={styles.buttonTextStyle}>Start Route</Text>
+            </TouchableOpacity>
+          </View>
       </View>
     </>
   );

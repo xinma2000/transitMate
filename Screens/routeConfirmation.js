@@ -162,21 +162,14 @@ const RouteConfirmation = ({ route, navigation }) => {
           containerStyle={styles.buttonContainer}
           onPress={createTwoButtonAlert}
         />
-        <View style={styles.halfButtonContainer}>
+        <View style={styles.buttonContainer}>
           <TouchableOpacity
-            style={styles.halfButtonStyle}
+            style={styles.buttonStyle}
             underlayColor="#fff"
             onPress={onPress}
           >
             <Text style={styles.buttonTextStyle}>Share Route</Text>
           </TouchableOpacity>
-          <Button
-          title="Save Route"
-          titleStyle={styles.buttonTextStyle}
-          buttonStyle={styles.halfButtonStyle}
-          onPress={createTwoButtonAlertToHome}
-        />
-
         </View>
       </View>
     </>
@@ -207,7 +200,7 @@ const styles = StyleSheet.create({
   map: {
     marginTop: 10,
     width: width * 0.9,
-    height: height * 0.63,
+    height: height * 0.61,
   },
   buttonStyle: {
     backgroundColor: "#FFD64D",

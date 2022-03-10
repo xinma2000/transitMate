@@ -145,7 +145,7 @@ myContext.increment();
             </MapView>
 
         </View>
-        <Text style={styles.buttonTextStyle}>Do you feel safe?</Text>
+        <Text style={styles.titleFonts}>Do you feel safe?</Text>
 
         <View style={styles.halfButtonContainer}>
         <TouchableOpacity
@@ -153,14 +153,14 @@ myContext.increment();
             underlayColor="#fff"
             onPress={onPressYes}
           >
-            <Text style={styles.buttonTextStyle}>Yes</Text>
+            <Text style={styles.buttonTextStyleBlack}>Yes</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.pinkhalfButtonStyle}
             underlayColor="#fff"
             onPress={() => navigation.navigate("NotSafe")}
           >
-            <Text style={styles.buttonTextStyle}>No</Text>
+            <Text style={styles.buttonTextStyleBlack}>No</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainer}>
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     marginLeft: 7
   },
   greenhalfButtonStyle: {
-      marginTop: 0,
+    marginTop: 10,
     backgroundColor: "#3FE465",
     borderRadius: 8,
     height: 50,
@@ -205,6 +205,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
   },
   pinkhalfButtonStyle: {
+    marginTop: 10,
     backgroundColor: "#FF4051",
     borderRadius: 8,
     height: 50,
@@ -233,14 +234,16 @@ const styles = StyleSheet.create({
   },
   map: {
     marginTop: 10,
+    marginBottom: 20,
     width: width * 0.9,
-    height: height * 0.6,
+    height: height * 0.58,
   },
 
-  buttonTextStyle: {
+  buttonTextStyleBlack: {
     color: "black",
     fontWeight: "600",
     fontSize: 20,
+    fontWeight: '600',
   },
   buttonContainer: {
     alignItems: "center",
@@ -248,7 +251,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonStyle: {
-    backgroundColor: '#FFD64D',
+    backgroundColor: 'black',
     borderRadius: 8,
     height: 50,
     width: width*0.9,
@@ -260,16 +263,22 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
   },
   buttonTextStyle: {
-    color: 'black',
+    color: 'white',
     margin: 10,
     fontWeight: '600',
-    fontSize: 20
+    fontSize: 20,
+    textAlign: 'center'
   },
   buttonContainer: {
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 15,
-  }
+  },
+  titleFonts: {
+    fontSize: 26,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
 });
 
 export default CheckPoints;

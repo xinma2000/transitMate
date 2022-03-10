@@ -58,8 +58,8 @@ const Home = ({ navigation }) => {
     },
     {
       name: "View Friends' Ongoing Routes",
-      icon: "map-location-dot",
-      type: "fontawesome6",
+      icon: "map",
+      type: "feather",
       page: "FriendsRoutes",
     },
     {

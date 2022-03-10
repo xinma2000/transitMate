@@ -124,43 +124,7 @@ const EmergencyContacts = ({ route, navigation }) => {
       setChosen(chosenData);
     }
   };
-  /*const createTwoButtonAlert = () => {
-    friends.length > 0
-      ? pageTitle === "Request Location" ? Alert.alert("You are requesting locations from ", friends, [
 
-          {
-            text: "Confirm",
-            onPress: () => (pageTitle === "Share Route With" ?  navigation.navigate("SentConfirmation", {title: "Route sent"}) :pageTitle === "Request Location" ?navigation.navigate("SentConfirmation", {title: "Request sent"}) :navigation.navigate("SentConfirmation", {title: "Location sent"})),
-          },
-          {
-            text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel",
-          },
-        ])
-      : Alert.alert("You are sending your location to ", friends, [
-
-        {
-          text: "Confirm",
-          onPress: () => (pageTitle === "Share Route With" ?navigation.navigate("SentConfirmation", {title: "Route sent"}) :navigation.navigate("SentConfirmation", {title: "Location sent"})),
-        },
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-      ]) :Alert.alert(
-          "Please select friends to send your location to!",
-          friends,
-          [
-            {
-              text: "Got it",
-              onPress: () => console.log("Cancel Pressed"),
-              style: "cancel",
-            },
-          ]
-        );
-  }; */
 
   const onButtonPress = () => {
     console.log("onbuttonpress")
@@ -227,7 +191,7 @@ const EmergencyContacts = ({ route, navigation }) => {
               }}
             ></Image>
           </TouchableOpacity>
-          <TouchableOpacity underlayColor="#fff">
+          <TouchableOpacity underlayColor="#fff" onPress={() => navigation.navigate("Home")}>
             <Icon name="home" type="simplelineicons" size={30} />
           </TouchableOpacity>
         </View>

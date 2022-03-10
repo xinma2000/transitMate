@@ -151,12 +151,9 @@ import {
               >
               </Image>
             </TouchableOpacity>
-            <TouchableOpacity
-              underlayColor="#fff"
-              onPress={() => navigation.navigate("NotSafe")}
-            >
-              <Icon name="setting" type="antdesign" size={30} />
-            </TouchableOpacity>
+            <TouchableOpacity underlayColor="#fff" onPress={() => navigation.navigate("Home")}>
+            <Icon name="home" type="simplelineicons" size={30} />
+          </TouchableOpacity>
           </View>
           <View style={styles.bodyContainer}>
             <Text style={styles.titleText}>How many checkpoints do you want?</Text>

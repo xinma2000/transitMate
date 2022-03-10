@@ -206,11 +206,8 @@ const Home = ({ navigation }) => {
               }}
             ></Image>
           </TouchableOpacity>
-          <TouchableOpacity
-            underlayColor="#fff"
-            onPress={() => navigation.navigate("NotSafe")}
-          >
-            <Icon name="setting" type="antdesign" size={30} />
+          <TouchableOpacity underlayColor="#fff" onPress={() => navigation.navigate("Home")}>
+            <Icon name="home" type="simplelineicons" size={30} />
           </TouchableOpacity>
         </View>
         <View style={{ marginVertical: 20 }}>
@@ -232,6 +229,7 @@ const Home = ({ navigation }) => {
         </View>
         <View>
           <Text style={styles.titleFonts}>Ongoing route</Text>
+          
           {isFocused && onRoute ? (
           <View style={{ display: 'flex', justifyContent: 'center', alignItems: "center",}}>
             <MapView

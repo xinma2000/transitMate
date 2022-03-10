@@ -226,24 +226,59 @@ const EmergencyContacts = ({ route, navigation }) => {
             <Text style={styles.bodyFonts}>Add From Contacts</Text>
           </TouchableOpacity>
         </View>
-        {pageTitle == "Request Location From"?
-          <Button
-            title="Request"
-            titleStyle={styles.buttonTextStyle}
-            buttonStyle={styles.buttonStyle}
-            containerStyle={styles.buttonContainer}
-            onPress={createTwoButtonAlert}
-          /> :
-          <Button
-            title="Send"
-            titleStyle={styles.buttonTextStyle}
-            buttonStyle={styles.buttonStyle}
-            containerStyle={styles.buttonContainer}
-            onPress={createTwoButtonAlert}
-          />
-        }
+        <View>
+            {(() => {
+              if (pageTitle == "Request Location From"){
+                return (
+                  <Button
+                      title="Request"
+                      titleStyle={styles.buttonTextStyle}
+                      buttonStyle={styles.buttonStyle}
+                      containerStyle={styles.buttonContainer}
+                      onPress={createTwoButtonAlert}
+                  />
+                )
+              } else if (pageTitle == "Emergency Contacts"){
+                return (
+                  <Button
+                      title="Ok"
+                      titleStyle={styles.buttonTextStyle}
+                      buttonStyle={styles.buttonStyle}
+                      containerStyle={styles.buttonContainer}
+                      onPress={createTwoButtonAlert}
+                  />
+                )
+              } else {
+                return (
+                  <Button
+                      title="Send"
+                      titleStyle={styles.buttonTextStyle}
+                      buttonStyle={styles.buttonStyle}
+                      containerStyle={styles.buttonContainer}
+                      onPress={createTwoButtonAlert}
+                  />
+                )
+              };
+            })()}
+        </View>
       </View>
     </>
+        // {pageTitle == "Request Location From"?
+        //   <Button
+        //     title="Request"
+        //     titleStyle={styles.buttonTextStyle}
+        //     buttonStyle={styles.buttonStyle}
+        //     containerStyle={styles.buttonContainer}
+        //     onPress={createTwoButtonAlert}
+        //   /> :
+        //   <Button
+        //     title="Send"
+        //     titleStyle={styles.buttonTextStyle}
+        //     buttonStyle={styles.buttonStyle}
+        //     containerStyle={styles.buttonContainer}
+        //     onPress={createTwoButtonAlert}
+        //   />
+        // }
   );
 };
 
@@ -298,7 +333,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     height: 60,
-    marginTop: 45,
+    marginTop: 25,
     width: width * 0.9,
   },
   friendIcon: {

@@ -123,11 +123,12 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     textAlign: "center",
+    marginHorizontal: 20,
   },
   map: {
     marginTop: 10,
     width: width * 0.9,
-    height: height * 0.69,
+    height: height * 0.67,
   },
   buttonStyle: {
     backgroundColor: "#FFD64D",
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   buttonContainer: {
-    marginTop: 15,
+    marginTop: 10,
     alignItems: "center",
     justifyContent: "center",
   },

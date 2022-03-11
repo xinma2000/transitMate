@@ -2,6 +2,7 @@
   "expo": {
     "name": "transitmate",
     "slug": "transitmate",
+    "owner": "transitmate",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,7 +18,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.xinma2000.transitmate"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,6 +29,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": ""
   }
 }

@@ -26,7 +26,7 @@ import {
   import Svg, { Circle } from "react-native-svg";
   import { Marker } from "react-native-maps";
 
-  const GOOGLE_MAPS_APIKEY = "AIzaSyBV_EvsR_SI9az9aAUM_ch9UU3MswZAqJM";
+  const GOOGLE_MAPS_APIKEY = "";
 
   const width = Dimensions.get("window").width;
   const height = Dimensions.get("window").height;

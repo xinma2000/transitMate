@@ -26,7 +26,7 @@ const coordinates = [
     longitude: -122.4053769,
   },
 ];
-const GOOGLE_MAPS_APIKEY = "AIzaSyBV_EvsR_SI9az9aAUM_ch9UU3MswZAqJM"
+const GOOGLE_MAPS_APIKEY = ""
 
 const RouteMapView = ({ route, navigation }) => {
     const [endPoint, setEndPoint] = useState(null)
@@ -197,7 +197,7 @@ export default RouteMapView;
                 latitude: destLat,
                 longitude: destLng,
               }}
-            /> 
+            />
 
 
           </MapView>
